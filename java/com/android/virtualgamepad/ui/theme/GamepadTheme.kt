@@ -1,0 +1,232 @@
+/*
+ * Copyright 2025 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.android.virtualgamepad.ui.theme
+
+import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.unit.sp
+import kotlin.math.sqrt
+
+enum class GamepadSize {
+    LARGE,
+    MEDIUM,
+    SMALL,
+    RETRO,
+}
+
+enum class GamepadColorTheme {
+    LIGHT,
+    DARK,
+}
+
+// The design is based on the width of 883dp. If the width is smaller, UI needs to be scaled.
+private const val sizeBase = 883
+
+class GamepadTheme(
+    val size: GamepadSize = GamepadSize.MEDIUM,
+    val colorTheme: GamepadColorTheme = GamepadColorTheme.LIGHT,
+    val screenWithDp: Int = sizeBase,
+) {
+
+    // The design is based the width of 883dp. If the width is smaller, UI needs to be scaled.
+    private fun Int.adjust(): Int {
+        if (screenWithDp >= sizeBase) return this
+        return this * screenWithDp / sizeBase
+    }
+
+    private fun Float.adjust(): Float {
+        if (screenWithDp >= sizeBase) return this
+        return this * screenWithDp / sizeBase
+    }
+
+    private fun IntOffset.adjust(): IntOffset {
+        if (screenWithDp >= sizeBase) return this
+        return this * screenWithDp.toFloat() / sizeBase.toFloat()
+    }
+
+    val roundButtonSize =
+        when (size) {
+            GamepadSize.LARGE -> 70
+            GamepadSize.MEDIUM -> 54
+            GamepadSize.SMALL -> 52
+            GamepadSize.RETRO -> 84
+        }.adjust()
+
+    val squareButtonSize =
+        when (size) {
+            GamepadSize.LARGE -> 70
+            GamepadSize.MEDIUM -> 66
+            GamepadSize.SMALL -> 64
+            GamepadSize.RETRO -> 70 // not used
+        }.adjust()
+
+    val functionButtonWidth =
+        when (size) {
+            GamepadSize.LARGE -> 68
+            GamepadSize.MEDIUM -> 68
+            GamepadSize.SMALL -> 68
+            GamepadSize.RETRO -> 68
+        }.adjust()
+
+    val functionButtonHeight =
+        when (size) {
+            GamepadSize.LARGE -> 34
+            GamepadSize.MEDIUM -> 34
+            GamepadSize.SMALL -> 34
+            GamepadSize.RETRO -> 34
+        }.adjust()
+
+    val offsetFunctionButtons =
+        when (size) {
+            GamepadSize.LARGE -> IntOffset(x = 295, y = 44)
+            GamepadSize.MEDIUM -> IntOffset(x = 295, y = 44)
+            GamepadSize.SMALL -> IntOffset(x = 295, y = 54)
+            GamepadSize.RETRO -> IntOffset(x = 295, y = 44)
+        }.adjust()
+
+    val fourButtonBoxSize =
+        when (size) {
+            GamepadSize.LARGE -> IntOffset(x = 189, y = 208)
+            GamepadSize.MEDIUM -> IntOffset(x = 153, y = 152)
+            GamepadSize.SMALL -> IntOffset(x = 151, y = 150)
+            GamepadSize.RETRO -> IntOffset(x = 225, y = 250)
+        }.adjust()
+
+    val shoulderButtonBox =
+        when (size) {
+            // These are calculated based on the spacing between shoulder buttons
+            GamepadSize.LARGE -> 70 * sqrt(2f) + 59
+            GamepadSize.MEDIUM -> 66 * sqrt(2f) + 50
+            GamepadSize.SMALL -> 64 * sqrt(2f) + 50
+            GamepadSize.RETRO -> 100f // not used
+        }.adjust()
+
+    val joystickBox =
+        when (size) {
+            GamepadSize.LARGE -> 161
+            GamepadSize.MEDIUM -> 156
+            GamepadSize.SMALL -> 156
+            GamepadSize.RETRO -> 161 // not used
+        }.adjust()
+
+    val joystickOuterRingSize =
+        when (size) {
+            GamepadSize.LARGE -> 93
+            GamepadSize.MEDIUM -> 88
+            GamepadSize.SMALL -> 88
+            GamepadSize.RETRO -> 93 // not used
+        }.adjust()
+
+    val joystickInnerRingSize =
+        when (size) {
+            GamepadSize.LARGE -> 78
+            GamepadSize.MEDIUM -> 73
+            GamepadSize.SMALL -> 73
+            GamepadSize.RETRO -> 78 // not used
+        }.adjust()
+
+    val offsetFourButtonSet =
+        when (size) {
+            GamepadSize.LARGE -> IntOffset(x = 20, y = 87)
+            GamepadSize.MEDIUM -> IntOffset(x = 30, y = 123)
+            GamepadSize.SMALL -> IntOffset(x = 30, y = 97)
+            GamepadSize.RETRO -> IntOffset(x = 51, y = 66)
+        }.adjust()
+
+    val offsetShoulderButtonSet =
+        when (size) {
+            GamepadSize.LARGE -> IntOffset(x = 133, y = 212)
+            GamepadSize.MEDIUM -> IntOffset(x = 128, y = 220)
+            GamepadSize.SMALL -> IntOffset(x = 128, y = 191)
+            GamepadSize.RETRO -> IntOffset(x = 133, y = -212) // off screen
+        }.adjust()
+
+    val offsetShoulder3 =
+        when (size) {
+            GamepadSize.LARGE -> IntOffset(x = 363, y = 187)
+            GamepadSize.MEDIUM -> IntOffset(x = 348, y = 166)
+            GamepadSize.SMALL -> IntOffset(x = 351, y = 130)
+            GamepadSize.RETRO -> IntOffset(x = 363, y = -187) // off screen
+        }.adjust()
+
+    val offsetJoystick =
+        when (size) {
+            GamepadSize.LARGE -> IntOffset(x = 215, y = 40)
+            GamepadSize.MEDIUM -> IntOffset(x = 185, y = 45)
+            GamepadSize.SMALL -> IntOffset(x = 185, y = 15)
+            GamepadSize.RETRO -> IntOffset(x = 215, y = -400) // off screen
+        }.adjust()
+
+    val fontSizeGameButtons = 24.sp
+
+    val fontSizeFunctionButtons = 14.sp
+
+    val roundedButtonCornerRadius = 50
+    val diamondButtonCornerRadius = 20
+
+    val buttonColor =
+        when (colorTheme) {
+            GamepadColorTheme.LIGHT -> Black19
+            GamepadColorTheme.DARK -> Black00
+        }
+
+    val backgroundColor =
+        when (colorTheme) {
+            GamepadColorTheme.LIGHT -> WhiteE5
+            GamepadColorTheme.DARK -> Gray44
+        }
+
+    val joystickBackgroundColor =
+        when (colorTheme) {
+            GamepadColorTheme.LIGHT -> GrayD0
+            GamepadColorTheme.DARK -> Black23
+        }
+
+    val labelTextColor =
+        when (colorTheme) {
+            GamepadColorTheme.LIGHT -> Black00
+            GamepadColorTheme.DARK -> WhiteEC
+        }
+
+    val joystickOuterRingGradient = listOf(Gray83, Black1D)
+    val joystickInnerRingGradient = listOf(Gray4A, Black22)
+
+    val buttonTextColor = WhiteEC
+    val buttonAColor = GreenA
+    val buttonBColor = RedB
+    val buttonXColor = BlueX
+    val buttonYColor = YellowY
+
+    // For temporary components
+    val uxrSizeLabelHeight = 46.adjust()
+    val uxrButtonSpacingTop = 7.adjust()
+    val uxrButtonSpacingSide = 10.adjust()
+    val uxrCheckboxOffset = 10.adjust()
+    val uxrCheckboxLabelOffset = (-10).adjust() // TODO this makes checkbox and the label closer
+    val uxrFontSizeCheckBox = 14.sp
+    val uxrFontSizeCheckBoxSpecial = 24.sp
+
+    companion object {
+        val LARGE_LIGHT = GamepadTheme(GamepadSize.LARGE, GamepadColorTheme.LIGHT)
+        val LARGE_DARK = GamepadTheme(GamepadSize.LARGE, GamepadColorTheme.DARK)
+        val MEDIUM_LIGHT = GamepadTheme(GamepadSize.MEDIUM, GamepadColorTheme.LIGHT)
+        val MEDIUM_DARK = GamepadTheme(GamepadSize.MEDIUM, GamepadColorTheme.DARK)
+        val SMALL_LIGHT = GamepadTheme(GamepadSize.SMALL, GamepadColorTheme.LIGHT)
+        val SMALL_DARK = GamepadTheme(GamepadSize.SMALL, GamepadColorTheme.DARK)
+        val RETRO_LIGHT = GamepadTheme(GamepadSize.RETRO, GamepadColorTheme.LIGHT)
+        val RETRO_DARK = GamepadTheme(GamepadSize.RETRO, GamepadColorTheme.DARK)
+    }
+}

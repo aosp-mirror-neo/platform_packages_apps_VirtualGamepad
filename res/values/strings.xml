@@ -1,0 +1,35 @@
+<!--
+     Copyright 2025 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<resources>
+    <string name="app_name">VirtualGamepad</string>
+    <string name="gamepad_size_large">Large</string>
+    <string name="gamepad_size_medium">Medium</string>
+    <string name="gamepad_size_small">Small</string>
+    <string name="gamepad_size_retro">Retro</string>
+    <string name="gamepad_button_select" translatable="false">Select</string>
+    <string name="gamepad_button_start" translatable="false">Start</string>
+    <string name="button_save">Save</string>
+    <string name="button_reset">Reset</string>
+    <string name="toast_saved">Layout saved.</string>
+
+    <string name="checkbox_move" translatable="false">⇵M</string>
+    <string name="checkbox_resize" translatable="false">⇱R</string>
+    <string name="checkbox_color_theme" translatable="false">◐</string>
+
+    <string name="description_mode_button">Mode button</string>
+
+</resources>
