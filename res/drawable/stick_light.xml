@@ -1,0 +1,66 @@
+<!--
+     Copyright 2025 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="125dp"
+    android:height="125dp"
+    android:viewportWidth="125"
+    android:viewportHeight="125">
+  <path
+      android:pathData="M62.27,62.23m31.09,-31.09a43.97,43.97 0,1 1,-62.18 62.18a43.97,43.97 0,1 1,62.18 -62.18">
+    <aapt:attr name="android:fillColor">
+      <gradient
+          android:startX="131.89"
+          android:startY="131.84"
+          android:endX="23.74"
+          android:endY="23.7"
+          android:type="linear">
+        <item android:offset="0.35" android:color="#FF1D1D1D"/>
+        <item android:offset="0.8" android:color="#FF484848"/>
+        <item android:offset="0.97" android:color="#FF838383"/>
+      </gradient>
+    </aapt:attr>
+  </path>
+  <path
+      android:pathData="M62.63,62.23m26.05,-26.05a36.84,36.84 0,1 1,-52.1 52.1a36.84,36.84 0,1 1,52.1 -52.1">
+    <aapt:attr name="android:fillColor">
+      <gradient
+          android:startX="126.41"
+          android:startY="126.41"
+          android:endX="27.38"
+          android:endY="47.42"
+          android:type="linear">
+        <item android:offset="0.29" android:color="#FF4A4A4A"/>
+        <item android:offset="1" android:color="#FF222222"/>
+      </gradient>
+    </aapt:attr>
+  </path>
+  <path
+      android:pathData="M42.71,25.21a13.72,1.9 134.68,1 0,-19.3 19.52a13.72,1.9 134.68,1 0,19.3 -19.52z"
+      android:strokeAlpha="0.87"
+      android:fillColor="#BABABA"
+      android:fillAlpha="0.3741"/>
+  <path
+      android:pathData="M34.98,32.62a3.9,2.4 134.68,1 0,-5.49 5.55a3.9,2.4 134.68,1 0,5.49 -5.55z"
+      android:strokeAlpha="0.87"
+      android:fillColor="#BABABA"
+      android:fillAlpha="0.6786"/>
+  <path
+      android:pathData="M62.27,62.23m31.09,-31.09a43.97,43.97 0,1 1,-62.18 62.18a43.97,43.97 0,1 1,62.18 -62.18"
+      android:fillColor="#ffffff"
+      android:fillAlpha="0.3"/>
+</vector>

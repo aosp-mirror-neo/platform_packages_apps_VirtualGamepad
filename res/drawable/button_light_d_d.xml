@@ -1,0 +1,45 @@
+<!--
+     Copyright 2025 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="56dp"
+    android:height="56dp"
+    android:viewportWidth="56"
+    android:viewportHeight="56">
+  <path
+      android:pathData="M28,28m-27.281,0a27.281,27.281 0,1 1,54.562 0a27.281,27.281 0,1 1,-54.562 0"
+      android:strokeWidth="1.43808"
+      android:fillColor="#252525"
+      android:strokeColor="#252525"/>
+  <path
+      android:pathData="M28.809,35.934C28.45,36.556 27.552,36.556 27.192,35.934L20.726,24.734C20.367,24.112 20.816,23.334 21.534,23.334L34.467,23.334C35.186,23.334 35.634,24.112 35.275,24.734L28.809,35.934Z"
+      android:fillColor="#6C6C6C"/>
+  <path
+      android:pathData="M27.998,2.074C29.28,2.074 30.54,2.169 31.772,2.348C32.686,5.028 33.184,7.901 33.184,10.889C33.183,25.494 21.344,37.334 6.739,37.334C5.725,37.334 4.724,37.274 3.739,37.163C2.663,34.314 2.072,31.226 2.072,28C2.072,13.682 13.68,2.074 27.998,2.074Z"
+      android:fillAlpha="0.14">
+    <aapt:attr name="android:fillColor">
+      <gradient
+          android:centerX="9.332"
+          android:centerY="12.445"
+          android:gradientRadius="22.78"
+          android:type="radial">
+        <item android:offset="0" android:color="#CCFFFFFF"/>
+        <item android:offset="1" android:color="#FFFFFFFF"/>
+      </gradient>
+    </aapt:attr>
+  </path>
+</vector>
