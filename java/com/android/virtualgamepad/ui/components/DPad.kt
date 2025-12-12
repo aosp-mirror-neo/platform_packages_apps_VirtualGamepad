@@ -32,22 +32,22 @@ import com.android.virtualgamepad.ui.theme.VirtualGamepadTheme
 fun DPad() {
     val theme = LocalGamepadTheme.current
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        CircleGameButton(
+        GameButton2(
             GameButtonType.DPAD_UP,
             modifier = Modifier.align(Alignment.TopCenter).size(theme.roundButtonSize.dp),
         )
 
-        CircleGameButton(
+        GameButton2(
             GameButtonType.DPAD_DOWN,
             modifier = Modifier.align(Alignment.BottomCenter).size(theme.roundButtonSize.dp),
         )
 
-        CircleGameButton(
+        GameButton2(
             GameButtonType.DPAD_LEFT,
             modifier = Modifier.align(Alignment.CenterStart).size(theme.roundButtonSize.dp),
         )
 
-        CircleGameButton(
+        GameButton2(
             GameButtonType.DPAD_RIGHT,
             modifier = Modifier.align(Alignment.CenterEnd).size(theme.roundButtonSize.dp),
         )
