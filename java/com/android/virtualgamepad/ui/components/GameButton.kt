@@ -188,15 +188,15 @@ fun GameButton2(
                 }
             GameButtonType.Start ->
                 if (theme.colorTheme == GamepadColorTheme.LIGHT) {
-                    R.drawable.stick
+                    R.drawable.button_menu
                 } else {
-                    R.drawable.stick_dark
+                    R.drawable.button_menu_dark
                 }
             GameButtonType.Select ->
                 if (theme.colorTheme == GamepadColorTheme.LIGHT) {
-                    R.drawable.stick
+                    R.drawable.button_settings
                 } else {
-                    R.drawable.stick_dark
+                    R.drawable.button_settings_dark
                 }
             GameButtonType.Mode ->
                 if (theme.colorTheme == GamepadColorTheme.LIGHT) {

@@ -57,7 +57,7 @@ fun FunctionButtons(themeChangedCallback: (GamepadSize) -> Unit) {
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.fillMaxSize(),
         ) {
-            RoundedCornerGameButton(
+            GameButton2(
                 GameButtonType.Select,
                 modifier =
                     Modifier.width(theme.functionButtonWidth.dp)
@@ -69,7 +69,7 @@ fun FunctionButtons(themeChangedCallback: (GamepadSize) -> Unit) {
             ) {
                 expanded = true
             }
-            RoundedCornerGameButton(
+            GameButton2(
                 GameButtonType.Start,
                 modifier =
                     Modifier.width(theme.functionButtonWidth.dp)
