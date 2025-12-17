@@ -38,7 +38,7 @@ fun ShoulderButtonsL1L2() {
     val offset = (sqrt(2f) - 1) * theme.squareButtonSize / 2
 
     Box(modifier = Modifier.fillMaxSize()) {
-        DiamondGameButton(
+        GameButton2(
             GameButtonType.L1,
             modifier =
                 Modifier.align(Alignment.TopStart)
@@ -46,7 +46,7 @@ fun ShoulderButtonsL1L2() {
                     .offset(x = offset.dp, y = offset.dp),
         )
 
-        DiamondGameButton(
+        GameButton2(
             GameButtonType.L2,
             modifier =
                 Modifier.align(Alignment.BottomEnd)
@@ -64,7 +64,7 @@ fun ShoulderButtonsR1R2() {
     val offset = (sqrt(2f) - 1) * theme.squareButtonSize / 2
 
     Box(modifier = Modifier.fillMaxSize()) {
-        DiamondGameButton(
+        GameButton2(
             GameButtonType.R1,
             modifier =
                 Modifier.align(Alignment.TopEnd)
@@ -72,7 +72,7 @@ fun ShoulderButtonsR1R2() {
                     .offset(x = -offset.dp, y = offset.dp),
         )
 
-        DiamondGameButton(
+        GameButton2(
             GameButtonType.R2,
             modifier =
                 Modifier.align(Alignment.BottomStart)
@@ -86,7 +86,7 @@ fun ShoulderButtonsR1R2() {
 fun ShoulderButtonsL3() {
     val theme = LocalGamepadTheme.current
     Box(modifier = Modifier.fillMaxSize()) {
-        CircleGameButton(
+        GameButton2(
             GameButtonType.L3,
             modifier = Modifier.align(Alignment.Center).size(theme.roundButtonSize.dp),
         )
@@ -97,7 +97,7 @@ fun ShoulderButtonsL3() {
 fun ShoulderButtonsR3() {
     val theme = LocalGamepadTheme.current
     Box(modifier = Modifier.fillMaxSize()) {
-        CircleGameButton(
+        GameButton2(
             GameButtonType.R3,
             modifier = Modifier.align(Alignment.Center).size(theme.roundButtonSize.dp),
         )

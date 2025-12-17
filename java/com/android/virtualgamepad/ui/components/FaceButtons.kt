@@ -32,22 +32,22 @@ import com.android.virtualgamepad.ui.theme.VirtualGamepadTheme
 fun FaceButtons() {
     val theme = LocalGamepadTheme.current
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        CircleGameButton(
+        GameButton2(
             GameButtonType.A,
             modifier = Modifier.align(Alignment.BottomCenter).size(theme.roundButtonSize.dp),
         )
 
-        CircleGameButton(
+        GameButton2(
             GameButtonType.B,
             modifier = Modifier.align(Alignment.CenterEnd).size(theme.roundButtonSize.dp),
         )
 
-        CircleGameButton(
+        GameButton2(
             GameButtonType.X,
             modifier = Modifier.align(Alignment.CenterStart).size(theme.roundButtonSize.dp),
         )
 
-        CircleGameButton(
+        GameButton2(
             GameButtonType.Y,
             modifier = Modifier.align(Alignment.TopCenter).size(theme.roundButtonSize.dp),
         )
