@@ -33,7 +33,6 @@ enum class GameButtonType(val text: String, val keyCode: Int) {
     B("B", KeyEvent.KEYCODE_BUTTON_B),
     X("X", KeyEvent.KEYCODE_BUTTON_X),
     Y("Y", KeyEvent.KEYCODE_BUTTON_Y),
-    Select("Select", KeyEvent.KEYCODE_BUTTON_SELECT),
-    Start("Start", KeyEvent.KEYCODE_BUTTON_START),
-    Mode("MODE", KeyEvent.KEYCODE_BUTTON_MODE),
+    Settings("Settings", KeyEvent.KEYCODE_F1),
+    Menu("Menu", KeyEvent.KEYCODE_BUTTON_START),
 }

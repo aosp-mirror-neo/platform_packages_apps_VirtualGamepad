@@ -21,7 +21,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -57,20 +56,14 @@ fun FunctionButtons(themeChangedCallback: (GamepadSize) -> Unit) {
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.fillMaxSize(),
         ) {
-            RoundedCornerGameButton(
-                GameButtonType.Select,
+            GameButton(
+                GameButtonType.Settings,
                 modifier =
                     Modifier.width(theme.functionButtonWidth.dp)
                         .height(theme.functionButtonHeight.dp),
             )
-            CircleGameButton(
-                GameButtonType.Mode,
-                modifier = Modifier.size(theme.roundButtonSize.dp),
-            ) {
-                expanded = true
-            }
-            RoundedCornerGameButton(
-                GameButtonType.Start,
+            GameButton(
+                GameButtonType.Menu,
                 modifier =
                     Modifier.width(theme.functionButtonWidth.dp)
                         .height(theme.functionButtonHeight.dp),
