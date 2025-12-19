@@ -17,13 +17,12 @@
 package com.android.virtualgamepad.ui.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
-import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.offset
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
@@ -35,7 +34,6 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import com.android.virtualgamepad.LocalGamepadState
 import com.android.virtualgamepad.R
 import com.android.virtualgamepad.model.GameButtonType
@@ -212,16 +210,13 @@ fun GameButton(
     }
     // End of layout editor logic
 
-    Button(
-        modifier = updatedModifier,
-        onClick = onClick,
-        interactionSource = interactionSource,
-        contentPadding = PaddingValues(horizontal = 0.dp, vertical = 0.dp),
-        colors =
-            ButtonDefaults.buttonColors(
-                containerColor = androidx.compose.ui.graphics.Color.Transparent,
-                contentColor = androidx.compose.ui.graphics.Color.Transparent,
-            ),
+    Box(
+        modifier =
+            updatedModifier.clickable(
+                interactionSource = interactionSource,
+                indication = null,
+                onClick = onClick,
+            )
     ) {
         Image(
             painter = painterResource(buttonRes),
