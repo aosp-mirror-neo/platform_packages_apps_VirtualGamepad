@@ -56,12 +56,13 @@ fun FunctionButtons(themeChangedCallback: (GamepadSize) -> Unit) {
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.fillMaxSize(),
         ) {
-            GameButton(
-                GameButtonType.Settings,
+            SettingsButton(
                 modifier =
                     Modifier.width(theme.functionButtonWidth.dp)
-                        .height(theme.functionButtonHeight.dp),
-            )
+                        .height(theme.functionButtonHeight.dp)
+            ) {
+                expanded = true
+            }
             GameButton(
                 GameButtonType.Menu,
                 modifier =

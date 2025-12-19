@@ -16,6 +16,7 @@
 
 package com.android.virtualgamepad.ui.components
 
+import android.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectDragGestures
@@ -39,20 +40,17 @@ import com.android.virtualgamepad.R
 import com.android.virtualgamepad.model.GameButtonType
 import com.android.virtualgamepad.ui.LocalGamepadTheme
 import com.android.virtualgamepad.ui.LocalLayoutEditor
-import com.android.virtualgamepad.ui.theme.GamepadColorTheme
 import kotlin.math.max
 
 @Composable
-fun GameButton(
-    gameButtonType: GameButtonType,
+internal fun GamePadButton(
+    @DrawableRes buttonRes: Int,
+    key: String,
     modifier: Modifier = Modifier,
+    onButtonDown: () -> Unit = {},
+    onButtonUp: () -> Unit = {},
     onClick: () -> Unit = {},
 ) {
-
-    val key = gameButtonType.name
-    val localView = LocalView.current
-    val gamepadState = LocalGamepadState.current
-    val theme = LocalGamepadTheme.current
 
     // Layout editor
     val layoutEditor = LocalLayoutEditor.current
@@ -66,119 +64,17 @@ fun GameButton(
     val isPressed by interactionSource.collectIsPressedAsState()
     if (isPressed) {
         if (!moving && !resizing) {
-            gamepadState?.onButtonDown(gameButtonType)
-            Haptics.onPressed(localView)
+            onButtonDown()
         }
 
         DisposableEffect(Unit) {
             onDispose {
                 if (!moving && !resizing) {
-                    gamepadState?.onButtonUp(gameButtonType)
-                    Haptics.onReleased(localView)
+                    onButtonUp()
                 }
             }
         }
     }
-
-    val buttonRes =
-        when (gameButtonType) {
-            GameButtonType.A ->
-                if (theme.colorTheme == GamepadColorTheme.LIGHT) {
-                    R.drawable.button_c_a
-                } else {
-                    R.drawable.button_c_a_dark
-                }
-            GameButtonType.B ->
-                if (theme.colorTheme == GamepadColorTheme.LIGHT) {
-                    R.drawable.button_c_b
-                } else {
-                    R.drawable.button_c_b_dark
-                }
-            GameButtonType.X ->
-                if (theme.colorTheme == GamepadColorTheme.LIGHT) {
-                    R.drawable.button_c_x
-                } else {
-                    R.drawable.button_c_x_dark
-                }
-            GameButtonType.Y ->
-                if (theme.colorTheme == GamepadColorTheme.LIGHT) {
-                    R.drawable.button_c_y
-                } else {
-                    R.drawable.button_c_y_dark
-                }
-            GameButtonType.L1 ->
-                if (theme.colorTheme == GamepadColorTheme.LIGHT) {
-                    R.drawable.button_l1
-                } else {
-                    R.drawable.button_l1_dark
-                }
-            GameButtonType.L2 ->
-                if (theme.colorTheme == GamepadColorTheme.LIGHT) {
-                    R.drawable.button_l2
-                } else {
-                    R.drawable.button_l2_dark
-                }
-            GameButtonType.L3 ->
-                if (theme.colorTheme == GamepadColorTheme.LIGHT) {
-                    R.drawable.button_l3
-                } else {
-                    R.drawable.button_l3_dark
-                }
-            GameButtonType.R1 ->
-                if (theme.colorTheme == GamepadColorTheme.LIGHT) {
-                    R.drawable.button_r1
-                } else {
-                    R.drawable.button_r1_dark
-                }
-            GameButtonType.R2 ->
-                if (theme.colorTheme == GamepadColorTheme.LIGHT) {
-                    R.drawable.button_r2
-                } else {
-                    R.drawable.button_r2_dark
-                }
-            GameButtonType.R3 ->
-                if (theme.colorTheme == GamepadColorTheme.LIGHT) {
-                    R.drawable.button_r3
-                } else {
-                    R.drawable.button_r3_dark
-                }
-            GameButtonType.DPAD_UP ->
-                if (theme.colorTheme == GamepadColorTheme.LIGHT) {
-                    R.drawable.button_d_u
-                } else {
-                    R.drawable.button_d_u_dark
-                }
-            GameButtonType.DPAD_DOWN ->
-                if (theme.colorTheme == GamepadColorTheme.LIGHT) {
-                    R.drawable.button_d_d
-                } else {
-                    R.drawable.button_d_d_dark
-                }
-            GameButtonType.DPAD_LEFT ->
-                if (theme.colorTheme == GamepadColorTheme.LIGHT) {
-                    R.drawable.button_d_l
-                } else {
-                    R.drawable.button_d_l_dark
-                }
-            GameButtonType.DPAD_RIGHT ->
-                if (theme.colorTheme == GamepadColorTheme.LIGHT) {
-                    R.drawable.button_d_r
-                } else {
-                    R.drawable.button_d_r_dark
-                }
-            GameButtonType.Menu ->
-                if (theme.colorTheme == GamepadColorTheme.LIGHT) {
-                    R.drawable.button_menu
-                } else {
-                    R.drawable.button_menu_dark
-                }
-            GameButtonType.Settings ->
-                if (theme.colorTheme == GamepadColorTheme.LIGHT) {
-                    R.drawable.button_settings
-                } else {
-                    R.drawable.button_settings_dark
-                }
-        }
 
     // Layout editor logic
     var updatedModifier = modifier.scale(scale = editorScale)
@@ -223,4 +119,48 @@ fun GameButton(
             contentDescription = stringResource(R.string.description_mode_button),
         )
     }
+}
+
+@Composable
+fun GameButton(
+    gameButtonType: GameButtonType,
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit = {},
+) {
+    val key = gameButtonType.name
+    val localView = LocalView.current
+    val gamepadState = LocalGamepadState.current
+    val theme = LocalGamepadTheme.current
+    val buttonRes = theme.gameButtonResource(gameButtonType)
+
+    GamePadButton(
+        buttonRes,
+        key,
+        modifier,
+        onButtonDown = {
+            gamepadState?.onButtonDown(gameButtonType)
+            Haptics.onPressed(localView)
+        },
+        onButtonUp = {
+            gamepadState?.onButtonUp(gameButtonType)
+            Haptics.onReleased(localView)
+        },
+        onClick = onClick,
+    )
+}
+
+@Composable
+fun SettingsButton(modifier: Modifier = Modifier, onClick: () -> Unit) {
+
+    val theme = LocalGamepadTheme.current
+    val buttonRes = theme.settingsButtonResource()
+
+    GamePadButton(
+        buttonRes,
+        "Settings",
+        modifier,
+        onButtonDown = {},
+        onButtonUp = {},
+        onClick = onClick,
+    )
 }
