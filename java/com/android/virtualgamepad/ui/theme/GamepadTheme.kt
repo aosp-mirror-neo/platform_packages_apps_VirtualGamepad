@@ -16,8 +16,11 @@
 
 package com.android.virtualgamepad.ui.theme
 
+import android.annotation.DrawableRes
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.sp
+import com.android.virtualgamepad.R
+import com.android.virtualgamepad.model.GameButtonType
 import kotlin.math.sqrt
 
 enum class GamepadSize {
@@ -170,18 +173,7 @@ class GamepadTheme(
             GamepadSize.RETRO -> IntOffset(x = 215, y = -400) // off screen
         }.adjust()
 
-    val fontSizeGameButtons = 24.sp
-
-    val fontSizeFunctionButtons = 14.sp
-
     val roundedButtonCornerRadius = 50
-    val diamondButtonCornerRadius = 20
-
-    val buttonColor =
-        when (colorTheme) {
-            GamepadColorTheme.LIGHT -> Black19
-            GamepadColorTheme.DARK -> Black00
-        }
 
     val backgroundColor =
         when (colorTheme) {
@@ -205,10 +197,6 @@ class GamepadTheme(
     val joystickInnerRingGradient = listOf(Gray4A, Black22)
 
     val buttonTextColor = WhiteEC
-    val buttonAColor = GreenA
-    val buttonBColor = RedB
-    val buttonXColor = BlueX
-    val buttonYColor = YellowY
 
     // For temporary components
     val uxrSizeLabelHeight = 46.adjust()
@@ -218,6 +206,116 @@ class GamepadTheme(
     val uxrCheckboxLabelOffset = (-10).adjust() // TODO this makes checkbox and the label closer
     val uxrFontSizeCheckBox = 14.sp
     val uxrFontSizeCheckBoxSpecial = 24.sp
+
+    fun isLightTheme(): Boolean {
+        return colorTheme == GamepadColorTheme.LIGHT
+    }
+
+    @DrawableRes
+    fun settingsButtonResource(): Int {
+        return if (isLightTheme()) {
+            R.drawable.button_settings
+        } else {
+            R.drawable.button_settings_dark
+        }
+    }
+
+    @DrawableRes
+    fun gameButtonResource(gameButtonType: GameButtonType): Int {
+        val isLightTheme = isLightTheme()
+        return when (gameButtonType) {
+            GameButtonType.A ->
+                if (isLightTheme) {
+                    R.drawable.button_c_a
+                } else {
+                    R.drawable.button_c_a_dark
+                }
+            GameButtonType.B ->
+                if (isLightTheme) {
+                    R.drawable.button_c_b
+                } else {
+                    R.drawable.button_c_b_dark
+                }
+            GameButtonType.X ->
+                if (isLightTheme) {
+                    R.drawable.button_c_x
+                } else {
+                    R.drawable.button_c_x_dark
+                }
+            GameButtonType.Y ->
+                if (isLightTheme) {
+                    R.drawable.button_c_y
+                } else {
+                    R.drawable.button_c_y_dark
+                }
+            GameButtonType.L1 ->
+                if (isLightTheme) {
+                    R.drawable.button_l1
+                } else {
+                    R.drawable.button_l1_dark
+                }
+            GameButtonType.L2 ->
+                if (isLightTheme) {
+                    R.drawable.button_l2
+                } else {
+                    R.drawable.button_l2_dark
+                }
+            GameButtonType.L3 ->
+                if (isLightTheme) {
+                    R.drawable.button_l3
+                } else {
+                    R.drawable.button_l3_dark
+                }
+            GameButtonType.R1 ->
+                if (isLightTheme) {
+                    R.drawable.button_r1
+                } else {
+                    R.drawable.button_r1_dark
+                }
+            GameButtonType.R2 ->
+                if (isLightTheme) {
+                    R.drawable.button_r2
+                } else {
+                    R.drawable.button_r2_dark
+                }
+            GameButtonType.R3 ->
+                if (isLightTheme) {
+                    R.drawable.button_r3
+                } else {
+                    R.drawable.button_r3_dark
+                }
+            GameButtonType.DPAD_UP ->
+                if (isLightTheme) {
+                    R.drawable.button_d_u
+                } else {
+                    R.drawable.button_d_u_dark
+                }
+            GameButtonType.DPAD_DOWN ->
+                if (isLightTheme) {
+                    R.drawable.button_d_d
+                } else {
+                    R.drawable.button_d_d_dark
+                }
+            GameButtonType.DPAD_LEFT ->
+                if (isLightTheme) {
+                    R.drawable.button_d_l
+                } else {
+                    R.drawable.button_d_l_dark
+                }
+            GameButtonType.DPAD_RIGHT ->
+                if (isLightTheme) {
+                    R.drawable.button_d_r
+                } else {
+                    R.drawable.button_d_r_dark
+                }
+            GameButtonType.Menu ->
+                if (isLightTheme) {
+                    R.drawable.button_menu
+                } else {
+                    R.drawable.button_menu_dark
+                }
+        }
+    }
 
     companion object {
         val LARGE_LIGHT = GamepadTheme(GamepadSize.LARGE, GamepadColorTheme.LIGHT)
