@@ -47,6 +47,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -103,12 +104,17 @@ fun Gamepad(initialGamepadTheme: GamepadTheme? = null) {
                         )
                         .offset(y = gamepadTheme.offsetFunctionButtons.y.dp)
             ) {
-                FunctionButtons { size ->
-                    gamepadTheme =
-                        GamepadTheme(size, gamepadTheme.colorTheme, screenWithDp = screenWidthDp)
-                    // Toast.makeText(context, "TAP the GAME once to move focus back (known window
-                    // focus bug)", Toast.LENGTH_LONG).show()
-                }
+                FunctionButtons(
+                    onGamepadStyleChanged = { style ->
+                        gamepadTheme = gamepadTheme.copy(style = style)
+                    },
+                    onGamepadSizeChanged = { size ->
+                        gamepadTheme = gamepadTheme.copy(size = size)
+                    },
+                    onGamepadColorThemeChanged = { colorTheme ->
+                        gamepadTheme = gamepadTheme.copy(colorTheme = colorTheme)
+                    },
+                )
             }
 
             // Left controls: dpad, L1, L2, L3, and left thumb stick
@@ -281,12 +287,7 @@ fun Gamepad(initialGamepadTheme: GamepadTheme? = null) {
                             onCheckedChange = {
                                 val color =
                                     if (it) GamepadColorTheme.DARK else GamepadColorTheme.LIGHT
-                                gamepadTheme =
-                                    GamepadTheme(
-                                        gamepadTheme.size,
-                                        color,
-                                        screenWithDp = screenWidthDp,
-                                    )
+                                gamepadTheme = gamepadTheme.copy(colorTheme = color)
                             },
                         )
                     }
@@ -338,9 +339,9 @@ fun Gamepad(initialGamepadTheme: GamepadTheme? = null) {
             // Size label
             Text(
                 when (gamepadTheme.size) {
-                    GamepadSize.LARGE -> stringResource(R.string.gamepad_size_large)
-                    GamepadSize.MEDIUM -> stringResource(R.string.gamepad_size_medium)
-                    GamepadSize.SMALL -> stringResource(R.string.gamepad_size_small)
+                    GamepadSize.LARGE -> stringArrayResource(R.array.gamepad_size_items)[2]
+                    GamepadSize.MEDIUM -> stringArrayResource(R.array.gamepad_size_items)[1]
+                    GamepadSize.SMALL -> stringArrayResource(R.array.gamepad_size_items)[0]
                     GamepadSize.RETRO -> stringResource(R.string.gamepad_size_retro)
                 },
                 color = gamepadTheme.labelTextColor,

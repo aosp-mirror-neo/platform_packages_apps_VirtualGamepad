@@ -35,14 +35,27 @@ enum class GamepadColorTheme {
     DARK,
 }
 
+enum class GamepadStyle {
+    INLINE,
+    INVERTED,
+}
+
 // The design is based on the width of 883dp. If the width is smaller, UI needs to be scaled.
 private const val sizeBase = 883
 
 class GamepadTheme(
     val size: GamepadSize = GamepadSize.MEDIUM,
+    val style: GamepadStyle = GamepadStyle.INLINE,
     val colorTheme: GamepadColorTheme = GamepadColorTheme.LIGHT,
     val screenWithDp: Int = sizeBase,
 ) {
+
+    fun copy(
+        size: GamepadSize = this.size,
+        style: GamepadStyle = this.style,
+        colorTheme: GamepadColorTheme = this.colorTheme,
+        screenWithDp: Int = this.screenWithDp,
+    ): GamepadTheme = GamepadTheme(size, style, colorTheme, screenWithDp)
 
     // The design is based the width of 883dp. If the width is smaller, UI needs to be scaled.
     private fun Int.adjust(): Int {
@@ -318,13 +331,21 @@ class GamepadTheme(
     }
 
     companion object {
-        val LARGE_LIGHT = GamepadTheme(GamepadSize.LARGE, GamepadColorTheme.LIGHT)
-        val LARGE_DARK = GamepadTheme(GamepadSize.LARGE, GamepadColorTheme.DARK)
-        val MEDIUM_LIGHT = GamepadTheme(GamepadSize.MEDIUM, GamepadColorTheme.LIGHT)
-        val MEDIUM_DARK = GamepadTheme(GamepadSize.MEDIUM, GamepadColorTheme.DARK)
-        val SMALL_LIGHT = GamepadTheme(GamepadSize.SMALL, GamepadColorTheme.LIGHT)
-        val SMALL_DARK = GamepadTheme(GamepadSize.SMALL, GamepadColorTheme.DARK)
-        val RETRO_LIGHT = GamepadTheme(GamepadSize.RETRO, GamepadColorTheme.LIGHT)
-        val RETRO_DARK = GamepadTheme(GamepadSize.RETRO, GamepadColorTheme.DARK)
+        val LARGE_LIGHT =
+            GamepadTheme(GamepadSize.LARGE, GamepadStyle.INLINE, GamepadColorTheme.LIGHT)
+        val LARGE_DARK =
+            GamepadTheme(GamepadSize.LARGE, GamepadStyle.INLINE, GamepadColorTheme.DARK)
+        val MEDIUM_LIGHT =
+            GamepadTheme(GamepadSize.MEDIUM, GamepadStyle.INLINE, GamepadColorTheme.LIGHT)
+        val MEDIUM_DARK =
+            GamepadTheme(GamepadSize.MEDIUM, GamepadStyle.INLINE, GamepadColorTheme.DARK)
+        val SMALL_LIGHT =
+            GamepadTheme(GamepadSize.SMALL, GamepadStyle.INLINE, GamepadColorTheme.LIGHT)
+        val SMALL_DARK =
+            GamepadTheme(GamepadSize.SMALL, GamepadStyle.INLINE, GamepadColorTheme.DARK)
+        val RETRO_LIGHT =
+            GamepadTheme(GamepadSize.RETRO, GamepadStyle.INLINE, GamepadColorTheme.LIGHT)
+        val RETRO_DARK =
+            GamepadTheme(GamepadSize.RETRO, GamepadStyle.INLINE, GamepadColorTheme.DARK)
     }
 }

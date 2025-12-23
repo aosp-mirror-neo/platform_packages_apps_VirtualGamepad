@@ -16,15 +16,29 @@
 
 <resources>
     <string name="app_name">VirtualGamepad</string>
-    <string name="gamepad_size_large">Large</string>
-    <string name="gamepad_size_medium">Medium</string>
-    <string name="gamepad_size_small">Small</string>
     <string name="gamepad_size_retro">Retro</string>
     <string name="gamepad_button_select" translatable="false">Select</string>
     <string name="gamepad_button_start" translatable="false">Start</string>
     <string name="button_save">Save</string>
     <string name="button_reset">Reset</string>
     <string name="toast_saved">Layout saved.</string>
+    <string name="gamepad_style">Gamepad Style</string>
+    <string name="gamepad_theme">Theme</string>
+    <string-array name="gamepad_theme_items">
+        <item>Light</item>
+        <item>Dark</item>
+    </string-array>
+    <string name="label_gamepad_style">Gamepad Style</string>
+    <string-array name="gamepad_style_items">
+        <item>Twin stick, inline</item>
+        <item>Twin stick, staggered</item>
+    </string-array>
+    <string name="label_gamepad_size">Size</string>
+    <string-array name="gamepad_size_items">
+        <item>Small</item>
+        <item>Medium</item>
+        <item>Large</item>
+    </string-array>
 
     <string name="checkbox_move" translatable="false">⇵M</string>
     <string name="checkbox_resize" translatable="false">⇱R</string>
