@@ -53,29 +53,10 @@ import androidx.compose.ui.window.Dialog
 import com.android.virtualgamepad.R
 import com.android.virtualgamepad.model.GameButtonType
 import com.android.virtualgamepad.ui.LocalGamepadTheme
-import com.android.virtualgamepad.ui.components.AdapterIndexConstants.COLOR_THEME_INDEX_DARK
-import com.android.virtualgamepad.ui.components.AdapterIndexConstants.COLOR_THEME_INDEX_LIGHT
-import com.android.virtualgamepad.ui.components.AdapterIndexConstants.GAMEPAD_STYLE_INDEX_INLINE
-import com.android.virtualgamepad.ui.components.AdapterIndexConstants.GAMEPAD_STYLE_INDEX_INVERTED
-import com.android.virtualgamepad.ui.components.AdapterIndexConstants.SIZE_INDEX_LARGE
-import com.android.virtualgamepad.ui.components.AdapterIndexConstants.SIZE_INDEX_MEDIUM
-import com.android.virtualgamepad.ui.components.AdapterIndexConstants.SIZE_INDEX_SMALL
 import com.android.virtualgamepad.ui.theme.GamepadColorTheme
 import com.android.virtualgamepad.ui.theme.GamepadSize
 import com.android.virtualgamepad.ui.theme.GamepadStyle
 import com.android.virtualgamepad.ui.theme.VirtualGamepadTheme
-
-internal object AdapterIndexConstants {
-    const val COLOR_THEME_INDEX_LIGHT = 0
-    const val COLOR_THEME_INDEX_DARK = 1
-
-    const val SIZE_INDEX_SMALL = 0
-    const val SIZE_INDEX_MEDIUM = 1
-    const val SIZE_INDEX_LARGE = 2
-
-    const val GAMEPAD_STYLE_INDEX_INLINE = 0
-    const val GAMEPAD_STYLE_INDEX_INVERTED = 1
-}
 
 @Composable
 fun FunctionButtons(
@@ -159,11 +140,8 @@ fun GamepadSettingsDialog(
 fun GamepadStyleSelector(onGamepadStyleSelected: (GamepadStyle) -> Unit) {
     GamepadDropdownMenu(
         onItemSelected = { index ->
-            when (index) {
-                GAMEPAD_STYLE_INDEX_INLINE -> onGamepadStyleSelected(GamepadStyle.INLINE)
-                GAMEPAD_STYLE_INDEX_INVERTED -> onGamepadStyleSelected(GamepadStyle.INVERTED)
-                else -> onGamepadStyleSelected(GamepadStyle.INLINE)
-            }
+            val style = StringResourceAdapter.gamepadStyleFromIndex(index)
+            onGamepadStyleSelected(style)
         },
         label = stringResource(R.string.label_gamepad_style),
         items = stringArrayResource(R.array.gamepad_style_items).toList(),
@@ -174,13 +152,7 @@ fun GamepadStyleSelector(onGamepadStyleSelected: (GamepadStyle) -> Unit) {
 fun GamepadSizeSelector(onGamepadSizeSelected: (GamepadSize) -> Unit) {
     GamepadDropdownMenu(
         onItemSelected = { index ->
-            val size =
-                when (index) {
-                    SIZE_INDEX_SMALL -> GamepadSize.SMALL
-                    SIZE_INDEX_MEDIUM -> GamepadSize.MEDIUM
-                    SIZE_INDEX_LARGE -> GamepadSize.LARGE
-                    else -> GamepadSize.MEDIUM
-                }
+            val size = StringResourceAdapter.gamepadSizeFromIndex(index)
             onGamepadSizeSelected(size)
         },
         label = stringResource(R.string.label_gamepad_size),
@@ -192,12 +164,7 @@ fun GamepadSizeSelector(onGamepadSizeSelected: (GamepadSize) -> Unit) {
 fun GamepadColorThemeSelector(onGamepadColorThemeSelected: (GamepadColorTheme) -> Unit) {
     ThemeSelectionRow(
         onOptionSelected = { index ->
-            val colorTheme =
-                when (index) {
-                    COLOR_THEME_INDEX_LIGHT -> GamepadColorTheme.LIGHT
-                    COLOR_THEME_INDEX_DARK -> GamepadColorTheme.DARK
-                    else -> GamepadColorTheme.LIGHT
-                }
+            val colorTheme = StringResourceAdapter.colorThemeFromIndex(index)
             onGamepadColorThemeSelected(colorTheme)
         },
         options = stringArrayResource(R.array.gamepad_theme_items).toList(),

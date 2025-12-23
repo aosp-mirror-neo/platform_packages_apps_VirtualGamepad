@@ -47,7 +47,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -61,10 +60,10 @@ import com.android.virtualgamepad.ui.components.ShoulderButtonsL1L2
 import com.android.virtualgamepad.ui.components.ShoulderButtonsL3
 import com.android.virtualgamepad.ui.components.ShoulderButtonsR1R2
 import com.android.virtualgamepad.ui.components.ShoulderButtonsR3
+import com.android.virtualgamepad.ui.components.StringResourceAdapter
 import com.android.virtualgamepad.ui.theme.Blue2F
 import com.android.virtualgamepad.ui.theme.Blue57
 import com.android.virtualgamepad.ui.theme.GamepadColorTheme
-import com.android.virtualgamepad.ui.theme.GamepadSize
 import com.android.virtualgamepad.ui.theme.GamepadTheme
 import com.android.virtualgamepad.ui.theme.VirtualGamepadTheme
 
@@ -338,12 +337,7 @@ fun Gamepad(initialGamepadTheme: GamepadTheme? = null) {
 
             // Size label
             Text(
-                when (gamepadTheme.size) {
-                    GamepadSize.LARGE -> stringArrayResource(R.array.gamepad_size_items)[2]
-                    GamepadSize.MEDIUM -> stringArrayResource(R.array.gamepad_size_items)[1]
-                    GamepadSize.SMALL -> stringArrayResource(R.array.gamepad_size_items)[0]
-                    GamepadSize.RETRO -> stringResource(R.string.gamepad_size_retro)
-                },
+                text = StringResourceAdapter.gamepadSizeString(gamepadTheme.size),
                 color = gamepadTheme.labelTextColor,
                 modifier =
                     Modifier.align(Alignment.TopCenter).height(gamepadTheme.uxrSizeLabelHeight.dp),
@@ -386,18 +380,6 @@ fun GamepadPreviewSmallLight() {
 @Composable
 fun GamepadPreviewSmallDark() {
     VirtualGamepadTheme { Gamepad(GamepadTheme.SMALL_DARK) }
-}
-
-@Preview(showBackground = true, widthDp = 884, heightDp = 426)
-@Composable
-fun GamepadPreviewRetroLight() {
-    VirtualGamepadTheme { Gamepad(GamepadTheme.RETRO_LIGHT) }
-}
-
-@Preview(showBackground = true, widthDp = 884, heightDp = 426)
-@Composable
-fun GamepadPreviewRetroDark() {
-    VirtualGamepadTheme { Gamepad(GamepadTheme.RETRO_DARK) }
 }
 
 @Preview(showBackground = true, widthDp = 600, heightDp = 300)
