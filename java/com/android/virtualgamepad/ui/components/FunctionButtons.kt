@@ -18,12 +18,24 @@ package com.android.virtualgamepad.ui.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.selection.selectableGroup
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material3.Card
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -32,21 +44,26 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 import com.android.virtualgamepad.R
 import com.android.virtualgamepad.model.GameButtonType
 import com.android.virtualgamepad.ui.LocalGamepadTheme
+import com.android.virtualgamepad.ui.theme.GamepadColorTheme
 import com.android.virtualgamepad.ui.theme.GamepadSize
-import com.android.virtualgamepad.ui.theme.GamepadSize.LARGE
-import com.android.virtualgamepad.ui.theme.GamepadSize.MEDIUM
-import com.android.virtualgamepad.ui.theme.GamepadSize.RETRO
-import com.android.virtualgamepad.ui.theme.GamepadSize.SMALL
+import com.android.virtualgamepad.ui.theme.GamepadStyle
 import com.android.virtualgamepad.ui.theme.VirtualGamepadTheme
 
 @Composable
-fun FunctionButtons(themeChangedCallback: (GamepadSize) -> Unit) {
+fun FunctionButtons(
+    onGamepadStyleChanged: (GamepadStyle) -> Unit,
+    onGamepadSizeChanged: (GamepadSize) -> Unit,
+    onGamepadColorThemeChanged: (GamepadColorTheme) -> Unit,
+) {
     var expanded by remember { mutableStateOf(false) }
     val theme = LocalGamepadTheme.current
 
@@ -70,24 +87,160 @@ fun FunctionButtons(themeChangedCallback: (GamepadSize) -> Unit) {
                         .height(theme.functionButtonHeight.dp),
             )
         }
+        if (expanded) {
+            GamepadSettingsDialog(
+                onGamepadStyleChanged,
+                onGamepadSizeChanged,
+                onGamepadColorThemeChanged,
+                { expanded = false },
+            )
+        }
+    }
+}
 
-        DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
-            DropdownMenuItem(
-                text = { Text(stringResource(R.string.gamepad_size_large)) },
-                onClick = { themeChangedCallback(LARGE).also { expanded = false } },
+@Composable
+fun GamepadSettingsDialog(
+    onGamepadStyleChanged: (GamepadStyle) -> Unit,
+    onGamepadSizeChanged: (GamepadSize) -> Unit,
+    onGamepadColorThemeChanged: (GamepadColorTheme) -> Unit,
+    onDismissRequest: () -> Unit,
+) {
+    Dialog(onDismissRequest = onDismissRequest) {
+        Card(
+            modifier = Modifier.fillMaxWidth().padding(16.dp),
+            shape = MaterialTheme.shapes.large,
+        ) {
+            Column(
+                modifier = Modifier.padding(16.dp).fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                // Row 1: Text
+                Text(
+                    text = stringResource(R.string.gamepad_style),
+                    style = MaterialTheme.typography.titleMedium,
+                )
+
+                // Row 2: Dropdown Menu 1
+                GamepadStyleSelector(onGamepadStyleChanged)
+                GamepadSizeSelector(onGamepadSizeChanged)
+
+                // Row 4: Text
+                Text(
+                    text = stringResource(R.string.gamepad_theme),
+                    style = MaterialTheme.typography.bodyMedium,
+                )
+
+                GamepadColorThemeSelector(onGamepadColorThemeChanged)
+            }
+        }
+    }
+}
+
+@Composable
+fun GamepadStyleSelector(onGamepadStyleSelected: (GamepadStyle) -> Unit) {
+    GamepadDropdownMenu(
+        onItemSelected = { index ->
+            val style = StringResourceAdapter.gamepadStyleFromIndex(index)
+            onGamepadStyleSelected(style)
+        },
+        label = stringResource(R.string.label_gamepad_style),
+        items = stringArrayResource(R.array.gamepad_style_items).toList(),
+    )
+}
+
+@Composable
+fun GamepadSizeSelector(onGamepadSizeSelected: (GamepadSize) -> Unit) {
+    GamepadDropdownMenu(
+        onItemSelected = { index ->
+            val size = StringResourceAdapter.gamepadSizeFromIndex(index)
+            onGamepadSizeSelected(size)
+        },
+        label = stringResource(R.string.label_gamepad_size),
+        items = stringArrayResource(R.array.gamepad_size_items).toList(),
+    )
+}
+
+@Composable
+fun GamepadColorThemeSelector(onGamepadColorThemeSelected: (GamepadColorTheme) -> Unit) {
+    ThemeSelectionRow(
+        onOptionSelected = { index ->
+            val colorTheme = StringResourceAdapter.colorThemeFromIndex(index)
+            onGamepadColorThemeSelected(colorTheme)
+        },
+        options = stringArrayResource(R.array.gamepad_theme_items).toList(),
+    )
+}
+
+@Composable
+fun GamepadDropdownMenu(onItemSelected: (Int) -> Unit, label: String, items: List<String>) {
+    var expanded by remember { mutableStateOf(false) }
+    var selectedIndex by remember { mutableStateOf(0) }
+    val selectedText = items.getOrNull(selectedIndex) ?: ""
+
+    Box {
+        // Clickable element to show selection and toggle menu
+        OutlinedButton(onClick = { expanded = true }, modifier = Modifier.fillMaxWidth()) {
+            Text(
+                text = "$label: $selectedText",
+                modifier = Modifier.weight(1f),
+                style = MaterialTheme.typography.bodyLarge,
             )
-            DropdownMenuItem(
-                text = { Text(stringResource(R.string.gamepad_size_medium)) },
-                onClick = { themeChangedCallback(MEDIUM).also { expanded = false } },
-            )
-            DropdownMenuItem(
-                text = { Text(stringResource(R.string.gamepad_size_small)) },
-                onClick = { themeChangedCallback(SMALL).also { expanded = false } },
-            )
-            DropdownMenuItem(
-                text = { Text(stringResource(R.string.gamepad_size_retro)) },
-                onClick = { themeChangedCallback(RETRO).also { expanded = false } },
-            )
+            Icon(imageVector = Icons.Default.ArrowDropDown, contentDescription = "Dropdown Arrow")
+        }
+
+        // Stable DropdownMenu
+        DropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false },
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            items.forEachIndexed { index, item ->
+                DropdownMenuItem(
+                    text = { Text(item) },
+                    onClick = {
+                        selectedIndex = index
+                        expanded = false
+                        onItemSelected(index)
+                    },
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun ThemeSelectionRow(onOptionSelected: (Int) -> Unit, options: List<String>) {
+    val selectedOption = remember { mutableStateOf(options.firstOrNull()) }
+
+    Row(
+        modifier = Modifier.selectableGroup().fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceEvenly,
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        options.forEachIndexed { index, text ->
+            Row(
+                modifier =
+                    Modifier.selectable(
+                            selected = (text == selectedOption.value),
+                            onClick = {
+                                onOptionSelected(index)
+                                selectedOption.value = text
+                            },
+                            role = Role.RadioButton,
+                        )
+                        .padding(horizontal = 4.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                RadioButton(
+                    selected = (text == selectedOption.value),
+                    onClick = null, // Handled by the Row's selectable
+                )
+                Text(
+                    text = text,
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier.padding(start = 4.dp),
+                )
+            }
         }
     }
 }
@@ -95,5 +248,5 @@ fun FunctionButtons(themeChangedCallback: (GamepadSize) -> Unit) {
 @Preview(showBackground = true, widthDp = 300, heightDp = 70)
 @Composable
 fun FunctionButtonsPreview() {
-    VirtualGamepadTheme { FunctionButtons { _ -> {} } }
+    VirtualGamepadTheme { FunctionButtons({ _ -> }, { _ -> }, { _ -> }) }
 }

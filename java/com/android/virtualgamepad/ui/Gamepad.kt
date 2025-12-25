@@ -18,24 +18,14 @@ package com.android.virtualgamepad.ui
 
 import android.app.Activity
 import android.content.Context
-import android.widget.Toast
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Checkbox
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.compositionLocalOf
@@ -60,10 +50,6 @@ import com.android.virtualgamepad.ui.components.ShoulderButtonsL1L2
 import com.android.virtualgamepad.ui.components.ShoulderButtonsL3
 import com.android.virtualgamepad.ui.components.ShoulderButtonsR1R2
 import com.android.virtualgamepad.ui.components.ShoulderButtonsR3
-import com.android.virtualgamepad.ui.theme.Blue2F
-import com.android.virtualgamepad.ui.theme.Blue57
-import com.android.virtualgamepad.ui.theme.GamepadColorTheme
-import com.android.virtualgamepad.ui.theme.GamepadSize
 import com.android.virtualgamepad.ui.theme.GamepadTheme
 import com.android.virtualgamepad.ui.theme.VirtualGamepadTheme
 
@@ -103,12 +89,17 @@ fun Gamepad(initialGamepadTheme: GamepadTheme? = null) {
                         )
                         .offset(y = gamepadTheme.offsetFunctionButtons.y.dp)
             ) {
-                FunctionButtons { size ->
-                    gamepadTheme =
-                        GamepadTheme(size, gamepadTheme.colorTheme, screenWithDp = screenWidthDp)
-                    // Toast.makeText(context, "TAP the GAME once to move focus back (known window
-                    // focus bug)", Toast.LENGTH_LONG).show()
-                }
+                FunctionButtons(
+                    onGamepadStyleChanged = { style ->
+                        gamepadTheme = gamepadTheme.copy(style = style)
+                    },
+                    onGamepadSizeChanged = { size ->
+                        gamepadTheme = gamepadTheme.copy(size = size)
+                    },
+                    onGamepadColorThemeChanged = { colorTheme ->
+                        gamepadTheme = gamepadTheme.copy(colorTheme = colorTheme)
+                    },
+                )
             }
 
             // Left controls: dpad, L1, L2, L3, and left thumb stick
@@ -220,133 +211,6 @@ fun Gamepad(initialGamepadTheme: GamepadTheme? = null) {
                     RightJoystick()
                 }
             }
-
-            Row(
-                modifier =
-                    Modifier.align(Alignment.TopStart).offset(gamepadTheme.uxrCheckboxOffset.dp)
-            ) {
-                // Layout editor checkboxes
-                Column {
-                    // Layout editor checkbox - move
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement =
-                            Arrangement.spacedBy(gamepadTheme.uxrCheckboxLabelOffset.dp),
-                    ) {
-                        Text(
-                            text = stringResource(R.string.checkbox_move),
-                            color = gamepadTheme.labelTextColor,
-                            fontSize = gamepadTheme.uxrFontSizeCheckBox,
-                        )
-                        Checkbox(
-                            checked = layoutEditor.moving,
-                            enabled = !layoutEditor.resizing,
-                            onCheckedChange = { layoutEditor.moving = it },
-                        )
-                    }
-                    // Layout editor checkbox - resize
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement =
-                            Arrangement.spacedBy(gamepadTheme.uxrCheckboxLabelOffset.dp),
-                    ) {
-                        Text(
-                            text = stringResource(R.string.checkbox_resize),
-                            color = gamepadTheme.labelTextColor,
-                            fontSize = gamepadTheme.uxrFontSizeCheckBox,
-                        )
-                        Checkbox(
-                            enabled = !layoutEditor.moving,
-                            checked = layoutEditor.resizing,
-                            onCheckedChange = { layoutEditor.resizing = it },
-                        )
-                    }
-                }
-
-                Column {
-                    // Light / Dark switch
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement =
-                            Arrangement.spacedBy(gamepadTheme.uxrCheckboxLabelOffset.dp),
-                    ) {
-                        Text(
-                            text = stringResource(R.string.checkbox_color_theme),
-                            color = gamepadTheme.labelTextColor,
-                            fontSize = gamepadTheme.uxrFontSizeCheckBoxSpecial,
-                        )
-                        // Checked means dark theme
-                        Checkbox(
-                            checked = gamepadTheme.colorTheme == GamepadColorTheme.DARK,
-                            onCheckedChange = {
-                                val color =
-                                    if (it) GamepadColorTheme.DARK else GamepadColorTheme.LIGHT
-                                gamepadTheme =
-                                    GamepadTheme(
-                                        gamepadTheme.size,
-                                        color,
-                                        screenWithDp = screenWidthDp,
-                                    )
-                            },
-                        )
-                    }
-                }
-            }
-
-            // Layout editor save and reset buttons
-            Column(
-                modifier =
-                    Modifier.align(Alignment.TopEnd)
-                        .padding(
-                            vertical = gamepadTheme.uxrButtonSpacingTop.dp,
-                            horizontal = gamepadTheme.uxrButtonSpacingSide.dp,
-                        ),
-                verticalArrangement = Arrangement.spacedBy(gamepadTheme.uxrButtonSpacingTop.dp),
-            ) {
-                // Save
-                Button(
-                    onClick = {
-                        layoutEditor.save(sharedPref)
-                        Toast.makeText(context, toastMessageSaved, Toast.LENGTH_LONG).show()
-                    },
-                    colors = ButtonDefaults.buttonColors(containerColor = Blue57),
-                    shape = RoundedCornerShape(gamepadTheme.roundedButtonCornerRadius),
-                    modifier =
-                        Modifier.width(gamepadTheme.functionButtonWidth.dp)
-                            .height(gamepadTheme.functionButtonHeight.dp),
-                    contentPadding = PaddingValues(horizontal = 0.dp, vertical = 0.dp),
-                ) {
-                    Text(stringResource(R.string.button_save), color = gamepadTheme.buttonTextColor)
-                }
-                // Reset
-                Button(
-                    onClick = { layoutEditor.reset() },
-                    colors = ButtonDefaults.buttonColors(containerColor = Blue2F),
-                    shape = RoundedCornerShape(gamepadTheme.roundedButtonCornerRadius),
-                    modifier =
-                        Modifier.width(gamepadTheme.functionButtonWidth.dp)
-                            .height(gamepadTheme.functionButtonHeight.dp),
-                    contentPadding = PaddingValues(horizontal = 0.dp, vertical = 0.dp),
-                ) {
-                    Text(
-                        stringResource(R.string.button_reset),
-                        color = gamepadTheme.buttonTextColor,
-                    )
-                }
-            }
-
-            // Size label
-            Text(
-                when (gamepadTheme.size) {
-                    GamepadSize.LARGE -> stringResource(R.string.gamepad_size_large)
-                    GamepadSize.MEDIUM -> stringResource(R.string.gamepad_size_medium)
-                    GamepadSize.SMALL -> stringResource(R.string.gamepad_size_small)
-                    GamepadSize.RETRO -> stringResource(R.string.gamepad_size_retro)
-                },
-                color = gamepadTheme.labelTextColor,
-                modifier =
-                    Modifier.align(Alignment.TopCenter).height(gamepadTheme.uxrSizeLabelHeight.dp),
-            )
         }
     }
 }
@@ -385,18 +249,6 @@ fun GamepadPreviewSmallLight() {
 @Composable
 fun GamepadPreviewSmallDark() {
     VirtualGamepadTheme { Gamepad(GamepadTheme.SMALL_DARK) }
-}
-
-@Preview(showBackground = true, widthDp = 884, heightDp = 426)
-@Composable
-fun GamepadPreviewRetroLight() {
-    VirtualGamepadTheme { Gamepad(GamepadTheme.RETRO_LIGHT) }
-}
-
-@Preview(showBackground = true, widthDp = 884, heightDp = 426)
-@Composable
-fun GamepadPreviewRetroDark() {
-    VirtualGamepadTheme { Gamepad(GamepadTheme.RETRO_DARK) }
 }
 
 @Preview(showBackground = true, widthDp = 600, heightDp = 300)
