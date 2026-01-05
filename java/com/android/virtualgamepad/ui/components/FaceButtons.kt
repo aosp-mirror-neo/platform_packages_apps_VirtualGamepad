@@ -22,6 +22,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.android.virtualgamepad.model.GameButtonType
@@ -31,25 +32,27 @@ import com.android.virtualgamepad.ui.theme.VirtualGamepadTheme
 @Composable
 fun FaceButtons() {
     val theme = LocalGamepadTheme.current
+    val screenWidthDp = LocalConfiguration.current.screenWidthDp
+    val roundButtonSize = theme.getRoundButtonSize(screenWidthDp)
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         GameButton(
             GameButtonType.A,
-            modifier = Modifier.align(Alignment.BottomCenter).size(theme.roundButtonSize.dp),
+            modifier = Modifier.align(Alignment.BottomCenter).size(roundButtonSize.dp),
         )
 
         GameButton(
             GameButtonType.B,
-            modifier = Modifier.align(Alignment.CenterEnd).size(theme.roundButtonSize.dp),
+            modifier = Modifier.align(Alignment.CenterEnd).size(roundButtonSize.dp),
         )
 
         GameButton(
             GameButtonType.X,
-            modifier = Modifier.align(Alignment.CenterStart).size(theme.roundButtonSize.dp),
+            modifier = Modifier.align(Alignment.CenterStart).size(roundButtonSize.dp),
         )
 
         GameButton(
             GameButtonType.Y,
-            modifier = Modifier.align(Alignment.TopCenter).size(theme.roundButtonSize.dp),
+            modifier = Modifier.align(Alignment.TopCenter).size(roundButtonSize.dp),
         )
     }
 }

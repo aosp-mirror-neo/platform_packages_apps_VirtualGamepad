@@ -23,6 +23,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.android.virtualgamepad.model.GameButtonType
@@ -35,14 +36,16 @@ fun ShoulderButtonsL1L2() {
     val theme = LocalGamepadTheme.current
 
     // This ensure that the diamond button (rotated square button) doesn't go off the bounding box.
-    val offset = (sqrt(2f) - 1) * theme.squareButtonSize / 2
+    val screenWidthDp = LocalConfiguration.current.screenWidthDp
+    val squareButtonSize = theme.getSquareButtonSize(screenWidthDp)
+    val offset = (sqrt(2f) - 1) * squareButtonSize / 2
 
     Box(modifier = Modifier.fillMaxSize()) {
         GameButton(
             GameButtonType.L1,
             modifier =
                 Modifier.align(Alignment.TopStart)
-                    .size(theme.squareButtonSize.dp)
+                    .size(squareButtonSize.dp)
                     .offset(x = offset.dp, y = offset.dp),
         )
 
@@ -50,7 +53,7 @@ fun ShoulderButtonsL1L2() {
             GameButtonType.L2,
             modifier =
                 Modifier.align(Alignment.BottomEnd)
-                    .size(theme.squareButtonSize.dp)
+                    .size(squareButtonSize.dp)
                     .offset(x = -offset.dp, y = -offset.dp),
         )
     }
@@ -61,14 +64,17 @@ fun ShoulderButtonsR1R2() {
     val theme = LocalGamepadTheme.current
 
     // This ensure that the diamond button (rotated square button) doesn't go off the bounding box.
-    val offset = (sqrt(2f) - 1) * theme.squareButtonSize / 2
+    val screenWidthDp = LocalConfiguration.current.screenWidthDp
+    val squareButtonSize = theme.getSquareButtonSize(screenWidthDp)
+
+    val offset = (sqrt(2f) - 1) * squareButtonSize / 2
 
     Box(modifier = Modifier.fillMaxSize()) {
         GameButton(
             GameButtonType.R1,
             modifier =
                 Modifier.align(Alignment.TopEnd)
-                    .size(theme.squareButtonSize.dp)
+                    .size(squareButtonSize.dp)
                     .offset(x = -offset.dp, y = offset.dp),
         )
 
@@ -76,7 +82,7 @@ fun ShoulderButtonsR1R2() {
             GameButtonType.R2,
             modifier =
                 Modifier.align(Alignment.BottomStart)
-                    .size(theme.squareButtonSize.dp)
+                    .size(squareButtonSize.dp)
                     .offset(x = offset.dp, y = -offset.dp),
         )
     }
@@ -85,10 +91,12 @@ fun ShoulderButtonsR1R2() {
 @Composable
 fun ShoulderButtonsL3() {
     val theme = LocalGamepadTheme.current
+    val screenWidthDp = LocalConfiguration.current.screenWidthDp
+    val roundButtonSize = theme.getRoundButtonSize(screenWidthDp)
     Box(modifier = Modifier.fillMaxSize()) {
         GameButton(
             GameButtonType.L3,
-            modifier = Modifier.align(Alignment.Center).size(theme.roundButtonSize.dp),
+            modifier = Modifier.align(Alignment.Center).size(roundButtonSize.dp),
         )
     }
 }
@@ -96,10 +104,12 @@ fun ShoulderButtonsL3() {
 @Composable
 fun ShoulderButtonsR3() {
     val theme = LocalGamepadTheme.current
+    val screenWidthDp = LocalConfiguration.current.screenWidthDp
+    val roundButtonSize = theme.getRoundButtonSize(screenWidthDp)
     Box(modifier = Modifier.fillMaxSize()) {
         GameButton(
             GameButtonType.R3,
-            modifier = Modifier.align(Alignment.Center).size(theme.roundButtonSize.dp),
+            modifier = Modifier.align(Alignment.Center).size(roundButtonSize.dp),
         )
     }
 }

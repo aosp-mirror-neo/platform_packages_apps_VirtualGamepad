@@ -18,7 +18,6 @@ package com.android.virtualgamepad.ui.theme
 
 import android.annotation.DrawableRes
 import androidx.compose.ui.unit.IntOffset
-import androidx.compose.ui.unit.sp
 import com.android.virtualgamepad.R
 import com.android.virtualgamepad.model.GameButtonType
 import kotlin.math.sqrt
@@ -46,132 +45,128 @@ class GamepadTheme(
     val size: GamepadSize = GamepadSize.MEDIUM,
     val style: GamepadStyle = GamepadStyle.INLINE,
     val colorTheme: GamepadColorTheme = GamepadColorTheme.LIGHT,
-    val screenWithDp: Int = sizeBase,
 ) {
 
     fun copy(
         size: GamepadSize = this.size,
         style: GamepadStyle = this.style,
         colorTheme: GamepadColorTheme = this.colorTheme,
-        screenWithDp: Int = this.screenWithDp,
-    ): GamepadTheme = GamepadTheme(size, style, colorTheme, screenWithDp)
+    ): GamepadTheme = GamepadTheme(size, style, colorTheme)
 
     // The design is based the width of 883dp. If the width is smaller, UI needs to be scaled.
-    private fun Int.adjust(): Int {
-        if (screenWithDp >= sizeBase) return this
-        return this * screenWithDp / sizeBase
+    private fun Int.adjust(screenWidthDp: Int): Int {
+        if (screenWidthDp >= sizeBase) return this
+        return this * screenWidthDp / sizeBase
     }
 
-    private fun Float.adjust(): Float {
-        if (screenWithDp >= sizeBase) return this
-        return this * screenWithDp / sizeBase
+    private fun Float.adjust(screenWidthDp: Int): Float {
+        if (screenWidthDp >= sizeBase) return this
+        return this * screenWidthDp / sizeBase
     }
 
-    private fun IntOffset.adjust(): IntOffset {
-        if (screenWithDp >= sizeBase) return this
-        return this * screenWithDp.toFloat() / sizeBase.toFloat()
+    private fun IntOffset.adjust(screenWidthDp: Int): IntOffset {
+        if (screenWidthDp >= sizeBase) return this
+        return this * screenWidthDp.toFloat() / sizeBase.toFloat()
     }
 
-    val roundButtonSize =
+    fun getRoundButtonSize(screenWidthDp: Int) =
         when (size) {
             GamepadSize.LARGE -> 70
             GamepadSize.MEDIUM -> 54
             GamepadSize.SMALL -> 52
-        }.adjust()
+        }.adjust(screenWidthDp)
 
-    val squareButtonSize =
+    fun getSquareButtonSize(screenWidthDp: Int): Int =
         when (size) {
             GamepadSize.LARGE -> 70
             GamepadSize.MEDIUM -> 66
             GamepadSize.SMALL -> 64
-        }.adjust()
+        }.adjust(screenWidthDp)
 
-    val functionButtonWidth =
+    fun getFunctionButtonWidth(screenWidthDp: Int) =
         when (size) {
             GamepadSize.LARGE -> 68
             GamepadSize.MEDIUM -> 68
             GamepadSize.SMALL -> 68
-        }.adjust()
+        }.adjust(screenWidthDp)
 
-    val functionButtonHeight =
+    fun getFunctionButtonHeight(screenWidthDp: Int) =
         when (size) {
             GamepadSize.LARGE -> 34
             GamepadSize.MEDIUM -> 34
             GamepadSize.SMALL -> 34
-        }.adjust()
+        }.adjust(screenWidthDp)
 
-    val offsetFunctionButtons =
+    fun getOffsetFunctionButtons(screenWidthDp: Int) =
         when (size) {
             GamepadSize.LARGE -> IntOffset(x = 295, y = 44)
             GamepadSize.MEDIUM -> IntOffset(x = 295, y = 44)
             GamepadSize.SMALL -> IntOffset(x = 295, y = 54)
-        }.adjust()
+        }.adjust(screenWidthDp)
 
-    val fourButtonBoxSize =
+    fun getFourButtonBoxSize(screenWidthDp: Int) =
         when (size) {
             GamepadSize.LARGE -> IntOffset(x = 189, y = 208)
             GamepadSize.MEDIUM -> IntOffset(x = 153, y = 152)
             GamepadSize.SMALL -> IntOffset(x = 151, y = 150)
-        }.adjust()
+        }.adjust(screenWidthDp)
 
-    val shoulderButtonBox =
+    fun getShoulderButtonBox(screenWidthDp: Int) =
         when (size) {
             // These are calculated based on the spacing between shoulder buttons
             GamepadSize.LARGE -> 70 * sqrt(2f) + 59
             GamepadSize.MEDIUM -> 66 * sqrt(2f) + 50
             GamepadSize.SMALL -> 64 * sqrt(2f) + 50
-        }.adjust()
+        }.adjust(screenWidthDp)
 
-    val joystickBox =
+    fun getJoystickBox(screenWidthDp: Int) =
         when (size) {
             GamepadSize.LARGE -> 161
             GamepadSize.MEDIUM -> 156
             GamepadSize.SMALL -> 156
-        }.adjust()
+        }.adjust(screenWidthDp)
 
-    val joystickOuterRingSize =
+    fun getJoystickOuterRingSize(screenWidthDp: Int) =
         when (size) {
             GamepadSize.LARGE -> 93
             GamepadSize.MEDIUM -> 88
             GamepadSize.SMALL -> 88
-        }.adjust()
+        }.adjust(screenWidthDp)
 
-    val joystickInnerRingSize =
+    fun getJoystickInnerRingSize(screenWidthDp: Int) =
         when (size) {
             GamepadSize.LARGE -> 78
             GamepadSize.MEDIUM -> 73
             GamepadSize.SMALL -> 73
-        }.adjust()
+        }.adjust(screenWidthDp)
 
-    val offsetFourButtonSet =
+    fun getOffsetFourButtonSet(screenWidthDp: Int) =
         when (size) {
             GamepadSize.LARGE -> IntOffset(x = 20, y = 87)
             GamepadSize.MEDIUM -> IntOffset(x = 30, y = 123)
             GamepadSize.SMALL -> IntOffset(x = 30, y = 97)
-        }.adjust()
+        }.adjust(screenWidthDp)
 
-    val offsetShoulderButtonSet =
+    fun getOffsetShoulderButtonSet(screenWidthDp: Int) =
         when (size) {
             GamepadSize.LARGE -> IntOffset(x = 133, y = 212)
             GamepadSize.MEDIUM -> IntOffset(x = 128, y = 220)
             GamepadSize.SMALL -> IntOffset(x = 128, y = 191)
-        }.adjust()
+        }.adjust(screenWidthDp)
 
-    val offsetShoulder3 =
+    fun getOffsetShoulder3(screenWidthDp: Int) =
         when (size) {
             GamepadSize.LARGE -> IntOffset(x = 363, y = 187)
             GamepadSize.MEDIUM -> IntOffset(x = 348, y = 166)
             GamepadSize.SMALL -> IntOffset(x = 351, y = 130)
-        }.adjust()
+        }.adjust(screenWidthDp)
 
-    val offsetJoystick =
+    fun getOffsetJoystick(screenWidthDp: Int) =
         when (size) {
             GamepadSize.LARGE -> IntOffset(x = 215, y = 40)
             GamepadSize.MEDIUM -> IntOffset(x = 185, y = 45)
             GamepadSize.SMALL -> IntOffset(x = 185, y = 15)
-        }.adjust()
-
-    val roundedButtonCornerRadius = 50
+        }.adjust(screenWidthDp)
 
     val backgroundColor =
         when (colorTheme) {
@@ -193,17 +188,6 @@ class GamepadTheme(
 
     val joystickOuterRingGradient = listOf(Gray83, Black1D)
     val joystickInnerRingGradient = listOf(Gray4A, Black22)
-
-    val buttonTextColor = WhiteEC
-
-    // For temporary components
-    val uxrSizeLabelHeight = 46.adjust()
-    val uxrButtonSpacingTop = 7.adjust()
-    val uxrButtonSpacingSide = 10.adjust()
-    val uxrCheckboxOffset = 10.adjust()
-    val uxrCheckboxLabelOffset = (-10).adjust() // TODO this makes checkbox and the label closer
-    val uxrFontSizeCheckBox = 14.sp
-    val uxrFontSizeCheckBoxSpecial = 24.sp
 
     fun isLightTheme(): Boolean {
         return colorTheme == GamepadColorTheme.LIGHT

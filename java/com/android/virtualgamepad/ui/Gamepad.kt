@@ -37,10 +37,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.android.virtualgamepad.R
 import com.android.virtualgamepad.ui.components.DPad
 import com.android.virtualgamepad.ui.components.FaceButtons
 import com.android.virtualgamepad.ui.components.FunctionButtons
@@ -58,18 +56,24 @@ val LocalGamepadTheme = compositionLocalOf { GamepadTheme.MEDIUM_LIGHT }
 val LocalLayoutEditor = compositionLocalOf { LayoutEditor() }
 
 @Composable
-fun Gamepad(initialGamepadTheme: GamepadTheme? = null) {
+fun Gamepad(theme: GamepadTheme? = null, onGamepadThemeChanged: (GamepadTheme) -> Unit = { _ -> }) {
 
     val screenWidthDp = LocalConfiguration.current.screenWidthDp
-    var gamepadTheme by remember {
-        mutableStateOf(initialGamepadTheme ?: GamepadTheme(screenWithDp = screenWidthDp))
-    }
+    var gamepadTheme by remember { mutableStateOf(theme ?: GamepadTheme()) }
 
     val context = LocalContext.current
     val sharedPref = (context as? Activity)?.getPreferences(Context.MODE_PRIVATE)
     val layoutEditor = remember { LayoutEditor().also { it.load(sharedPref) } }
 
-    val toastMessageSaved = stringResource(R.string.toast_saved)
+    val roundButtonSize = gamepadTheme.getRoundButtonSize(screenWidthDp)
+    val offsetFunctionButtons = gamepadTheme.getOffsetFunctionButtons(screenWidthDp)
+    val fourButtonBoxSize = gamepadTheme.getFourButtonBoxSize(screenWidthDp)
+    val offsetFourButtonSet = gamepadTheme.getOffsetFourButtonSet(screenWidthDp)
+    val shoulderButtonBox = gamepadTheme.getShoulderButtonBox(screenWidthDp)
+    val offsetShoulderButtonSet = gamepadTheme.getOffsetShoulderButtonSet(screenWidthDp)
+    val offsetShoulder3 = gamepadTheme.getOffsetShoulder3(screenWidthDp)
+    val joystickBox = gamepadTheme.getJoystickBox(screenWidthDp)
+    val offsetJoystick = gamepadTheme.getOffsetJoystick(screenWidthDp)
 
     CompositionLocalProvider(
         LocalGamepadTheme provides gamepadTheme,
@@ -82,22 +86,25 @@ fun Gamepad(initialGamepadTheme: GamepadTheme? = null) {
                 modifier =
                     Modifier.align(Alignment.TopCenter)
                         .fillMaxWidth()
-                        .height(gamepadTheme.roundButtonSize.dp)
+                        .height(roundButtonSize.dp)
                         .padding(
-                            start = gamepadTheme.offsetFunctionButtons.x.dp,
-                            end = gamepadTheme.offsetFunctionButtons.x.dp,
+                            start = offsetFunctionButtons.x.dp,
+                            end = offsetFunctionButtons.x.dp,
                         )
-                        .offset(y = gamepadTheme.offsetFunctionButtons.y.dp)
+                        .offset(y = offsetFunctionButtons.y.dp)
             ) {
                 FunctionButtons(
                     onGamepadStyleChanged = { style ->
                         gamepadTheme = gamepadTheme.copy(style = style)
+                        onGamepadThemeChanged(gamepadTheme)
                     },
                     onGamepadSizeChanged = { size ->
                         gamepadTheme = gamepadTheme.copy(size = size)
+                        onGamepadThemeChanged(gamepadTheme)
                     },
                     onGamepadColorThemeChanged = { colorTheme ->
                         gamepadTheme = gamepadTheme.copy(colorTheme = colorTheme)
+                        onGamepadThemeChanged(gamepadTheme)
                     },
                 )
             }
@@ -107,12 +114,9 @@ fun Gamepad(initialGamepadTheme: GamepadTheme? = null) {
                 // Dpad
                 Box(
                     modifier =
-                        Modifier.width(gamepadTheme.fourButtonBoxSize.x.dp)
-                            .height(gamepadTheme.fourButtonBoxSize.y.dp)
-                            .offset(
-                                x = gamepadTheme.offsetFourButtonSet.x.dp,
-                                y = -gamepadTheme.offsetFourButtonSet.y.dp,
-                            )
+                        Modifier.width(fourButtonBoxSize.x.dp)
+                            .height(fourButtonBoxSize.y.dp)
+                            .offset(x = offsetFourButtonSet.x.dp, y = -offsetFourButtonSet.y.dp)
                 ) {
                     DPad()
                 }
@@ -120,11 +124,11 @@ fun Gamepad(initialGamepadTheme: GamepadTheme? = null) {
                 // L1 and L2
                 Box(
                     modifier =
-                        Modifier.width(gamepadTheme.shoulderButtonBox.dp)
-                            .height(gamepadTheme.shoulderButtonBox.dp)
+                        Modifier.width(shoulderButtonBox.dp)
+                            .height(shoulderButtonBox.dp)
                             .offset(
-                                x = gamepadTheme.offsetShoulderButtonSet.x.dp,
-                                y = -gamepadTheme.offsetShoulderButtonSet.y.dp,
+                                x = offsetShoulderButtonSet.x.dp,
+                                y = -offsetShoulderButtonSet.y.dp,
                             )
                 ) {
                     ShoulderButtonsL1L2()
@@ -133,12 +137,9 @@ fun Gamepad(initialGamepadTheme: GamepadTheme? = null) {
                 // L3
                 Box(
                     modifier =
-                        Modifier.width(gamepadTheme.roundButtonSize.dp)
-                            .height(gamepadTheme.roundButtonSize.dp)
-                            .offset(
-                                x = gamepadTheme.offsetShoulder3.x.dp,
-                                y = -gamepadTheme.offsetShoulder3.y.dp,
-                            )
+                        Modifier.width(roundButtonSize.dp)
+                            .height(roundButtonSize.dp)
+                            .offset(x = offsetShoulder3.x.dp, y = -offsetShoulder3.y.dp)
                 ) {
                     ShoulderButtonsL3()
                 }
@@ -146,12 +147,9 @@ fun Gamepad(initialGamepadTheme: GamepadTheme? = null) {
                 // Left joystick
                 Box(
                     modifier =
-                        Modifier.width(gamepadTheme.joystickBox.dp)
-                            .height(gamepadTheme.joystickBox.dp)
-                            .offset(
-                                x = gamepadTheme.offsetJoystick.x.dp,
-                                y = -gamepadTheme.offsetJoystick.y.dp,
-                            )
+                        Modifier.width(joystickBox.dp)
+                            .height(joystickBox.dp)
+                            .offset(x = offsetJoystick.x.dp, y = -offsetJoystick.y.dp)
                 ) {
                     LeftJoystick()
                 }
@@ -162,12 +160,9 @@ fun Gamepad(initialGamepadTheme: GamepadTheme? = null) {
                 // Face buttons
                 Box(
                     modifier =
-                        Modifier.width(gamepadTheme.fourButtonBoxSize.x.dp)
-                            .height(gamepadTheme.fourButtonBoxSize.y.dp)
-                            .offset(
-                                x = -gamepadTheme.offsetFourButtonSet.x.dp,
-                                y = -gamepadTheme.offsetFourButtonSet.y.dp,
-                            )
+                        Modifier.width(fourButtonBoxSize.x.dp)
+                            .height(fourButtonBoxSize.y.dp)
+                            .offset(x = -offsetFourButtonSet.x.dp, y = -offsetFourButtonSet.y.dp)
                 ) {
                     FaceButtons()
                 }
@@ -175,11 +170,11 @@ fun Gamepad(initialGamepadTheme: GamepadTheme? = null) {
                 // R1 and R2
                 Box(
                     modifier =
-                        Modifier.width(gamepadTheme.shoulderButtonBox.dp)
-                            .height(gamepadTheme.shoulderButtonBox.dp)
+                        Modifier.width(shoulderButtonBox.dp)
+                            .height(shoulderButtonBox.dp)
                             .offset(
-                                x = -gamepadTheme.offsetShoulderButtonSet.x.dp,
-                                y = -gamepadTheme.offsetShoulderButtonSet.y.dp,
+                                x = -offsetShoulderButtonSet.x.dp,
+                                y = -offsetShoulderButtonSet.y.dp,
                             )
                 ) {
                     ShoulderButtonsR1R2()
@@ -188,12 +183,9 @@ fun Gamepad(initialGamepadTheme: GamepadTheme? = null) {
                 // R3
                 Box(
                     modifier =
-                        Modifier.width(gamepadTheme.roundButtonSize.dp)
-                            .height(gamepadTheme.roundButtonSize.dp)
-                            .offset(
-                                x = -gamepadTheme.offsetShoulder3.x.dp,
-                                y = -gamepadTheme.offsetShoulder3.y.dp,
-                            )
+                        Modifier.width(roundButtonSize.dp)
+                            .height(roundButtonSize.dp)
+                            .offset(x = -offsetShoulder3.x.dp, y = -offsetShoulder3.y.dp)
                 ) {
                     ShoulderButtonsR3()
                 }
@@ -201,12 +193,9 @@ fun Gamepad(initialGamepadTheme: GamepadTheme? = null) {
                 // Right joystick
                 Box(
                     modifier =
-                        Modifier.width(gamepadTheme.joystickBox.dp)
-                            .height(gamepadTheme.joystickBox.dp)
-                            .offset(
-                                x = -gamepadTheme.offsetJoystick.x.dp,
-                                y = -gamepadTheme.offsetJoystick.y.dp,
-                            )
+                        Modifier.width(joystickBox.dp)
+                            .height(joystickBox.dp)
+                            .offset(x = -offsetJoystick.x.dp, y = -offsetJoystick.y.dp)
                 ) {
                     RightJoystick()
                 }
@@ -218,41 +207,41 @@ fun Gamepad(initialGamepadTheme: GamepadTheme? = null) {
 @Preview(showBackground = true, widthDp = 884, heightDp = 426)
 @Composable
 fun GamepadPreviewLargeLight() {
-    VirtualGamepadTheme { Gamepad(GamepadTheme.LARGE_LIGHT) }
+    VirtualGamepadTheme { Gamepad(theme = GamepadTheme.LARGE_LIGHT) }
 }
 
 @Preview(showBackground = true, widthDp = 884, heightDp = 426)
 @Composable
 fun GamepadPreviewLargeDark() {
-    VirtualGamepadTheme { Gamepad(GamepadTheme.LARGE_DARK) }
+    VirtualGamepadTheme { Gamepad(theme = GamepadTheme.LARGE_DARK) }
 }
 
 @Preview(showBackground = true, widthDp = 884, heightDp = 426)
 @Composable
 fun GamepadPreviewMediumLight() {
-    VirtualGamepadTheme { Gamepad(GamepadTheme.MEDIUM_LIGHT) }
+    VirtualGamepadTheme { Gamepad(theme = GamepadTheme.MEDIUM_LIGHT) }
 }
 
 @Preview(showBackground = true, widthDp = 884, heightDp = 426)
 @Composable
 fun GamepadPreviewMediumDark() {
-    VirtualGamepadTheme { Gamepad(GamepadTheme.MEDIUM_DARK) }
+    VirtualGamepadTheme { Gamepad(theme = GamepadTheme.MEDIUM_DARK) }
 }
 
 @Preview(showBackground = true, widthDp = 884, heightDp = 426)
 @Composable
 fun GamepadPreviewSmallLight() {
-    VirtualGamepadTheme { Gamepad(GamepadTheme.SMALL_LIGHT) }
+    VirtualGamepadTheme { Gamepad(theme = GamepadTheme.SMALL_LIGHT) }
 }
 
 @Preview(showBackground = true, widthDp = 884, heightDp = 426)
 @Composable
 fun GamepadPreviewSmallDark() {
-    VirtualGamepadTheme { Gamepad(GamepadTheme.SMALL_DARK) }
+    VirtualGamepadTheme { Gamepad(theme = GamepadTheme.SMALL_DARK) }
 }
 
 @Preview(showBackground = true, widthDp = 600, heightDp = 300)
 @Composable
 fun GamepadPreviewLargeLightOnSmallerDisplay() {
-    VirtualGamepadTheme { Gamepad(GamepadTheme(screenWithDp = 600)) }
+    VirtualGamepadTheme { Gamepad(theme = GamepadTheme.SMALL_LIGHT) }
 }
