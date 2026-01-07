@@ -85,16 +85,16 @@ class GamepadTheme(
 
     fun getFunctionButtonWidth(screenWidthDp: Int) =
         when (size) {
-            GamepadSize.LARGE -> 68
-            GamepadSize.MEDIUM -> 68
-            GamepadSize.SMALL -> 68
+            GamepadSize.LARGE -> 72
+            GamepadSize.MEDIUM -> 72
+            GamepadSize.SMALL -> 72
         }.adjust(screenWidthDp)
 
     fun getFunctionButtonHeight(screenWidthDp: Int) =
         when (size) {
-            GamepadSize.LARGE -> 34
-            GamepadSize.MEDIUM -> 34
-            GamepadSize.SMALL -> 34
+            GamepadSize.LARGE -> 48
+            GamepadSize.MEDIUM -> 48
+            GamepadSize.SMALL -> 48
         }.adjust(screenWidthDp)
 
     fun getOffsetFunctionButtons(screenWidthDp: Int) =
@@ -170,8 +170,14 @@ class GamepadTheme(
 
     val backgroundColor =
         when (colorTheme) {
-            GamepadColorTheme.LIGHT -> WhiteE5
-            GamepadColorTheme.DARK -> Gray44
+            GamepadColorTheme.LIGHT -> BackgroundBaseColorLight
+            GamepadColorTheme.DARK -> BackgroundBaseColorDark
+        }
+
+    val slatColor =
+        when (colorTheme) {
+            GamepadColorTheme.LIGHT -> SlatColorLight
+            GamepadColorTheme.DARK -> SlatColorDark
         }
 
     val joystickBackgroundColor =
