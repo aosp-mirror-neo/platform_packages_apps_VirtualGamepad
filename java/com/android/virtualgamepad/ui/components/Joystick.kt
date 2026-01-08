@@ -33,6 +33,7 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.tooling.preview.Preview
@@ -67,7 +68,13 @@ private fun Joystick(joystickType: JoystickType, modifier: Modifier = Modifier) 
     val localView = LocalView.current
 
     val density = with(LocalDensity.current) { 1.dp.toPx() }
-    val boxSizePx = with(LocalDensity.current) { theme.joystickBox.dp.toPx() }
+    val screenWidthDp = LocalConfiguration.current.screenWidthDp
+
+    val joystickBox = theme.getJoystickBox(screenWidthDp)
+    val joystickOuterRingSize = theme.getJoystickOuterRingSize(screenWidthDp)
+    val joystickInnerRingSize = theme.getJoystickInnerRingSize(screenWidthDp)
+
+    val boxSizePx = with(LocalDensity.current) { joystickBox.dp.toPx() }
     val maxDragRangePx = boxSizePx * 0.7f // TODO confirm this value
     val outerRingBrush = Brush.horizontalGradient(theme.joystickOuterRingGradient)
     val innerRingBrush = Brush.horizontalGradient(theme.joystickInnerRingGradient)
@@ -120,7 +127,7 @@ private fun Joystick(joystickType: JoystickType, modifier: Modifier = Modifier) 
         updateJoystickState()
     }
 
-    var containerModifier = Modifier.size(theme.joystickBox.dp)
+    var containerModifier = Modifier.size(joystickBox.dp)
 
     containerModifier =
         with(LocalDensity.current) {
@@ -156,7 +163,7 @@ private fun Joystick(joystickType: JoystickType, modifier: Modifier = Modifier) 
         // Background area
         Box(
             modifier =
-                Modifier.size(theme.joystickBox.dp)
+                Modifier.size(joystickBox.dp)
                     .clip(CircleShape)
                     .background(theme.joystickBackgroundColor)
                     .let {
@@ -206,7 +213,7 @@ private fun Joystick(joystickType: JoystickType, modifier: Modifier = Modifier) 
             Box(
                 modifier =
                     Modifier.align(Alignment.Center)
-                        .size(theme.joystickOuterRingSize.dp)
+                        .size(joystickOuterRingSize.dp)
                         .rotate(45f)
                         .clip(CircleShape)
                         .background(outerRingBrush)
@@ -215,7 +222,7 @@ private fun Joystick(joystickType: JoystickType, modifier: Modifier = Modifier) 
                 Box(
                     modifier =
                         Modifier.align(Alignment.Center)
-                            .size(theme.joystickInnerRingSize.dp)
+                            .size(joystickInnerRingSize.dp)
                             .clip(CircleShape)
                             .rotate(135f)
                             .background(innerRingBrush)

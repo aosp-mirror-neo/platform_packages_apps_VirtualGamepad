@@ -44,6 +44,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
@@ -53,6 +54,9 @@ import androidx.compose.ui.window.Dialog
 import com.android.virtualgamepad.R
 import com.android.virtualgamepad.model.GameButtonType
 import com.android.virtualgamepad.ui.LocalGamepadTheme
+import com.android.virtualgamepad.ui.components.StringResourceAdapter.colorThemeIndex
+import com.android.virtualgamepad.ui.components.StringResourceAdapter.gamepadSizeIndex
+import com.android.virtualgamepad.ui.components.StringResourceAdapter.gamepadStyleIndex
 import com.android.virtualgamepad.ui.theme.GamepadColorTheme
 import com.android.virtualgamepad.ui.theme.GamepadSize
 import com.android.virtualgamepad.ui.theme.GamepadStyle
@@ -66,6 +70,10 @@ fun FunctionButtons(
 ) {
     var expanded by remember { mutableStateOf(false) }
     val theme = LocalGamepadTheme.current
+    val screenWidthDp = LocalConfiguration.current.screenWidthDp
+
+    val functionButtonWidth = theme.getFunctionButtonWidth(screenWidthDp)
+    val functionButtonHeight = theme.getFunctionButtonHeight(screenWidthDp)
 
     Box(modifier = Modifier.fillMaxSize()) {
         Row(
@@ -74,17 +82,13 @@ fun FunctionButtons(
             modifier = Modifier.fillMaxSize(),
         ) {
             SettingsButton(
-                modifier =
-                    Modifier.width(theme.functionButtonWidth.dp)
-                        .height(theme.functionButtonHeight.dp)
+                modifier = Modifier.width(functionButtonWidth.dp).height(functionButtonHeight.dp)
             ) {
                 expanded = true
             }
             GameButton(
                 GameButtonType.Menu,
-                modifier =
-                    Modifier.width(theme.functionButtonWidth.dp)
-                        .height(theme.functionButtonHeight.dp),
+                modifier = Modifier.width(functionButtonWidth.dp).height(functionButtonHeight.dp),
             )
         }
         if (expanded) {
@@ -145,6 +149,7 @@ fun GamepadStyleSelector(onGamepadStyleSelected: (GamepadStyle) -> Unit) {
         },
         label = stringResource(R.string.label_gamepad_style),
         items = stringArrayResource(R.array.gamepad_style_items).toList(),
+        selectionIndex = gamepadStyleIndex(LocalGamepadTheme.current.style),
     )
 }
 
@@ -157,6 +162,7 @@ fun GamepadSizeSelector(onGamepadSizeSelected: (GamepadSize) -> Unit) {
         },
         label = stringResource(R.string.label_gamepad_size),
         items = stringArrayResource(R.array.gamepad_size_items).toList(),
+        selectionIndex = gamepadSizeIndex(LocalGamepadTheme.current.size),
     )
 }
 
@@ -168,13 +174,19 @@ fun GamepadColorThemeSelector(onGamepadColorThemeSelected: (GamepadColorTheme) -
             onGamepadColorThemeSelected(colorTheme)
         },
         options = stringArrayResource(R.array.gamepad_theme_items).toList(),
+        selectionIndex = colorThemeIndex(LocalGamepadTheme.current.colorTheme),
     )
 }
 
 @Composable
-fun GamepadDropdownMenu(onItemSelected: (Int) -> Unit, label: String, items: List<String>) {
+fun GamepadDropdownMenu(
+    onItemSelected: (Int) -> Unit,
+    label: String,
+    items: List<String>,
+    selectionIndex: Int,
+) {
     var expanded by remember { mutableStateOf(false) }
-    var selectedIndex by remember { mutableStateOf(0) }
+    var selectedIndex by remember { mutableStateOf(selectionIndex) }
     val selectedText = items.getOrNull(selectedIndex) ?: ""
 
     Box {
@@ -209,8 +221,8 @@ fun GamepadDropdownMenu(onItemSelected: (Int) -> Unit, label: String, items: Lis
 }
 
 @Composable
-fun ThemeSelectionRow(onOptionSelected: (Int) -> Unit, options: List<String>) {
-    val selectedOption = remember { mutableStateOf(options.firstOrNull()) }
+fun ThemeSelectionRow(onOptionSelected: (Int) -> Unit, options: List<String>, selectionIndex: Int) {
+    val selectedOption = remember { mutableStateOf(options[selectionIndex]) }
 
     Row(
         modifier = Modifier.selectableGroup().fillMaxWidth(),

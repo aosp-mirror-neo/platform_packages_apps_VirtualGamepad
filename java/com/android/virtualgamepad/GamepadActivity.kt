@@ -16,6 +16,7 @@
 
 package com.android.virtualgamepad
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.activity.ComponentActivity
@@ -24,25 +25,42 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.compositionLocalOf
 import com.android.virtualgamepad.backend.LocalGamepadBackend
+import com.android.virtualgamepad.backend.SettingsRepo
 import com.android.virtualgamepad.model.GamepadState
 import com.android.virtualgamepad.ui.Gamepad
+import com.android.virtualgamepad.ui.theme.GamepadTheme
 import com.android.virtualgamepad.ui.theme.VirtualGamepadTheme
 
 val LocalGamepadState = compositionLocalOf<GamepadState?> { null }
 
 class GamepadActivity : ComponentActivity() {
     val gamepadBackend = LocalGamepadBackend()
-    val gamepadState = GamepadState(gamepadBackend)
+    lateinit var gamepadState: GamepadState
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        val defaultTheme =
+            if (isSystemInDarkTheme()) {
+                GamepadTheme.MEDIUM_DARK
+            } else {
+                GamepadTheme.MEDIUM_LIGHT
+            }
+        gamepadState = GamepadState(gamepadBackend)
         setContent {
+            val settingsRepo = SettingsRepo(defaultTheme, getPreferences(MODE_PRIVATE))
             VirtualGamepadTheme {
-                CompositionLocalProvider(LocalGamepadState provides gamepadState) { Gamepad() }
+                CompositionLocalProvider(LocalGamepadState provides gamepadState) {
+                    Gamepad(settingsRepo.getGamepadTheme(), settingsRepo::setGamepadTheme)
+                }
             }
         }
         window.addFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE)
+    }
+
+    fun isSystemInDarkTheme(): Boolean {
+        val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+        return currentNightMode == Configuration.UI_MODE_NIGHT_YES
     }
 
     override fun onStart() {

@@ -16,9 +16,6 @@
 
 package com.android.virtualgamepad.ui.components
 
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.res.stringArrayResource
-import com.android.virtualgamepad.R
 import com.android.virtualgamepad.ui.theme.GamepadColorTheme
 import com.android.virtualgamepad.ui.theme.GamepadSize
 import com.android.virtualgamepad.ui.theme.GamepadStyle
@@ -34,22 +31,18 @@ object StringResourceAdapter {
     private const val GAMEPAD_STYLE_INDEX_INLINE = 0
     private const val GAMEPAD_STYLE_INDEX_INVERTED = 1
 
-    @Composable
-    fun gamepadSizeString(size: GamepadSize): String {
-        val index =
-            when (size) {
-                GamepadSize.LARGE -> SIZE_INDEX_LARGE
-                GamepadSize.MEDIUM -> SIZE_INDEX_MEDIUM
-                GamepadSize.SMALL -> SIZE_INDEX_SMALL
-            }
-        return stringArrayResource(R.array.gamepad_size_items)[index]
-    }
-
     fun colorThemeFromIndex(index: Int): GamepadColorTheme {
         return when (index) {
             COLOR_THEME_INDEX_LIGHT -> GamepadColorTheme.LIGHT
             COLOR_THEME_INDEX_DARK -> GamepadColorTheme.DARK
             else -> GamepadColorTheme.LIGHT
+        }
+    }
+
+    fun colorThemeIndex(gamepadColorTheme: GamepadColorTheme): Int {
+        return when (gamepadColorTheme) {
+            GamepadColorTheme.LIGHT -> COLOR_THEME_INDEX_LIGHT
+            GamepadColorTheme.DARK -> COLOR_THEME_INDEX_DARK
         }
     }
 
@@ -62,11 +55,26 @@ object StringResourceAdapter {
         }
     }
 
+    fun gamepadSizeIndex(gamepadSize: GamepadSize): Int {
+        return when (gamepadSize) {
+            GamepadSize.SMALL -> SIZE_INDEX_SMALL
+            GamepadSize.MEDIUM -> SIZE_INDEX_MEDIUM
+            GamepadSize.LARGE -> SIZE_INDEX_LARGE
+        }
+    }
+
     fun gamepadStyleFromIndex(index: Int): GamepadStyle {
         return when (index) {
             GAMEPAD_STYLE_INDEX_INLINE -> GamepadStyle.INLINE
             GAMEPAD_STYLE_INDEX_INVERTED -> GamepadStyle.INVERTED
             else -> GamepadStyle.INLINE
+        }
+    }
+
+    fun gamepadStyleIndex(gamepadStyle: GamepadStyle): Int {
+        return when (gamepadStyle) {
+            GamepadStyle.INLINE -> GAMEPAD_STYLE_INDEX_INLINE
+            GamepadStyle.INVERTED -> GAMEPAD_STYLE_INDEX_INVERTED
         }
     }
 }
