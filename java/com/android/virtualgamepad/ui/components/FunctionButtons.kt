@@ -20,11 +20,12 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.material.icons.Icons
@@ -75,30 +76,29 @@ fun FunctionButtons(
     val functionButtonWidth = theme.getFunctionButtonWidth(screenWidthDp)
     val functionButtonHeight = theme.getFunctionButtonHeight(screenWidthDp)
 
-    Box(modifier = Modifier.fillMaxSize()) {
-        Row(
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.fillMaxSize(),
+    Row(
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.wrapContentSize(),
+    ) {
+        SettingsButton(
+            modifier = Modifier.width(functionButtonWidth.dp).height(functionButtonHeight.dp)
         ) {
-            SettingsButton(
-                modifier = Modifier.width(functionButtonWidth.dp).height(functionButtonHeight.dp)
-            ) {
-                expanded = true
-            }
-            GameButton(
-                GameButtonType.Menu,
-                modifier = Modifier.width(functionButtonWidth.dp).height(functionButtonHeight.dp),
-            )
+            expanded = true
         }
-        if (expanded) {
-            GamepadSettingsDialog(
-                onGamepadStyleChanged,
-                onGamepadSizeChanged,
-                onGamepadColorThemeChanged,
-                { expanded = false },
-            )
-        }
+        Spacer(modifier = Modifier.width(128.dp))
+        GameButton(
+            GameButtonType.Menu,
+            modifier = Modifier.width(functionButtonWidth.dp).height(functionButtonHeight.dp),
+        )
+    }
+    if (expanded) {
+        GamepadSettingsDialog(
+            onGamepadStyleChanged,
+            onGamepadSizeChanged,
+            onGamepadColorThemeChanged,
+            { expanded = false },
+        )
     }
 }
 
