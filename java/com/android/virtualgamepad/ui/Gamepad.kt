@@ -78,9 +78,9 @@ fun Gamepad(theme: GamepadTheme? = null, onGamepadThemeChanged: (GamepadTheme) -
                     onGamepadThemeChanged(newGamepadTheme)
                 },
             )
-            Row() {
+            Row {
                 LeftControlPanel(modifier = Modifier.weight(1f))
-                Spacer(modifier = Modifier.width(32.dp))
+                Spacer(modifier = Modifier.width(gamepadTheme.getLeftRightSpacerWidth().dp))
                 RightControlPanel(modifier = Modifier.weight(1f))
             }
         }
@@ -128,7 +128,6 @@ fun LeftControlPanel(modifier: Modifier) {
     val gamepadTheme = LocalGamepadTheme.current
 
     val roundButtonSize = gamepadTheme.getRoundButtonSize(screenWidthDp)
-    val fourButtonBoxSize = gamepadTheme.getFourButtonBoxSize(screenWidthDp)
     val offsetFourButtonSet = gamepadTheme.getOffsetFourButtonSet(screenWidthDp)
     val shoulderButtonBox = gamepadTheme.getShoulderButtonBox(screenWidthDp)
     val offsetShoulderButtonSet = gamepadTheme.getOffsetShoulderButtonSet(screenWidthDp)
@@ -137,15 +136,9 @@ fun LeftControlPanel(modifier: Modifier) {
     val offsetJoystick = gamepadTheme.getOffsetJoystick(screenWidthDp)
 
     Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.BottomStart) {
-        // Dpad
-        Box(
-            modifier =
-                Modifier.width(fourButtonBoxSize.x.dp)
-                    .height(fourButtonBoxSize.y.dp)
-                    .offset(x = offsetFourButtonSet.x.dp, y = -offsetFourButtonSet.y.dp)
-        ) {
-            DPad()
-        }
+        DPad(
+            modifier = Modifier.offset(x = offsetFourButtonSet.x.dp, y = -offsetFourButtonSet.y.dp)
+        )
 
         // L1 and L2
         Box(
@@ -187,7 +180,6 @@ fun RightControlPanel(modifier: Modifier) {
     val gamepadTheme = LocalGamepadTheme.current
 
     val roundButtonSize = gamepadTheme.getRoundButtonSize(screenWidthDp)
-    val fourButtonBoxSize = gamepadTheme.getFourButtonBoxSize(screenWidthDp)
     val offsetFourButtonSet = gamepadTheme.getOffsetFourButtonSet(screenWidthDp)
     val shoulderButtonBox = gamepadTheme.getShoulderButtonBox(screenWidthDp)
     val offsetShoulderButtonSet = gamepadTheme.getOffsetShoulderButtonSet(screenWidthDp)
@@ -196,15 +188,9 @@ fun RightControlPanel(modifier: Modifier) {
     val offsetJoystick = gamepadTheme.getOffsetJoystick(screenWidthDp)
 
     Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.BottomEnd) {
-        // Face buttons
-        Box(
-            modifier =
-                Modifier.width(fourButtonBoxSize.x.dp)
-                    .height(fourButtonBoxSize.y.dp)
-                    .offset(x = -offsetFourButtonSet.x.dp, y = -offsetFourButtonSet.y.dp)
-        ) {
-            FaceButtons()
-        }
+        FaceButtons(
+            modifier = Modifier.offset(x = -offsetFourButtonSet.x.dp, y = -offsetFourButtonSet.y.dp)
+        )
 
         // R1 and R2
         Box(

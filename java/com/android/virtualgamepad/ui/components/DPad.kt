@@ -16,49 +16,27 @@
 
 package com.android.virtualgamepad.ui.components
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.android.virtualgamepad.model.GameButtonType
-import com.android.virtualgamepad.ui.LocalGamepadTheme
 import com.android.virtualgamepad.ui.theme.VirtualGamepadTheme
 
 @Composable
-fun DPad() {
-    val screenWidthDp = LocalConfiguration.current.screenWidthDp
-    val theme = LocalGamepadTheme.current
-    val roundButtonSize = theme.getRoundButtonSize(screenWidthDp)
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        GameButton(
-            GameButtonType.DPAD_UP,
-            modifier = Modifier.align(Alignment.TopCenter).size(roundButtonSize.dp),
-        )
-
-        GameButton(
-            GameButtonType.DPAD_DOWN,
-            modifier = Modifier.align(Alignment.BottomCenter).size(roundButtonSize.dp),
-        )
-
-        GameButton(
-            GameButtonType.DPAD_LEFT,
-            modifier = Modifier.align(Alignment.CenterStart).size(roundButtonSize.dp),
-        )
-
-        GameButton(
-            GameButtonType.DPAD_RIGHT,
-            modifier = Modifier.align(Alignment.CenterEnd).size(roundButtonSize.dp),
-        )
-    }
+fun DPad(modifier: Modifier) {
+    FourButtonCross(
+        modifier = modifier,
+        topButton = GameButtonType.DPAD_UP,
+        leftButton = GameButtonType.DPAD_LEFT,
+        rightButton = GameButtonType.DPAD_RIGHT,
+        bottomButton = GameButtonType.DPAD_DOWN,
+    )
 }
 
 @Preview(showBackground = true, widthDp = 189, heightDp = 189)
 @Composable
 fun GamepadPreview() {
-    VirtualGamepadTheme { DPad() }
+    VirtualGamepadTheme { DPad(modifier = Modifier.size(96.dp)) }
 }

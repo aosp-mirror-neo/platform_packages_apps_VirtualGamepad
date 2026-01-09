@@ -72,9 +72,15 @@ class GamepadTheme(
     fun getRoundButtonSize(screenWidthDp: Int) =
         when (size) {
             GamepadSize.LARGE -> 70
-            GamepadSize.MEDIUM -> 54
-            GamepadSize.SMALL -> 52
+            GamepadSize.MEDIUM -> 60
+            GamepadSize.SMALL -> 56
         }.adjust(screenWidthDp)
+
+    fun getDpadWidth(screenWidthDp: Int) = (getRoundButtonSize(screenWidthDp) * 3)
+
+    fun getDpadHeight(screenWidthDp: Int) = getDpadWidth(screenWidthDp)
+
+    fun getLeftRightSpacerWidth() = 32
 
     fun getSquareButtonSize(screenWidthDp: Int): Int =
         when (size) {
