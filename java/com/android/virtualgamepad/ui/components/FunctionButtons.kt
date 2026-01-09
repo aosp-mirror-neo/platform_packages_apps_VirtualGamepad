@@ -65,6 +65,7 @@ import com.android.virtualgamepad.ui.theme.VirtualGamepadTheme
 
 @Composable
 fun FunctionButtons(
+    modifier: Modifier = Modifier,
     onGamepadStyleChanged: (GamepadStyle) -> Unit,
     onGamepadSizeChanged: (GamepadSize) -> Unit,
     onGamepadColorThemeChanged: (GamepadColorTheme) -> Unit,
@@ -79,7 +80,7 @@ fun FunctionButtons(
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.wrapContentSize(),
+        modifier = modifier.wrapContentSize(),
     ) {
         SettingsButton(
             modifier = Modifier.width(functionButtonWidth.dp).height(functionButtonHeight.dp)
@@ -260,5 +261,7 @@ fun ThemeSelectionRow(onOptionSelected: (Int) -> Unit, options: List<String>, se
 @Preview(showBackground = true, widthDp = 300, heightDp = 70)
 @Composable
 fun FunctionButtonsPreview() {
-    VirtualGamepadTheme { FunctionButtons({ _ -> }, { _ -> }, { _ -> }) }
+    VirtualGamepadTheme {
+        FunctionButtons(Modifier.width(300.dp).height(70.dp), { _ -> }, { _ -> }, { _ -> })
+    }
 }
