@@ -18,7 +18,6 @@ package com.android.virtualgamepad.ui
 
 import android.app.Activity
 import android.content.Context
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -42,6 +41,7 @@ import androidx.compose.ui.unit.dp
 import com.android.virtualgamepad.ui.components.DPad
 import com.android.virtualgamepad.ui.components.FaceButtons
 import com.android.virtualgamepad.ui.components.FunctionButtons
+import com.android.virtualgamepad.ui.components.GamepadBackground
 import com.android.virtualgamepad.ui.components.LeftJoystick
 import com.android.virtualgamepad.ui.components.RightJoystick
 import com.android.virtualgamepad.ui.components.ShoulderButtonsL1L2
@@ -79,7 +79,8 @@ fun Gamepad(theme: GamepadTheme? = null, onGamepadThemeChanged: (GamepadTheme) -
         LocalGamepadTheme provides gamepadTheme,
         LocalLayoutEditor provides layoutEditor,
     ) {
-        Box(modifier = Modifier.fillMaxSize().background(gamepadTheme.backgroundColor)) {
+        Box(modifier = Modifier.fillMaxSize()) {
+            GamepadBackground()
 
             // Function buttons: select, start, and menu
             Box(

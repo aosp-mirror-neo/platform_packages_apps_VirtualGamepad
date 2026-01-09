@@ -29,23 +29,14 @@ val Pink40 = Color(0xFF7D5260)
 val Black23 = Color(0xFF232323)
 val Black22 = Color(0xFF222222)
 val Black1D = Color(0xFF1D1D1D)
-val Black19 = Color(0xFF191919)
-val Black0B = Color(0xFF0B0B0B)
 val Black00 = Color(0xFF000000)
 
-val Gray44 = Color(0xFF444444)
+val BackgroundBaseColorDark = Color(0xFF161616)
+val SlatColorDark = Color(0xFF000000)
 val Gray4A = Color(0xFF4A4A4A)
 val Gray83 = Color(0xFF838383)
 val GrayD0 = Color(0xFFD0D0D0)
 
-val WhiteE5 = Color(0xFFE5E5E5)
+val BackgroundBaseColorLight = Color(0xFFE5E5E5)
+val SlatColorLight = Color(0xFFCACACA)
 val WhiteEC = Color(0xFFECECEC)
-
-val GreenA = Color(0xFF356700)
-val RedB = Color(0xFFBA2600)
-val BlueX = Color(0xFF006379)
-val YellowY = Color(0xFFFDEC02)
-
-val Blue57 = Color(0xFF5778B1)
-
-val Blue2F = Color(0xFF2F4364)
