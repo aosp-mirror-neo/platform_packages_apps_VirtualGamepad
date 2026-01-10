@@ -97,27 +97,21 @@ fun FunctionButtonPanel(
 
     val roundButtonSize = gamepadTheme.getRoundButtonSize(screenWidthDp)
     val offsetFunctionButtons = gamepadTheme.getOffsetFunctionButtons(screenWidthDp)
-
-    Box(
+    FunctionButtons(
         modifier =
             modifier
                 .fillMaxWidth()
                 .height(roundButtonSize.dp)
                 .padding(start = offsetFunctionButtons.x.dp, end = offsetFunctionButtons.x.dp)
-                .offset(y = offsetFunctionButtons.y.dp)
-    ) {
-        FunctionButtons(
-            onGamepadStyleChanged = { style ->
-                onGamepadThemeChanged(gamepadTheme.copy(style = style))
-            },
-            onGamepadSizeChanged = { size ->
-                onGamepadThemeChanged(gamepadTheme.copy(size = size))
-            },
-            onGamepadColorThemeChanged = { colorTheme ->
-                onGamepadThemeChanged(gamepadTheme.copy(colorTheme = colorTheme))
-            },
-        )
-    }
+                .offset(y = offsetFunctionButtons.y.dp),
+        onGamepadStyleChanged = { style ->
+            onGamepadThemeChanged(gamepadTheme.copy(style = style))
+        },
+        onGamepadSizeChanged = { size -> onGamepadThemeChanged(gamepadTheme.copy(size = size)) },
+        onGamepadColorThemeChanged = { colorTheme ->
+            onGamepadThemeChanged(gamepadTheme.copy(colorTheme = colorTheme))
+        },
+    )
 }
 
 /** Left control panel: dpad, L1, L2, L3, and left thumb stick */
