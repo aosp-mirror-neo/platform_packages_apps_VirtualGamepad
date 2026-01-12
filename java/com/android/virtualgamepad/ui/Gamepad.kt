@@ -134,24 +134,20 @@ fun LeftControlPanel(modifier: Modifier) {
         DPad(modifier = Modifier.layoutId(GamepadLayoutSpec.dpadId))
 
         // L1 and L2
-        Box(
+        ShoulderButtonsL1L2(
             modifier =
                 Modifier.width(shoulderButtonBox.dp)
                     .height(shoulderButtonBox.dp)
                     .layoutId(GamepadLayoutSpec.leftShoulderButtonsId)
-        ) {
-            ShoulderButtonsL1L2()
-        }
+        )
 
         // L3
-        Box(
+        ShoulderButtonsL3(
             modifier =
                 Modifier.width(roundButtonSize.dp)
                     .height(roundButtonSize.dp)
                     .layoutId(GamepadLayoutSpec.l3Id)
-        ) {
-            ShoulderButtonsL3()
-        }
+        )
 
         // Left joystick
         Box(
@@ -184,24 +180,20 @@ fun RightControlPanel(modifier: Modifier) {
         FaceButtons(modifier = Modifier.layoutId(GamepadLayoutSpec.faceButtonsId))
 
         // R1 and R2
-        Box(
+        ShoulderButtonsR1R2(
             modifier =
                 Modifier.width(shoulderButtonBox.dp)
                     .height(shoulderButtonBox.dp)
                     .layoutId(GamepadLayoutSpec.rightShoulderButtonsId)
-        ) {
-            ShoulderButtonsR1R2()
-        }
+        )
 
         // R3
-        Box(
+        ShoulderButtonsR3(
             modifier =
                 Modifier.width(roundButtonSize.dp)
                     .height(roundButtonSize.dp)
                     .layoutId(GamepadLayoutSpec.r3Id)
-        ) {
-            ShoulderButtonsR3()
-        }
+        )
 
         // Right joystick
         Box(
