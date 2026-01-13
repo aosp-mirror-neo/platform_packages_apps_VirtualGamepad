@@ -16,23 +16,65 @@
 
 package com.android.virtualgamepad.ui.components
 
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.layoutId
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ConstraintLayout
 import com.android.virtualgamepad.model.GameButtonType
+import com.android.virtualgamepad.ui.GamepadLayoutSpec
+import com.android.virtualgamepad.ui.LocalGamepadTheme
 import com.android.virtualgamepad.ui.theme.VirtualGamepadTheme
 
 @Composable
 fun FaceButtons(modifier: Modifier) {
-    FourButtonCross(
-        modifier = modifier,
-        topButton = GameButtonType.Y,
-        leftButton = GameButtonType.X,
-        rightButton = GameButtonType.B,
-        bottomButton = GameButtonType.A,
-    )
+
+    val spec = GamepadLayoutSpec()
+
+    val screenWidthDp = LocalConfiguration.current.screenWidthDp
+    val theme = LocalGamepadTheme.current
+    val roundButtonSize = theme.getRoundButtonSize(screenWidthDp)
+    // The cross is is like a 3x3 grid where the buttons are in the top/bottom/left/right positions.
+    val dpadWidth = theme.getDpadWidth(screenWidthDp)
+    val dpadHeight = theme.getDpadHeight(screenWidthDp)
+
+    val constraintSet =
+        spec.computeFourButtonCrossConstraintSet(
+            topButtonId = GamepadLayoutSpec.faceButtonYId,
+            leftButtonId = GamepadLayoutSpec.faceButtonXId,
+            rightButtonId = GamepadLayoutSpec.faceButtonBId,
+            bottomButtonId = GamepadLayoutSpec.faceButtonAId,
+        )
+
+    ConstraintLayout(
+        constraintSet = constraintSet,
+        modifier = modifier.width(dpadWidth.dp).height(dpadHeight.dp),
+    ) {
+        GameButton(
+            GameButtonType.A,
+            modifier = Modifier.size(roundButtonSize.dp).layoutId(GamepadLayoutSpec.faceButtonAId),
+        )
+
+        GameButton(
+            GameButtonType.B,
+            modifier = Modifier.size(roundButtonSize.dp).layoutId(GamepadLayoutSpec.faceButtonBId),
+        )
+
+        GameButton(
+            GameButtonType.X,
+            modifier = Modifier.size(roundButtonSize.dp).layoutId(GamepadLayoutSpec.faceButtonXId),
+        )
+
+        GameButton(
+            GameButtonType.Y,
+            modifier = Modifier.size(roundButtonSize.dp).layoutId(GamepadLayoutSpec.faceButtonYId),
+        )
+    }
 }
 
 @Preview(showBackground = true, widthDp = 189, heightDp = 189)
