@@ -150,14 +150,12 @@ fun LeftControlPanel(modifier: Modifier) {
         )
 
         // Left joystick
-        Box(
+        LeftJoystick(
             modifier =
                 Modifier.width(joystickBox.dp)
                     .height(joystickBox.dp)
                     .layoutId(GamepadLayoutSpec.leftJoystickId)
-        ) {
-            LeftJoystick()
-        }
+        )
     }
 }
 
@@ -196,14 +194,12 @@ fun RightControlPanel(modifier: Modifier) {
         )
 
         // Right joystick
-        Box(
+        RightJoystick(
             modifier =
                 Modifier.width(joystickBox.dp)
                     .height(joystickBox.dp)
                     .layoutId(GamepadLayoutSpec.rightJoystickId)
-        ) {
-            RightJoystick()
-        }
+        )
     }
 }
 
