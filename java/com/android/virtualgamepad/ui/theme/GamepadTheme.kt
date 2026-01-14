@@ -110,13 +110,6 @@ class GamepadTheme(
             GamepadSize.SMALL -> IntOffset(x = 295, y = 54)
         }.adjust(screenWidthDp)
 
-    fun getFourButtonBoxSize(screenWidthDp: Int) =
-        when (size) {
-            GamepadSize.LARGE -> IntOffset(x = 189, y = 208)
-            GamepadSize.MEDIUM -> IntOffset(x = 153, y = 152)
-            GamepadSize.SMALL -> IntOffset(x = 151, y = 150)
-        }.adjust(screenWidthDp)
-
     fun getShoulderButtonBox(screenWidthDp: Int) =
         when (size) {
             // These are calculated based on the spacing between shoulder buttons
@@ -146,34 +139,6 @@ class GamepadTheme(
             GamepadSize.SMALL -> 73
         }.adjust(screenWidthDp)
 
-    fun getOffsetFourButtonSet(screenWidthDp: Int) =
-        when (size) {
-            GamepadSize.LARGE -> IntOffset(x = 20, y = 87)
-            GamepadSize.MEDIUM -> IntOffset(x = 30, y = 123)
-            GamepadSize.SMALL -> IntOffset(x = 30, y = 97)
-        }.adjust(screenWidthDp)
-
-    fun getOffsetShoulderButtonSet(screenWidthDp: Int) =
-        when (size) {
-            GamepadSize.LARGE -> IntOffset(x = 133, y = 212)
-            GamepadSize.MEDIUM -> IntOffset(x = 128, y = 220)
-            GamepadSize.SMALL -> IntOffset(x = 128, y = 191)
-        }.adjust(screenWidthDp)
-
-    fun getOffsetShoulder3(screenWidthDp: Int) =
-        when (size) {
-            GamepadSize.LARGE -> IntOffset(x = 363, y = 187)
-            GamepadSize.MEDIUM -> IntOffset(x = 348, y = 166)
-            GamepadSize.SMALL -> IntOffset(x = 351, y = 130)
-        }.adjust(screenWidthDp)
-
-    fun getOffsetJoystick(screenWidthDp: Int) =
-        when (size) {
-            GamepadSize.LARGE -> IntOffset(x = 215, y = 40)
-            GamepadSize.MEDIUM -> IntOffset(x = 185, y = 45)
-            GamepadSize.SMALL -> IntOffset(x = 185, y = 15)
-        }.adjust(screenWidthDp)
-
     val backgroundColor =
         when (colorTheme) {
             GamepadColorTheme.LIGHT -> BackgroundBaseColorLight
@@ -190,12 +155,6 @@ class GamepadTheme(
         when (colorTheme) {
             GamepadColorTheme.LIGHT -> GrayD0
             GamepadColorTheme.DARK -> Black23
-        }
-
-    val labelTextColor =
-        when (colorTheme) {
-            GamepadColorTheme.LIGHT -> Black00
-            GamepadColorTheme.DARK -> WhiteEC
         }
 
     val joystickOuterRingGradient = listOf(Gray83, Black1D)

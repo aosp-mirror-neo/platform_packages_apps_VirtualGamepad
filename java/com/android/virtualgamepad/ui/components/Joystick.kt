@@ -52,16 +52,16 @@ private enum class JoystickType {
 
 @Composable
 fun LeftJoystick(modifier: Modifier = Modifier) {
-    Joystick(JoystickType.JOYSTICK_LEFT, modifier)
+    Joystick(modifier = modifier, joystickType = JoystickType.JOYSTICK_LEFT)
 }
 
 @Composable
 fun RightJoystick(modifier: Modifier = Modifier) {
-    Joystick(JoystickType.JOYSTICK_RIGHT, modifier)
+    Joystick(modifier = modifier, joystickType = JoystickType.JOYSTICK_RIGHT)
 }
 
 @Composable
-private fun Joystick(joystickType: JoystickType, modifier: Modifier = Modifier) {
+private fun Joystick(modifier: Modifier = Modifier, joystickType: JoystickType) {
     val key = joystickType.name
     val theme = LocalGamepadTheme.current
     val gamepadState = LocalGamepadState.current
@@ -127,7 +127,7 @@ private fun Joystick(joystickType: JoystickType, modifier: Modifier = Modifier) 
         updateJoystickState()
     }
 
-    var containerModifier = Modifier.size(joystickBox.dp)
+    var containerModifier = modifier.size(joystickBox.dp)
 
     containerModifier =
         with(LocalDensity.current) {
@@ -147,6 +147,7 @@ private fun Joystick(joystickType: JoystickType, modifier: Modifier = Modifier) 
                             val offset = layoutEditor.offsetPx.getValue(key) + dragAmount
                             layoutEditor.offsetPx[key] = offset
                         }
+
                         resizing -> {
                             var scale = layoutEditor.scale.getValue(key) + dragAmount.x / 200
                             scale = max(scale, 0.2f)

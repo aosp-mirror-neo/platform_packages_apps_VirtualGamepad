@@ -36,10 +36,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ConstraintLayout
 import com.android.virtualgamepad.ui.components.DPad
 import com.android.virtualgamepad.ui.components.FaceButtons
 import com.android.virtualgamepad.ui.components.FunctionButtons
@@ -122,47 +124,38 @@ fun LeftControlPanel(modifier: Modifier) {
     val gamepadTheme = LocalGamepadTheme.current
 
     val roundButtonSize = gamepadTheme.getRoundButtonSize(screenWidthDp)
-    val offsetFourButtonSet = gamepadTheme.getOffsetFourButtonSet(screenWidthDp)
     val shoulderButtonBox = gamepadTheme.getShoulderButtonBox(screenWidthDp)
-    val offsetShoulderButtonSet = gamepadTheme.getOffsetShoulderButtonSet(screenWidthDp)
-    val offsetShoulder3 = gamepadTheme.getOffsetShoulder3(screenWidthDp)
     val joystickBox = gamepadTheme.getJoystickBox(screenWidthDp)
-    val offsetJoystick = gamepadTheme.getOffsetJoystick(screenWidthDp)
+    val layoutSpec = GamepadLayoutSpec()
 
-    Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.BottomStart) {
-        DPad(
-            modifier = Modifier.offset(x = offsetFourButtonSet.x.dp, y = -offsetFourButtonSet.y.dp)
-        )
+    val constraintSet = layoutSpec.computeLeftPanelConstraintSet()
+
+    ConstraintLayout(constraintSet = constraintSet, modifier = modifier.fillMaxSize()) {
+        DPad(modifier = Modifier.layoutId(GamepadLayoutSpec.dpadId))
 
         // L1 and L2
-        Box(
+        ShoulderButtonsL1L2(
             modifier =
                 Modifier.width(shoulderButtonBox.dp)
                     .height(shoulderButtonBox.dp)
-                    .offset(x = offsetShoulderButtonSet.x.dp, y = -offsetShoulderButtonSet.y.dp)
-        ) {
-            ShoulderButtonsL1L2()
-        }
+                    .layoutId(GamepadLayoutSpec.leftShoulderButtonsId)
+        )
 
         // L3
-        Box(
+        ShoulderButtonsL3(
             modifier =
                 Modifier.width(roundButtonSize.dp)
                     .height(roundButtonSize.dp)
-                    .offset(x = offsetShoulder3.x.dp, y = -offsetShoulder3.y.dp)
-        ) {
-            ShoulderButtonsL3()
-        }
+                    .layoutId(GamepadLayoutSpec.l3Id)
+        )
 
         // Left joystick
-        Box(
+        LeftJoystick(
             modifier =
                 Modifier.width(joystickBox.dp)
                     .height(joystickBox.dp)
-                    .offset(x = offsetJoystick.x.dp, y = -offsetJoystick.y.dp)
-        ) {
-            LeftJoystick()
-        }
+                    .layoutId(GamepadLayoutSpec.leftJoystickId)
+        )
     }
 }
 
@@ -174,47 +167,39 @@ fun RightControlPanel(modifier: Modifier) {
     val gamepadTheme = LocalGamepadTheme.current
 
     val roundButtonSize = gamepadTheme.getRoundButtonSize(screenWidthDp)
-    val offsetFourButtonSet = gamepadTheme.getOffsetFourButtonSet(screenWidthDp)
     val shoulderButtonBox = gamepadTheme.getShoulderButtonBox(screenWidthDp)
-    val offsetShoulderButtonSet = gamepadTheme.getOffsetShoulderButtonSet(screenWidthDp)
-    val offsetShoulder3 = gamepadTheme.getOffsetShoulder3(screenWidthDp)
     val joystickBox = gamepadTheme.getJoystickBox(screenWidthDp)
-    val offsetJoystick = gamepadTheme.getOffsetJoystick(screenWidthDp)
 
-    Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.BottomEnd) {
-        FaceButtons(
-            modifier = Modifier.offset(x = -offsetFourButtonSet.x.dp, y = -offsetFourButtonSet.y.dp)
-        )
+    val layoutSpec = GamepadLayoutSpec()
+
+    val constraintSet = layoutSpec.computeRightPanelConstraintSet()
+
+    ConstraintLayout(constraintSet = constraintSet, modifier = modifier.fillMaxSize()) {
+        FaceButtons(modifier = Modifier.layoutId(GamepadLayoutSpec.faceButtonsId))
 
         // R1 and R2
-        Box(
+        ShoulderButtonsR1R2(
             modifier =
                 Modifier.width(shoulderButtonBox.dp)
                     .height(shoulderButtonBox.dp)
-                    .offset(x = -offsetShoulderButtonSet.x.dp, y = -offsetShoulderButtonSet.y.dp)
-        ) {
-            ShoulderButtonsR1R2()
-        }
+                    .layoutId(GamepadLayoutSpec.rightShoulderButtonsId)
+        )
 
         // R3
-        Box(
+        ShoulderButtonsR3(
             modifier =
                 Modifier.width(roundButtonSize.dp)
                     .height(roundButtonSize.dp)
-                    .offset(x = -offsetShoulder3.x.dp, y = -offsetShoulder3.y.dp)
-        ) {
-            ShoulderButtonsR3()
-        }
+                    .layoutId(GamepadLayoutSpec.r3Id)
+        )
 
         // Right joystick
-        Box(
+        RightJoystick(
             modifier =
                 Modifier.width(joystickBox.dp)
                     .height(joystickBox.dp)
-                    .offset(x = -offsetJoystick.x.dp, y = -offsetJoystick.y.dp)
-        ) {
-            RightJoystick()
-        }
+                    .layoutId(GamepadLayoutSpec.rightJoystickId)
+        )
     }
 }
 
