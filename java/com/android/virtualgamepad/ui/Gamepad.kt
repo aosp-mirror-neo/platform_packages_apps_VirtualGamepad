@@ -26,6 +26,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -42,9 +43,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
-import com.android.virtualgamepad.ui.components.DPad
-import com.android.virtualgamepad.ui.components.FaceButtons
+import com.android.virtualgamepad.model.GameButtonType
 import com.android.virtualgamepad.ui.components.FunctionButtons
+import com.android.virtualgamepad.ui.components.GameButton
 import com.android.virtualgamepad.ui.components.GamepadBackground
 import com.android.virtualgamepad.ui.components.LeftJoystick
 import com.android.virtualgamepad.ui.components.RightJoystick
@@ -128,10 +129,28 @@ fun LeftControlPanel(modifier: Modifier) {
     val joystickBox = gamepadTheme.getJoystickBox(screenWidthDp)
     val layoutSpec = GamepadLayoutSpec()
 
-    val constraintSet = layoutSpec.computeLeftPanelConstraintSet()
+    val constraints = layoutSpec.computeLeftPanelConstraintSet()
 
-    ConstraintLayout(constraintSet = constraintSet, modifier = modifier.fillMaxSize()) {
-        DPad(modifier = Modifier.layoutId(GamepadLayoutSpec.dpadId))
+    ConstraintLayout(constraintSet = constraints, modifier = modifier.fillMaxSize()) {
+        GameButton(
+            GameButtonType.DPAD_UP,
+            modifier = Modifier.size(roundButtonSize.dp).layoutId(GamepadLayoutSpec.dpadUpId),
+        )
+
+        GameButton(
+            GameButtonType.DPAD_DOWN,
+            modifier = Modifier.size(roundButtonSize.dp).layoutId(GamepadLayoutSpec.dpadDownId),
+        )
+
+        GameButton(
+            GameButtonType.DPAD_LEFT,
+            modifier = Modifier.size(roundButtonSize.dp).layoutId(GamepadLayoutSpec.dpadLeftId),
+        )
+
+        GameButton(
+            GameButtonType.DPAD_RIGHT,
+            modifier = Modifier.size(roundButtonSize.dp).layoutId(GamepadLayoutSpec.dpadRightId),
+        )
 
         // L1 and L2
         ShoulderButtonsL1L2(
@@ -175,7 +194,25 @@ fun RightControlPanel(modifier: Modifier) {
     val constraintSet = layoutSpec.computeRightPanelConstraintSet()
 
     ConstraintLayout(constraintSet = constraintSet, modifier = modifier.fillMaxSize()) {
-        FaceButtons(modifier = Modifier.layoutId(GamepadLayoutSpec.faceButtonsId))
+        GameButton(
+            GameButtonType.A,
+            modifier = Modifier.size(roundButtonSize.dp).layoutId(GamepadLayoutSpec.faceButtonAId),
+        )
+
+        GameButton(
+            GameButtonType.B,
+            modifier = Modifier.size(roundButtonSize.dp).layoutId(GamepadLayoutSpec.faceButtonBId),
+        )
+
+        GameButton(
+            GameButtonType.X,
+            modifier = Modifier.size(roundButtonSize.dp).layoutId(GamepadLayoutSpec.faceButtonXId),
+        )
+
+        GameButton(
+            GameButtonType.Y,
+            modifier = Modifier.size(roundButtonSize.dp).layoutId(GamepadLayoutSpec.faceButtonYId),
+        )
 
         // R1 and R2
         ShoulderButtonsR1R2(

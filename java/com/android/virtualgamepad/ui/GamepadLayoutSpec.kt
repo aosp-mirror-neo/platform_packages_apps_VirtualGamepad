@@ -23,61 +23,44 @@ import androidx.constraintlayout.compose.ConstraintSet
 class GamepadLayoutSpec {
 
     @Composable
-    fun computeFourButtonCrossConstraintSet(
-        topButtonId: String,
-        leftButtonId: String,
-        rightButtonId: String,
-        bottomButtonId: String,
-    ): ConstraintSet {
-        return ConstraintSet {
-            val topButton = createRefFor(topButtonId)
-            val leftButton = createRefFor(leftButtonId)
-            val rightButton = createRefFor(rightButtonId)
-            val bottomButton = createRefFor(bottomButtonId)
-
-            constrain(topButton) {
-                bottom.linkTo(leftButton.top)
-                absoluteRight.linkTo(rightButton.absoluteLeft)
-            }
-            constrain(leftButton) {
-                top.linkTo(parent.top)
-                absoluteLeft.linkTo(parent.absoluteLeft)
-                bottom.linkTo(parent.bottom)
-            }
-            constrain(rightButton) {
-                top.linkTo(topButton.bottom)
-                absoluteLeft.linkTo(bottomButton.absoluteRight)
-            }
-            constrain(bottomButton) {
-                top.linkTo(leftButton.bottom)
-                absoluteLeft.linkTo(leftButton.absoluteRight)
-            }
-        }
-    }
-
-    @Composable
     fun computeLeftPanelConstraintSet(): ConstraintSet {
         return ConstraintSet {
-            val dpad = createRefFor(dpadId)
+            val dpadUpRef = createRefFor(dpadUpId)
+            val dpadLeftRef = createRefFor(dpadLeftId)
+            val dpadRightRef = createRefFor(dpadRightId)
+            val dpadDownRef = createRefFor(dpadDownId)
+
             val l3 = createRefFor(l3Id)
             val joystick = createRefFor(leftJoystickId)
             val shoulderButtons = createRefFor(leftShoulderButtonsId)
 
-            constrain(dpad) {
+            constrain(dpadLeftRef) {
                 absoluteLeft.linkTo(parent.absoluteLeft, margin = 20.dp)
+                bottom.linkTo(dpadDownRef.top)
+            }
+            constrain(dpadDownRef) {
                 bottom.linkTo(parent.bottom, margin = 110.dp)
+                absoluteLeft.linkTo(dpadLeftRef.absoluteRight)
+            }
+            constrain(dpadRightRef) {
+                top.linkTo(dpadUpRef.bottom)
+                absoluteLeft.linkTo(dpadDownRef.absoluteRight)
+            }
+            constrain(dpadUpRef) {
+                bottom.linkTo(dpadLeftRef.top)
+                absoluteRight.linkTo(dpadRightRef.absoluteLeft)
             }
             constrain(l3) {
-                absoluteRight.linkTo(dpad.absoluteRight)
-                top.linkTo(dpad.bottom)
+                absoluteRight.linkTo(dpadRightRef.absoluteRight)
+                top.linkTo(dpadDownRef.bottom)
             }
             constrain(joystick) {
-                absoluteLeft.linkTo(dpad.absoluteRight, margin = 8.dp)
+                absoluteLeft.linkTo(dpadRightRef.absoluteRight, margin = 8.dp)
                 top.linkTo(shoulderButtons.bottom, margin = 8.dp)
             }
             constrain(shoulderButtons) {
-                top.linkTo(dpad.top)
-                bottom.linkTo(dpad.top)
+                top.linkTo(dpadUpRef.top)
+                bottom.linkTo(dpadUpRef.top)
                 absoluteLeft.linkTo(l3.absoluteLeft)
             }
         }
@@ -86,33 +69,48 @@ class GamepadLayoutSpec {
     @Composable
     fun computeRightPanelConstraintSet(): ConstraintSet {
         return ConstraintSet {
-            val faceButtons = createRefFor(faceButtonsId)
+            val faceButtonA = createRefFor(faceButtonAId)
+            val faceButtonB = createRefFor(faceButtonBId)
+            val faceButtonX = createRefFor(faceButtonXId)
+            val faceButtonY = createRefFor(faceButtonYId)
+
             val r3 = createRefFor(r3Id)
             val joystick = createRefFor(rightJoystickId)
             val shoulderButtons = createRefFor(rightShoulderButtonsId)
 
-            constrain(faceButtons) {
+            constrain(faceButtonB) {
                 absoluteRight.linkTo(parent.absoluteRight, margin = 20.dp)
+                bottom.linkTo(faceButtonA.top)
+            }
+            constrain(faceButtonA) {
                 bottom.linkTo(parent.bottom, margin = 110.dp)
+                absoluteRight.linkTo(faceButtonB.absoluteLeft)
+            }
+            constrain(faceButtonX) {
+                absoluteRight.linkTo(faceButtonA.absoluteLeft)
+                bottom.linkTo(faceButtonA.top)
+            }
+            constrain(faceButtonY) {
+                absoluteRight.linkTo(faceButtonB.absoluteLeft)
+                bottom.linkTo(faceButtonB.top)
             }
             constrain(r3) {
-                absoluteLeft.linkTo(faceButtons.absoluteLeft)
-                top.linkTo(faceButtons.bottom)
+                absoluteLeft.linkTo(faceButtonX.absoluteLeft)
+                top.linkTo(faceButtonA.bottom)
             }
             constrain(joystick) {
-                absoluteRight.linkTo(faceButtons.absoluteLeft, margin = 8.dp)
+                absoluteRight.linkTo(faceButtonX.absoluteLeft, margin = 8.dp)
                 top.linkTo(shoulderButtons.bottom, margin = 8.dp)
             }
             constrain(shoulderButtons) {
-                top.linkTo(faceButtons.top)
-                bottom.linkTo(faceButtons.top)
+                top.linkTo(faceButtonY.top)
+                bottom.linkTo(faceButtonY.top)
                 absoluteRight.linkTo(r3.absoluteRight)
             }
         }
     }
 
     companion object {
-        const val dpadId = "dpad"
         const val dpadUpId = "dpadUp"
         const val dpadLeftId = "dpadLeft"
         const val dpadRightId = "dpadRight"
