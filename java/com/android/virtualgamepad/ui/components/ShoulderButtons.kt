@@ -89,32 +89,6 @@ fun ShoulderButtonsR1R2(modifier: Modifier) {
     }
 }
 
-@Composable
-fun ShoulderButtonsL3(modifier: Modifier) {
-    val theme = LocalGamepadTheme.current
-    val screenWidthDp = LocalConfiguration.current.screenWidthDp
-    val roundButtonSize = theme.getRoundButtonSize(screenWidthDp)
-    Box(modifier = modifier) {
-        GameButton(
-            GameButtonType.L3,
-            modifier = Modifier.align(Alignment.Center).size(roundButtonSize.dp),
-        )
-    }
-}
-
-@Composable
-fun ShoulderButtonsR3(modifier: Modifier) {
-    val theme = LocalGamepadTheme.current
-    val screenWidthDp = LocalConfiguration.current.screenWidthDp
-    val roundButtonSize = theme.getRoundButtonSize(screenWidthDp)
-    Box(modifier = modifier) {
-        GameButton(
-            GameButtonType.R3,
-            modifier = Modifier.align(Alignment.Center).size(roundButtonSize.dp),
-        )
-    }
-}
-
 @Preview(showBackground = true, widthDp = 158, heightDp = 158)
 @Composable
 fun ShoulderButtonsL1L2Preview() {
@@ -125,16 +99,4 @@ fun ShoulderButtonsL1L2Preview() {
 @Composable
 fun ShoulderButtonsR1R2Preview() {
     VirtualGamepadTheme { ShoulderButtonsR1R2(modifier = Modifier.width(158.dp).height(158.dp)) }
-}
-
-@Preview(showBackground = true, widthDp = 70, heightDp = 70)
-@Composable
-fun ShoulderButtonsL3Preview() {
-    VirtualGamepadTheme { ShoulderButtonsL3(modifier = Modifier.width(70.dp).height(70.dp)) }
-}
-
-@Preview(showBackground = true, widthDp = 70, heightDp = 70)
-@Composable
-fun ShoulderButtonsR3Preview() {
-    VirtualGamepadTheme { ShoulderButtonsR3(modifier = Modifier.width(70.dp).height(70.dp)) }
 }

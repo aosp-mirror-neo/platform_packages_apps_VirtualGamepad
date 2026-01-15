@@ -50,9 +50,7 @@ import com.android.virtualgamepad.ui.components.GamepadBackground
 import com.android.virtualgamepad.ui.components.LeftJoystick
 import com.android.virtualgamepad.ui.components.RightJoystick
 import com.android.virtualgamepad.ui.components.ShoulderButtonsL1L2
-import com.android.virtualgamepad.ui.components.ShoulderButtonsL3
 import com.android.virtualgamepad.ui.components.ShoulderButtonsR1R2
-import com.android.virtualgamepad.ui.components.ShoulderButtonsR3
 import com.android.virtualgamepad.ui.theme.GamepadTheme
 import com.android.virtualgamepad.ui.theme.VirtualGamepadTheme
 
@@ -124,32 +122,28 @@ fun LeftControlPanel(modifier: Modifier) {
     val screenWidthDp = LocalConfiguration.current.screenWidthDp
     val gamepadTheme = LocalGamepadTheme.current
 
-    val roundButtonSize = gamepadTheme.getRoundButtonSize(screenWidthDp)
     val shoulderButtonBox = gamepadTheme.getShoulderButtonBox(screenWidthDp)
     val joystickBox = gamepadTheme.getJoystickBox(screenWidthDp)
-    val layoutSpec = GamepadLayoutSpec()
+    val layoutSpec = GamepadLayoutSpec(gamepadTheme)
 
     val constraints = layoutSpec.computeLeftPanelConstraintSet()
 
     ConstraintLayout(constraintSet = constraints, modifier = modifier.fillMaxSize()) {
-        GameButton(
-            GameButtonType.DPAD_UP,
-            modifier = Modifier.size(roundButtonSize.dp).layoutId(GamepadLayoutSpec.dpadUpId),
-        )
+        GameButton(GameButtonType.DPAD_UP, modifier = Modifier.layoutId(GamepadLayoutSpec.dpadUpId))
 
         GameButton(
             GameButtonType.DPAD_DOWN,
-            modifier = Modifier.size(roundButtonSize.dp).layoutId(GamepadLayoutSpec.dpadDownId),
+            modifier = Modifier.layoutId(GamepadLayoutSpec.dpadDownId),
         )
 
         GameButton(
             GameButtonType.DPAD_LEFT,
-            modifier = Modifier.size(roundButtonSize.dp).layoutId(GamepadLayoutSpec.dpadLeftId),
+            modifier = Modifier.layoutId(GamepadLayoutSpec.dpadLeftId),
         )
 
         GameButton(
             GameButtonType.DPAD_RIGHT,
-            modifier = Modifier.size(roundButtonSize.dp).layoutId(GamepadLayoutSpec.dpadRightId),
+            modifier = Modifier.layoutId(GamepadLayoutSpec.dpadRightId),
         )
 
         // L1 and L2
@@ -161,12 +155,7 @@ fun LeftControlPanel(modifier: Modifier) {
         )
 
         // L3
-        ShoulderButtonsL3(
-            modifier =
-                Modifier.width(roundButtonSize.dp)
-                    .height(roundButtonSize.dp)
-                    .layoutId(GamepadLayoutSpec.l3Id)
-        )
+        GameButton(GameButtonType.L3, modifier = Modifier.layoutId(GamepadLayoutSpec.l3Id))
 
         // Left joystick
         LeftJoystick(
@@ -185,34 +174,21 @@ fun RightControlPanel(modifier: Modifier) {
     val screenWidthDp = LocalConfiguration.current.screenWidthDp
     val gamepadTheme = LocalGamepadTheme.current
 
-    val roundButtonSize = gamepadTheme.getRoundButtonSize(screenWidthDp)
     val shoulderButtonBox = gamepadTheme.getShoulderButtonBox(screenWidthDp)
     val joystickBox = gamepadTheme.getJoystickBox(screenWidthDp)
 
-    val layoutSpec = GamepadLayoutSpec()
+    val layoutSpec = GamepadLayoutSpec(gamepadTheme)
 
     val constraintSet = layoutSpec.computeRightPanelConstraintSet()
 
     ConstraintLayout(constraintSet = constraintSet, modifier = modifier.fillMaxSize()) {
-        GameButton(
-            GameButtonType.A,
-            modifier = Modifier.size(roundButtonSize.dp).layoutId(GamepadLayoutSpec.faceButtonAId),
-        )
+        GameButton(GameButtonType.A, modifier = Modifier.layoutId(GamepadLayoutSpec.faceButtonAId))
 
-        GameButton(
-            GameButtonType.B,
-            modifier = Modifier.size(roundButtonSize.dp).layoutId(GamepadLayoutSpec.faceButtonBId),
-        )
+        GameButton(GameButtonType.B, modifier = Modifier.layoutId(GamepadLayoutSpec.faceButtonBId))
 
-        GameButton(
-            GameButtonType.X,
-            modifier = Modifier.size(roundButtonSize.dp).layoutId(GamepadLayoutSpec.faceButtonXId),
-        )
+        GameButton(GameButtonType.X, modifier = Modifier.layoutId(GamepadLayoutSpec.faceButtonXId))
 
-        GameButton(
-            GameButtonType.Y,
-            modifier = Modifier.size(roundButtonSize.dp).layoutId(GamepadLayoutSpec.faceButtonYId),
-        )
+        GameButton(GameButtonType.Y, modifier = Modifier.layoutId(GamepadLayoutSpec.faceButtonYId))
 
         // R1 and R2
         ShoulderButtonsR1R2(
@@ -223,12 +199,7 @@ fun RightControlPanel(modifier: Modifier) {
         )
 
         // R3
-        ShoulderButtonsR3(
-            modifier =
-                Modifier.width(roundButtonSize.dp)
-                    .height(roundButtonSize.dp)
-                    .layoutId(GamepadLayoutSpec.r3Id)
-        )
+        GameButton(GameButtonType.R3, modifier = Modifier.layoutId(GamepadLayoutSpec.r3Id))
 
         // Right joystick
         RightJoystick(
