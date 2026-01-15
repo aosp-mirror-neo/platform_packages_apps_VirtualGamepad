@@ -23,6 +23,39 @@ import androidx.constraintlayout.compose.ConstraintSet
 class GamepadLayoutSpec {
 
     @Composable
+    fun computeFourButtonCrossConstraintSet(
+        topButtonId: String,
+        leftButtonId: String,
+        rightButtonId: String,
+        bottomButtonId: String,
+    ): ConstraintSet {
+        return ConstraintSet {
+            val topButton = createRefFor(topButtonId)
+            val leftButton = createRefFor(leftButtonId)
+            val rightButton = createRefFor(rightButtonId)
+            val bottomButton = createRefFor(bottomButtonId)
+
+            constrain(topButton) {
+                bottom.linkTo(leftButton.top)
+                absoluteRight.linkTo(rightButton.absoluteLeft)
+            }
+            constrain(leftButton) {
+                top.linkTo(parent.top)
+                absoluteLeft.linkTo(parent.absoluteLeft)
+                bottom.linkTo(parent.bottom)
+            }
+            constrain(rightButton) {
+                top.linkTo(topButton.bottom)
+                absoluteLeft.linkTo(bottomButton.absoluteRight)
+            }
+            constrain(bottomButton) {
+                top.linkTo(leftButton.bottom)
+                absoluteLeft.linkTo(leftButton.absoluteRight)
+            }
+        }
+    }
+
+    @Composable
     fun computeLeftPanelConstraintSet(): ConstraintSet {
         return ConstraintSet {
             val dpad = createRefFor(dpadId)
@@ -80,7 +113,15 @@ class GamepadLayoutSpec {
 
     companion object {
         const val dpadId = "dpad"
+        const val dpadUpId = "dpadUp"
+        const val dpadLeftId = "dpadLeft"
+        const val dpadRightId = "dpadRight"
+        const val dpadDownId = "dpadDown"
         const val faceButtonsId = "faceButtons"
+        const val faceButtonAId = "faceButtonA"
+        const val faceButtonBId = "faceButtonB"
+        const val faceButtonXId = "faceButtonX"
+        const val faceButtonYId = "faceButtonY"
         const val l3Id = "l3"
         const val r3Id = "r3"
         const val rightJoystickId = "rightJoystick"
