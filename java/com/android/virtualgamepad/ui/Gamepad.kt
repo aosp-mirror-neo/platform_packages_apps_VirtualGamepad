@@ -49,8 +49,6 @@ import com.android.virtualgamepad.ui.components.GameButton
 import com.android.virtualgamepad.ui.components.GamepadBackground
 import com.android.virtualgamepad.ui.components.LeftJoystick
 import com.android.virtualgamepad.ui.components.RightJoystick
-import com.android.virtualgamepad.ui.components.ShoulderButtonsL1L2
-import com.android.virtualgamepad.ui.components.ShoulderButtonsR1R2
 import com.android.virtualgamepad.ui.theme.GamepadTheme
 import com.android.virtualgamepad.ui.theme.VirtualGamepadTheme
 
@@ -122,7 +120,6 @@ fun LeftControlPanel(modifier: Modifier) {
     val screenWidthDp = LocalConfiguration.current.screenWidthDp
     val gamepadTheme = LocalGamepadTheme.current
 
-    val shoulderButtonBox = gamepadTheme.getShoulderButtonBox(screenWidthDp)
     val joystickBox = gamepadTheme.getJoystickBox(screenWidthDp)
     val layoutSpec = GamepadLayoutSpec(gamepadTheme)
 
@@ -147,12 +144,9 @@ fun LeftControlPanel(modifier: Modifier) {
         )
 
         // L1 and L2
-        ShoulderButtonsL1L2(
-            modifier =
-                Modifier.width(shoulderButtonBox.dp)
-                    .height(shoulderButtonBox.dp)
-                    .layoutId(GamepadLayoutSpec.leftShoulderButtonsId)
-        )
+        GameButton(GameButtonType.L1, modifier = Modifier.layoutId(GamepadLayoutSpec.l1Id))
+
+        GameButton(GameButtonType.L2, modifier = Modifier.layoutId(GamepadLayoutSpec.l2Id))
 
         // L3
         GameButton(GameButtonType.L3, modifier = Modifier.layoutId(GamepadLayoutSpec.l3Id))
@@ -191,12 +185,9 @@ fun RightControlPanel(modifier: Modifier) {
         GameButton(GameButtonType.Y, modifier = Modifier.layoutId(GamepadLayoutSpec.faceButtonYId))
 
         // R1 and R2
-        ShoulderButtonsR1R2(
-            modifier =
-                Modifier.width(shoulderButtonBox.dp)
-                    .height(shoulderButtonBox.dp)
-                    .layoutId(GamepadLayoutSpec.rightShoulderButtonsId)
-        )
+        GameButton(GameButtonType.R1, modifier = Modifier.layoutId(GamepadLayoutSpec.r1Id))
+
+        GameButton(GameButtonType.R2, modifier = Modifier.layoutId(GamepadLayoutSpec.r2Id))
 
         // R3
         GameButton(GameButtonType.R3, modifier = Modifier.layoutId(GamepadLayoutSpec.r3Id))

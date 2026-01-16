@@ -32,6 +32,13 @@ class GamepadLayoutSpec(private val gamepadTheme: GamepadTheme) {
             GamepadSize.SMALL -> 56
         }
 
+    private fun getShoulderButtonSize() =
+        when (gamepadTheme.size) {
+            GamepadSize.LARGE -> 80
+            GamepadSize.MEDIUM -> 76
+            GamepadSize.SMALL -> 66
+        }
+
     private fun getLeftMargin() =
         when (gamepadTheme.size) {
             GamepadSize.LARGE -> 20
@@ -53,6 +60,13 @@ class GamepadLayoutSpec(private val gamepadTheme: GamepadTheme) {
             GamepadSize.SMALL -> 135
         }
 
+    private fun getShoulderMargin() =
+        when (gamepadTheme.size) {
+            GamepadSize.LARGE -> 70
+            GamepadSize.MEDIUM -> 50
+            GamepadSize.SMALL -> 48
+        }
+
     @Composable
     fun computeLeftPanelConstraintSet(): ConstraintSet {
         return ConstraintSet {
@@ -62,7 +76,11 @@ class GamepadLayoutSpec(private val gamepadTheme: GamepadTheme) {
             val dpadDownRef = createRefFor(dpadDownId)
             val buttonSize = getRoundButtonSize()
 
+            val l1 = createRefFor(l1Id)
+            val l2 = createRefFor(l2Id)
             val l3 = createRefFor(l3Id)
+            val shoulderSize = getShoulderButtonSize()
+
             val joystick = createRefFor(leftJoystickId)
             val shoulderButtons = createRefFor(leftShoulderButtonsId)
 
@@ -90,6 +108,20 @@ class GamepadLayoutSpec(private val gamepadTheme: GamepadTheme) {
                 width = Dimension.value(buttonSize.dp)
                 height = Dimension.value(buttonSize.dp)
             }
+            constrain(l1) {
+                absoluteLeft.linkTo(dpadRightRef.absoluteLeft)
+                absoluteRight.linkTo(dpadRightRef.absoluteRight)
+                bottom.linkTo(dpadRightRef.top, margin = getShoulderMargin().dp)
+                width = Dimension.value(shoulderSize.dp)
+                height = Dimension.value(shoulderSize.dp)
+            }
+            constrain(l2) {
+                top.linkTo(dpadUpRef.top)
+                bottom.linkTo(dpadUpRef.bottom)
+                absoluteLeft.linkTo(dpadUpRef.absoluteRight, margin = getShoulderMargin().dp)
+                width = Dimension.value(shoulderSize.dp)
+                height = Dimension.value(shoulderSize.dp)
+            }
             constrain(l3) {
                 absoluteRight.linkTo(dpadRightRef.absoluteRight)
                 top.linkTo(dpadDownRef.bottom)
@@ -98,7 +130,7 @@ class GamepadLayoutSpec(private val gamepadTheme: GamepadTheme) {
             }
             constrain(joystick) {
                 absoluteLeft.linkTo(dpadRightRef.absoluteRight, margin = 8.dp)
-                top.linkTo(shoulderButtons.bottom, margin = 8.dp)
+                top.linkTo(l2.bottom, margin = 8.dp)
             }
             constrain(shoulderButtons) {
                 top.linkTo(dpadUpRef.top)
@@ -117,7 +149,11 @@ class GamepadLayoutSpec(private val gamepadTheme: GamepadTheme) {
             val faceButtonY = createRefFor(faceButtonYId)
             val buttonSize = getRoundButtonSize()
 
+            val r1 = createRefFor(r1Id)
+            val r2 = createRefFor(r2Id)
             val r3 = createRefFor(r3Id)
+            val shoulderSize = getShoulderButtonSize()
+
             val joystick = createRefFor(rightJoystickId)
             val shoulderButtons = createRefFor(rightShoulderButtonsId)
 
@@ -145,6 +181,20 @@ class GamepadLayoutSpec(private val gamepadTheme: GamepadTheme) {
                 width = Dimension.value(buttonSize.dp)
                 height = Dimension.value(buttonSize.dp)
             }
+            constrain(r1) {
+                absoluteRight.linkTo(faceButtonX.absoluteRight)
+                absoluteLeft.linkTo(faceButtonX.absoluteLeft)
+                bottom.linkTo(faceButtonX.top, margin = getShoulderMargin().dp)
+                width = Dimension.value(shoulderSize.dp)
+                height = Dimension.value(shoulderSize.dp)
+            }
+            constrain(r2) {
+                top.linkTo(faceButtonY.top)
+                bottom.linkTo(faceButtonY.bottom)
+                absoluteRight.linkTo(faceButtonY.absoluteLeft, margin = getShoulderMargin().dp)
+                width = Dimension.value(shoulderSize.dp)
+                height = Dimension.value(shoulderSize.dp)
+            }
             constrain(r3) {
                 absoluteLeft.linkTo(faceButtonX.absoluteLeft)
                 top.linkTo(faceButtonA.bottom)
@@ -153,7 +203,7 @@ class GamepadLayoutSpec(private val gamepadTheme: GamepadTheme) {
             }
             constrain(joystick) {
                 absoluteRight.linkTo(faceButtonX.absoluteLeft, margin = 8.dp)
-                top.linkTo(shoulderButtons.bottom, margin = 8.dp)
+                top.linkTo(r2.bottom, margin = 8.dp)
             }
             constrain(shoulderButtons) {
                 top.linkTo(faceButtonY.top)
@@ -168,12 +218,15 @@ class GamepadLayoutSpec(private val gamepadTheme: GamepadTheme) {
         const val dpadLeftId = "dpadLeft"
         const val dpadRightId = "dpadRight"
         const val dpadDownId = "dpadDown"
-        const val faceButtonsId = "faceButtons"
         const val faceButtonAId = "faceButtonA"
         const val faceButtonBId = "faceButtonB"
         const val faceButtonXId = "faceButtonX"
         const val faceButtonYId = "faceButtonY"
+        const val l1Id = "l1"
+        const val l2Id = "l2"
         const val l3Id = "l3"
+        const val r1Id = "r1"
+        const val r2Id = "r2"
         const val r3Id = "r3"
         const val rightJoystickId = "rightJoystick"
         const val leftJoystickId = "leftJoystick"
