@@ -168,7 +168,6 @@ fun RightControlPanel(modifier: Modifier) {
     val screenWidthDp = LocalConfiguration.current.screenWidthDp
     val gamepadTheme = LocalGamepadTheme.current
 
-    val shoulderButtonBox = gamepadTheme.getShoulderButtonBox(screenWidthDp)
     val joystickBox = gamepadTheme.getJoystickBox(screenWidthDp)
 
     val layoutSpec = GamepadLayoutSpec(gamepadTheme)
