@@ -45,5 +45,6 @@
     <string name="checkbox_color_theme" translatable="false">◐</string>
 
     <string name="description_mode_button">Mode button</string>
+    <string name="description_joystick">Joystick</string>
 
 </resources>
