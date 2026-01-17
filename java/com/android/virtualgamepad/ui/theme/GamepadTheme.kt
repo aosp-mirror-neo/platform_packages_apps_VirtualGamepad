@@ -120,10 +120,18 @@ class GamepadTheme(
 
     fun getJoystickBox(screenWidthDp: Int) =
         when (size) {
-            GamepadSize.LARGE -> 161
+            GamepadSize.LARGE -> 156
             GamepadSize.MEDIUM -> 156
             GamepadSize.SMALL -> 156
-        }.adjust(screenWidthDp)
+        }
+
+    fun getJoystickSize(): Int {
+        return when (size) {
+            GamepadSize.LARGE -> 128
+            GamepadSize.MEDIUM -> 128
+            GamepadSize.SMALL -> 128
+        }
+    }
 
     fun getJoystickOuterRingSize(screenWidthDp: Int) =
         when (size) {
@@ -162,6 +170,15 @@ class GamepadTheme(
 
     fun isLightTheme(): Boolean {
         return colorTheme == GamepadColorTheme.LIGHT
+    }
+
+    @DrawableRes
+    fun getJoystickResource(): Int {
+        return if (isLightTheme()) {
+            R.drawable.stick
+        } else {
+            R.drawable.stick_dark
+        }
     }
 
     @DrawableRes

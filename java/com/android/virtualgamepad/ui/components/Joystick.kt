@@ -16,9 +16,11 @@
 
 package com.android.virtualgamepad.ui.components
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -28,17 +30,18 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.android.virtualgamepad.LocalGamepadState
+import com.android.virtualgamepad.R
 import com.android.virtualgamepad.ui.LocalGamepadTheme
 import com.android.virtualgamepad.ui.LocalLayoutEditor
 import com.android.virtualgamepad.ui.theme.VirtualGamepadTheme
@@ -71,13 +74,11 @@ private fun Joystick(modifier: Modifier = Modifier, joystickType: JoystickType) 
     val screenWidthDp = LocalConfiguration.current.screenWidthDp
 
     val joystickBox = theme.getJoystickBox(screenWidthDp)
-    val joystickOuterRingSize = theme.getJoystickOuterRingSize(screenWidthDp)
-    val joystickInnerRingSize = theme.getJoystickInnerRingSize(screenWidthDp)
+    val joystickSize = theme.getJoystickSize()
+    val joystickRes = theme.getJoystickResource()
 
     val boxSizePx = with(LocalDensity.current) { joystickBox.dp.toPx() }
     val maxDragRangePx = boxSizePx * 0.7f // TODO confirm this value
-    val outerRingBrush = Brush.horizontalGradient(theme.joystickOuterRingGradient)
-    val innerRingBrush = Brush.horizontalGradient(theme.joystickInnerRingGradient)
 
     // Drag offset in pixels
     val rawDragOffsetPx = remember { mutableStateOf(Offset(0f, 0f)) }
@@ -207,28 +208,14 @@ private fun Joystick(modifier: Modifier = Modifier, joystickType: JoystickType) 
         Box(
             modifier =
                 Modifier.align(Alignment.Center)
+                    .size(joystickSize.dp)
                     .offset(x = boundedDragOffsetDp.value.x.dp, y = boundedDragOffsetDp.value.y.dp)
-                    .clip(CircleShape)
         ) {
-            // Joystick outer ring
-            Box(
-                modifier =
-                    Modifier.align(Alignment.Center)
-                        .size(joystickOuterRingSize.dp)
-                        .rotate(45f)
-                        .clip(CircleShape)
-                        .background(outerRingBrush)
-            ) {
-                // Joystick inner circle
-                Box(
-                    modifier =
-                        Modifier.align(Alignment.Center)
-                            .size(joystickInnerRingSize.dp)
-                            .clip(CircleShape)
-                            .rotate(135f)
-                            .background(innerRingBrush)
-                ) {}
-            }
+            Image(
+                modifier = Modifier.fillMaxSize(),
+                painter = painterResource(joystickRes),
+                contentDescription = stringResource(R.string.description_joystick),
+            )
         }
     }
 }

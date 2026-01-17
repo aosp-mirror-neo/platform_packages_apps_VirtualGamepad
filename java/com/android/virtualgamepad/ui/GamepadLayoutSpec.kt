@@ -82,7 +82,6 @@ class GamepadLayoutSpec(private val gamepadTheme: GamepadTheme) {
             val shoulderSize = getShoulderButtonSize()
 
             val joystick = createRefFor(leftJoystickId)
-            val shoulderButtons = createRefFor(leftShoulderButtonsId)
 
             constrain(dpadLeftRef) {
                 absoluteLeft.linkTo(parent.absoluteLeft, margin = getLeftMargin().dp)
@@ -132,11 +131,6 @@ class GamepadLayoutSpec(private val gamepadTheme: GamepadTheme) {
                 absoluteLeft.linkTo(dpadRightRef.absoluteRight, margin = 8.dp)
                 top.linkTo(l2.bottom, margin = 8.dp)
             }
-            constrain(shoulderButtons) {
-                top.linkTo(dpadUpRef.top)
-                bottom.linkTo(dpadUpRef.top)
-                absoluteLeft.linkTo(l3.absoluteLeft)
-            }
         }
     }
 
@@ -155,7 +149,6 @@ class GamepadLayoutSpec(private val gamepadTheme: GamepadTheme) {
             val shoulderSize = getShoulderButtonSize()
 
             val joystick = createRefFor(rightJoystickId)
-            val shoulderButtons = createRefFor(rightShoulderButtonsId)
 
             constrain(faceButtonB) {
                 absoluteRight.linkTo(parent.absoluteRight, margin = getRightMargin().dp)
@@ -205,11 +198,6 @@ class GamepadLayoutSpec(private val gamepadTheme: GamepadTheme) {
                 absoluteRight.linkTo(faceButtonX.absoluteLeft, margin = 8.dp)
                 top.linkTo(r2.bottom, margin = 8.dp)
             }
-            constrain(shoulderButtons) {
-                top.linkTo(faceButtonY.top)
-                bottom.linkTo(faceButtonY.top)
-                absoluteRight.linkTo(r3.absoluteRight)
-            }
         }
     }
 
@@ -230,7 +218,5 @@ class GamepadLayoutSpec(private val gamepadTheme: GamepadTheme) {
         const val r3Id = "r3"
         const val rightJoystickId = "rightJoystick"
         const val leftJoystickId = "leftJoystick"
-        const val leftShoulderButtonsId = "leftShoulderButtons"
-        const val rightShoulderButtonsId = "rightShoulderButtons"
     }
 }
