@@ -26,7 +26,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -48,6 +47,7 @@ import com.android.virtualgamepad.ui.components.FunctionButtons
 import com.android.virtualgamepad.ui.components.GameButton
 import com.android.virtualgamepad.ui.components.GamepadBackground
 import com.android.virtualgamepad.ui.components.LeftJoystick
+import com.android.virtualgamepad.ui.components.PanelBackground
 import com.android.virtualgamepad.ui.components.RightJoystick
 import com.android.virtualgamepad.ui.theme.GamepadTheme
 import com.android.virtualgamepad.ui.theme.VirtualGamepadTheme
@@ -117,15 +117,23 @@ fun FunctionButtonPanel(
 @Composable
 fun LeftControlPanel(modifier: Modifier) {
 
-    val screenWidthDp = LocalConfiguration.current.screenWidthDp
     val gamepadTheme = LocalGamepadTheme.current
 
-    val joystickBox = gamepadTheme.getJoystickBox(screenWidthDp)
     val layoutSpec = GamepadLayoutSpec(gamepadTheme)
+    val joystickBox = layoutSpec.computeJoystickBoxSize()
 
     val constraints = layoutSpec.computeLeftPanelConstraintSet()
 
     ConstraintLayout(constraintSet = constraints, modifier = modifier.fillMaxSize()) {
+        val screenWidthDp = LocalConfiguration.current.screenWidthDp
+        val screenHeightDp = LocalConfiguration.current.screenHeightDp
+        PanelBackground(
+            modifier = Modifier.fillMaxSize().layoutId(GamepadLayoutSpec.leftPanelBackgroundId),
+            rounding = layoutSpec.computeJoystickRadiusUnitCoordinateSystem(screenHeightDp),
+            isPointOnRight = true,
+            cornerX = layoutSpec.computePanelCornerXPosition(screenWidthDp = screenWidthDp),
+            cornerY = layoutSpec.computeCornerYPosition(screenHeightDp),
+        )
         GameButton(GameButtonType.DPAD_UP, modifier = Modifier.layoutId(GamepadLayoutSpec.dpadUpId))
 
         GameButton(
@@ -175,6 +183,15 @@ fun RightControlPanel(modifier: Modifier) {
     val constraintSet = layoutSpec.computeRightPanelConstraintSet()
 
     ConstraintLayout(constraintSet = constraintSet, modifier = modifier.fillMaxSize()) {
+        val screenWidthDp = LocalConfiguration.current.screenWidthDp
+        val screenHeightDp = LocalConfiguration.current.screenHeightDp
+        PanelBackground(
+            modifier = Modifier.fillMaxSize().layoutId(GamepadLayoutSpec.rightPanelBackgroundId),
+            rounding = layoutSpec.computeJoystickRadiusUnitCoordinateSystem(screenHeightDp),
+            isPointOnRight = false,
+            cornerX = layoutSpec.computePanelCornerXPosition(screenWidthDp = screenWidthDp),
+            cornerY = layoutSpec.computeCornerYPosition(screenHeightDp),
+        )
         GameButton(GameButtonType.A, modifier = Modifier.layoutId(GamepadLayoutSpec.faceButtonAId))
 
         GameButton(GameButtonType.B, modifier = Modifier.layoutId(GamepadLayoutSpec.faceButtonBId))

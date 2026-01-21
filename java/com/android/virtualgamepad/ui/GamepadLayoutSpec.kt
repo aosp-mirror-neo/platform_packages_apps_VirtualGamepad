@@ -23,6 +23,11 @@ import androidx.constraintlayout.compose.Dimension
 import com.android.virtualgamepad.ui.theme.GamepadSize
 import com.android.virtualgamepad.ui.theme.GamepadTheme
 
+/**
+ * Specifies the layout properties for the controls on the gamepad. This controls the margins and
+ * placement of all the buttons and controls. The controls are assumed to be pinned close to the
+ * bottom left and right parts of the view.
+ */
 class GamepadLayoutSpec(private val gamepadTheme: GamepadTheme) {
 
     private fun getRoundButtonSize() =
@@ -67,6 +72,64 @@ class GamepadLayoutSpec(private val gamepadTheme: GamepadTheme) {
             GamepadSize.SMALL -> 48
         }
 
+    /**
+     * Approximates the radius of the joystick in a unit coordinate system. The gamepad is expected
+     * to be in a landscape orientation so the approximation is assuming the joystick is in a square
+     * that has [screenHeightDp] as the dimension.
+     *
+     * @param screenHeightDp the height of the view in dp.
+     */
+    fun computeJoystickRadiusUnitCoordinateSystem(screenHeightDp: Int): Float {
+        val joystickRadius = computeJoystickBoxSize()
+        val panelHeight = screenHeightDp.toFloat()
+        return joystickRadius / panelHeight
+    }
+
+    /**
+     * Returns the X coordinate for the panel corner in a unit coordinate system. The units are
+     * normalized around the panel width.
+     *
+     * @param screenWidthDp the width of the panel in dp.
+     */
+    fun computePanelCornerXPosition(screenWidthDp: Int): Float {
+        val panelWidth = (screenWidthDp - gamepadTheme.getLeftRightSpacerWidth()) / 2f
+        val leftMargin =
+            when (gamepadTheme.size) {
+                GamepadSize.LARGE -> panelWidth + 40
+                GamepadSize.MEDIUM -> panelWidth + 10
+                GamepadSize.SMALL -> panelWidth
+            }
+        val offset = (leftMargin) / panelWidth
+        val normalizedOffset = 2 * offset - 1
+        return normalizedOffset
+    }
+
+    /**
+     * Returns the Y coordinate for the panel corner in a unit coordinate system. The units are
+     * normalized around the panel height.
+     *
+     * @param screenHeightDp the height of the panel in dp.
+     */
+    fun computeCornerYPosition(screenHeightDp: Int): Float {
+        val bottomMargin =
+            when (gamepadTheme.size) {
+                GamepadSize.LARGE -> 160f
+                GamepadSize.MEDIUM -> 155f
+                GamepadSize.SMALL -> 150f
+            }
+        val offset = (screenHeightDp - bottomMargin) / screenHeightDp
+        val normalizedOffset = 2 * offset - 1
+        return normalizedOffset
+    }
+
+    fun computeJoystickBoxSize(): Int {
+        return when (gamepadTheme.size) {
+            GamepadSize.LARGE -> 156
+            GamepadSize.MEDIUM -> 156
+            GamepadSize.SMALL -> 156
+        }
+    }
+
     @Composable
     fun computeLeftPanelConstraintSet(): ConstraintSet {
         return ConstraintSet {
@@ -82,6 +145,8 @@ class GamepadLayoutSpec(private val gamepadTheme: GamepadTheme) {
             val shoulderSize = getShoulderButtonSize()
 
             val joystick = createRefFor(leftJoystickId)
+
+            val leftPanelBackground = createRefFor(leftPanelBackgroundId)
 
             constrain(dpadLeftRef) {
                 absoluteLeft.linkTo(parent.absoluteLeft, margin = getLeftMargin().dp)
@@ -131,6 +196,12 @@ class GamepadLayoutSpec(private val gamepadTheme: GamepadTheme) {
                 absoluteLeft.linkTo(dpadRightRef.absoluteRight, margin = 8.dp)
                 top.linkTo(l2.bottom, margin = 8.dp)
             }
+            constrain(leftPanelBackground) {
+                absoluteLeft.linkTo(parent.absoluteLeft)
+                absoluteRight.linkTo(parent.absoluteRight)
+                top.linkTo(parent.top)
+                bottom.linkTo(parent.bottom)
+            }
         }
     }
 
@@ -149,6 +220,8 @@ class GamepadLayoutSpec(private val gamepadTheme: GamepadTheme) {
             val shoulderSize = getShoulderButtonSize()
 
             val joystick = createRefFor(rightJoystickId)
+
+            val rightPanelBackground = createRefFor(rightPanelBackgroundId)
 
             constrain(faceButtonB) {
                 absoluteRight.linkTo(parent.absoluteRight, margin = getRightMargin().dp)
@@ -198,6 +271,12 @@ class GamepadLayoutSpec(private val gamepadTheme: GamepadTheme) {
                 absoluteRight.linkTo(faceButtonX.absoluteLeft, margin = 8.dp)
                 top.linkTo(r2.bottom, margin = 8.dp)
             }
+            constrain(rightPanelBackground) {
+                absoluteLeft.linkTo(parent.absoluteLeft)
+                absoluteRight.linkTo(parent.absoluteRight)
+                top.linkTo(parent.top)
+                bottom.linkTo(parent.bottom)
+            }
         }
     }
 
@@ -218,5 +297,7 @@ class GamepadLayoutSpec(private val gamepadTheme: GamepadTheme) {
         const val r3Id = "r3"
         const val rightJoystickId = "rightJoystick"
         const val leftJoystickId = "leftJoystick"
+        const val leftPanelBackgroundId = "leftPanelBackground"
+        const val rightPanelBackgroundId = "rightPanelBackground"
     }
 }

@@ -131,6 +131,12 @@ class GamepadTheme(
             GamepadColorTheme.DARK -> Black23
         }
 
+    val panelColors =
+        when (colorTheme) {
+            GamepadColorTheme.LIGHT -> listOf(PanelColorLightStart, PanelColorLightEnd)
+            GamepadColorTheme.DARK -> listOf(PanelColorDarkStart, PanelColorDarkEnd)
+        }
+
     fun isLightTheme(): Boolean {
         return colorTheme == GamepadColorTheme.LIGHT
     }
