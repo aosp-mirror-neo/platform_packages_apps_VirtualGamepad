@@ -18,12 +18,14 @@ package com.android.virtualgamepad
 
 import android.content.res.Configuration
 import android.os.Bundle
+import android.view.InputDevice
 import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.compositionLocalOf
+import androidx.compose.ui.platform.LocalView
 import com.android.virtualgamepad.backend.LocalGamepadBackend
 import com.android.virtualgamepad.backend.SettingsRepo
 import com.android.virtualgamepad.model.GamepadState
@@ -49,6 +51,7 @@ class GamepadActivity : ComponentActivity() {
         gamepadState = GamepadState(gamepadBackend)
         setContent {
             val settingsRepo = SettingsRepo(defaultTheme, getPreferences(MODE_PRIVATE))
+            LocalView.current.requestUnbufferedDispatch(InputDevice.SOURCE_TOUCHSCREEN)
             VirtualGamepadTheme {
                 CompositionLocalProvider(LocalGamepadState provides gamepadState) {
                     Gamepad(settingsRepo.getGamepadTheme(), settingsRepo::setGamepadTheme)
