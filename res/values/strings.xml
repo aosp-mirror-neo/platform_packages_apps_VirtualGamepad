@@ -16,35 +16,46 @@
 
 <resources>
     <string name="app_name">VirtualGamepad</string>
-    <string name="gamepad_size_retro">Retro</string>
-    <string name="gamepad_button_select" translatable="false">Select</string>
-    <string name="gamepad_button_start" translatable="false">Start</string>
-    <string name="button_save">Save</string>
-    <string name="button_reset">Reset</string>
-    <string name="toast_saved">Layout saved.</string>
+
+    <!-- Title of the dialog that allows the user to configure the gamepad
+         style and size. -->
     <string name="gamepad_style">Gamepad Style</string>
+    <!-- Label for the theme-toggle in the gamepad configuration dialog (such as light/dark
+         theme). -->
     <string name="gamepad_theme">Theme</string>
+    <!-- Names of the different themes we have for the virtual gamepad. -->
     <string-array name="gamepad_theme_items">
         <item>Light</item>
         <item>Dark</item>
     </string-array>
+    <!-- Label of the drop down option for the gamepad layout/style
+         (e.g., "Twin-stick, inline" layout). -->
     <string name="label_gamepad_style">Gamepad Style</string>
+    <!-- Names of the different styles we have for the virtual gamepad.  They describe the
+         gamepad by the button layout, e.g. two directional sticks->'twin-sticks' and their
+         positions. -->
     <string-array name="gamepad_style_items">
+        <!-- Represents a gamepad layout with two joysticks positioned side-by-side/symmetrically. -->
         <item>Twin stick, inline</item>
+        <!-- Represents a gamepad layout with two joysticks where one is positioned higher
+             than the other in an offset fashion. -->
         <item>Twin stick, staggered</item>
     </string-array>
+    <!-- Label for the drop-down options for selecting the size of the gamepad. A smaller size
+         would bring the buttons closer together and closer to the edge to accommodate smaller
+         hand sizes. -->
     <string name="label_gamepad_size">Size</string>
+    <!-- Names of the options for different gamepad sizes. -->
     <string-array name="gamepad_size_items">
         <item>Small</item>
         <item>Medium</item>
         <item>Large</item>
     </string-array>
 
-    <string name="checkbox_move" translatable="false">⇵M</string>
-    <string name="checkbox_resize" translatable="false">⇱R</string>
-    <string name="checkbox_color_theme" translatable="false">◐</string>
-
+    <!-- The button descriptor for a virtual gamepad. e.g., Used with accessibility. -->
     <string name="description_mode_button">Mode button</string>
+
+    <!-- Describes the joystick of a virtual gamepad. e.g., Used with accessibility. -->
     <string name="description_joystick">Joystick</string>
 
 </resources>
