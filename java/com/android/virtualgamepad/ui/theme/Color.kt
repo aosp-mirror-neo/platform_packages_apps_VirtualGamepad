@@ -39,4 +39,10 @@ val GrayD0 = Color(0xFFD0D0D0)
 
 val BackgroundBaseColorLight = Color(0xFFE5E5E5)
 val SlatColorLight = Color(0xFFCACACA)
+
+val PanelColorLightStart = Color(0xFFDAD9D9)
+val PanelColorLightEnd = Color(0xFFCACACA)
+val PanelColorDarkStart = Color(0xFF161616)
+val PanelColorDarkEnd = Color(0xFF202020)
+
 val WhiteEC = Color(0xFFECECEC)
