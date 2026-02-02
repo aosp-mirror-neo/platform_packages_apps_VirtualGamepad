@@ -57,7 +57,11 @@ val LocalGamepadTheme = compositionLocalOf { GamepadTheme.MEDIUM_LIGHT }
 val LocalLayoutEditor = compositionLocalOf { LayoutEditor() }
 
 @Composable
-fun Gamepad(theme: GamepadTheme? = null, onGamepadThemeChanged: (GamepadTheme) -> Unit = { _ -> }) {
+fun Gamepad(
+    theme: GamepadTheme? = null,
+    onGamepadThemeChanged: (GamepadTheme) -> Unit = { _ -> },
+    onGamepadDismissed: () -> Unit = {},
+) {
     var gamepadTheme by remember { mutableStateOf(theme ?: GamepadTheme()) }
 
     val context = LocalContext.current
@@ -71,11 +75,12 @@ fun Gamepad(theme: GamepadTheme? = null, onGamepadThemeChanged: (GamepadTheme) -
         Box(modifier = Modifier.fillMaxSize()) {
             GamepadBackground()
             FunctionButtonPanel(
-                Modifier.align(Alignment.TopCenter),
-                { newGamepadTheme ->
+                modifier = Modifier.align(Alignment.TopCenter),
+                onGamepadThemeChanged = { newGamepadTheme ->
                     gamepadTheme = newGamepadTheme
                     onGamepadThemeChanged(newGamepadTheme)
                 },
+                onGamepadDismissed = onGamepadDismissed,
             )
             Row {
                 LeftControlPanel(modifier = Modifier.weight(1f))
@@ -90,6 +95,7 @@ fun Gamepad(theme: GamepadTheme? = null, onGamepadThemeChanged: (GamepadTheme) -
 fun FunctionButtonPanel(
     modifier: Modifier,
     onGamepadThemeChanged: (GamepadTheme) -> Unit = { _ -> },
+    onGamepadDismissed: () -> Unit = {},
 ) {
     val screenWidthDp = LocalConfiguration.current.screenWidthDp
     val gamepadTheme = LocalGamepadTheme.current
@@ -110,6 +116,7 @@ fun FunctionButtonPanel(
         onGamepadColorThemeChanged = { colorTheme ->
             onGamepadThemeChanged(gamepadTheme.copy(colorTheme = colorTheme))
         },
+        onGamepadDismissed = onGamepadDismissed,
     )
 }
 

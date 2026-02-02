@@ -54,7 +54,13 @@ class GamepadActivity : ComponentActivity() {
             LocalView.current.requestUnbufferedDispatch(InputDevice.SOURCE_TOUCHSCREEN)
             VirtualGamepadTheme {
                 CompositionLocalProvider(LocalGamepadState provides gamepadState) {
-                    Gamepad(settingsRepo.getGamepadTheme(), settingsRepo::setGamepadTheme)
+                    Gamepad(
+                        settingsRepo.getGamepadTheme(),
+                        settingsRepo::setGamepadTheme,
+                        {
+                            // TODO(b/479289676) Dismiss the gamepad.
+                        },
+                    )
                 }
             }
         }
