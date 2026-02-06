@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.constraintlayout.compose.Dimension
 import com.android.virtualgamepad.ui.theme.GamepadSize
+import com.android.virtualgamepad.ui.theme.GamepadStyle
 import com.android.virtualgamepad.ui.theme.GamepadTheme
 
 /**
@@ -51,6 +52,20 @@ class GamepadLayoutSpec(private val gamepadTheme: GamepadTheme) {
             GamepadSize.SMALL -> 30
         }
 
+    private fun getLeftMarginInverted() =
+        when (gamepadTheme.size) {
+            GamepadSize.LARGE -> 16
+            GamepadSize.MEDIUM -> 16
+            GamepadSize.SMALL -> 16
+        }
+
+    private fun getBottomMarginInverted() =
+        when (gamepadTheme.size) {
+            GamepadSize.LARGE -> 160
+            GamepadSize.MEDIUM -> 150
+            GamepadSize.SMALL -> 150
+        }
+
     private fun getRightMargin() =
         when (gamepadTheme.size) {
             GamepadSize.LARGE -> 20
@@ -66,6 +81,13 @@ class GamepadLayoutSpec(private val gamepadTheme: GamepadTheme) {
         }
 
     private fun getShoulderMargin() =
+        when (gamepadTheme.size) {
+            GamepadSize.LARGE -> 70
+            GamepadSize.MEDIUM -> 50
+            GamepadSize.SMALL -> 48
+        }
+
+    private fun getShoulderMarginInverted() =
         when (gamepadTheme.size) {
             GamepadSize.LARGE -> 70
             GamepadSize.MEDIUM -> 50
@@ -132,6 +154,86 @@ class GamepadLayoutSpec(private val gamepadTheme: GamepadTheme) {
 
     @Composable
     fun computeLeftPanelConstraintSet(): ConstraintSet {
+        return when (gamepadTheme.style) {
+            GamepadStyle.INLINE -> computeInlineLeftPanelConstraintSet()
+            GamepadStyle.INVERTED -> computeInvertedLeftPanelConstraintSet()
+        }
+    }
+
+    private fun computeInvertedLeftPanelConstraintSet(): ConstraintSet {
+        return ConstraintSet {
+            val dpadUpRef = createRefFor(dpadUpId)
+            val dpadLeftRef = createRefFor(dpadLeftId)
+            val dpadRightRef = createRefFor(dpadRightId)
+            val dpadDownRef = createRefFor(dpadDownId)
+            val buttonSize = getRoundButtonSize()
+
+            val l1 = createRefFor(l1Id)
+            val l2 = createRefFor(l2Id)
+            val l3 = createRefFor(l3Id)
+            val shoulderSize = getShoulderButtonSize()
+
+            val joystick = createRefFor(leftJoystickId)
+
+            val leftPanelBackground = createRefFor(leftPanelBackgroundId)
+
+            constrain(joystick) {
+                absoluteLeft.linkTo(parent.absoluteLeft, margin = getLeftMarginInverted().dp)
+                bottom.linkTo(parent.bottom, margin = getBottomMarginInverted().dp)
+            }
+
+            constrain(dpadLeftRef) {
+                top.linkTo(joystick.bottom, margin = 8.dp)
+                absoluteRight.linkTo(joystick.absoluteRight)
+                width = Dimension.value(buttonSize.dp)
+                height = Dimension.value(buttonSize.dp)
+            }
+            constrain(dpadDownRef) {
+                absoluteLeft.linkTo(dpadLeftRef.absoluteRight)
+                top.linkTo(dpadLeftRef.bottom)
+                width = Dimension.value(buttonSize.dp)
+                height = Dimension.value(buttonSize.dp)
+            }
+            constrain(dpadRightRef) {
+                absoluteLeft.linkTo(dpadDownRef.absoluteRight)
+                bottom.linkTo(dpadDownRef.top)
+                width = Dimension.value(buttonSize.dp)
+                height = Dimension.value(buttonSize.dp)
+            }
+            constrain(dpadUpRef) {
+                bottom.linkTo(dpadLeftRef.top)
+                absoluteLeft.linkTo(dpadLeftRef.absoluteRight)
+                width = Dimension.value(buttonSize.dp)
+                height = Dimension.value(buttonSize.dp)
+            }
+            constrain(l1) {
+                absoluteLeft.linkTo(dpadUpRef.absoluteLeft)
+                absoluteRight.linkTo(dpadUpRef.absoluteRight)
+                bottom.linkTo(dpadUpRef.top, margin = getShoulderMarginInverted().dp)
+                width = Dimension.value(shoulderSize.dp)
+                height = Dimension.value(shoulderSize.dp)
+            }
+            constrain(l2) {
+                absoluteLeft.linkTo(dpadRightRef.absoluteLeft)
+                absoluteRight.linkTo(dpadRightRef.absoluteRight)
+                bottom.linkTo(dpadRightRef.top, margin = getShoulderMarginInverted().dp)
+                width = Dimension.value(shoulderSize.dp)
+                height = Dimension.value(shoulderSize.dp)
+            }
+            constrain(l3) {
+                bottom.linkTo(dpadRightRef.top)
+                absoluteLeft.linkTo(dpadRightRef.absoluteRight)
+                width = Dimension.value(buttonSize.dp)
+                height = Dimension.value(buttonSize.dp)
+            }
+            constrain(leftPanelBackground) {
+                top.linkTo(parent.top)
+                bottom.linkTo(parent.bottom)
+            }
+        }
+    }
+
+    private fun computeInlineLeftPanelConstraintSet(): ConstraintSet {
         return ConstraintSet {
             val dpadUpRef = createRefFor(dpadUpId)
             val dpadLeftRef = createRefFor(dpadLeftId)

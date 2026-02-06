@@ -30,6 +30,7 @@ import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -69,6 +70,7 @@ fun FunctionButtons(
     onGamepadStyleChanged: (GamepadStyle) -> Unit,
     onGamepadSizeChanged: (GamepadSize) -> Unit,
     onGamepadColorThemeChanged: (GamepadColorTheme) -> Unit,
+    onGamepadDismissed: () -> Unit,
 ) {
     var expanded by remember { mutableStateOf(false) }
     val theme = LocalGamepadTheme.current
@@ -95,10 +97,11 @@ fun FunctionButtons(
     }
     if (expanded) {
         GamepadSettingsDialog(
-            onGamepadStyleChanged,
-            onGamepadSizeChanged,
-            onGamepadColorThemeChanged,
-            { expanded = false },
+            onGamepadStyleChanged = onGamepadStyleChanged,
+            onGamepadSizeChanged = onGamepadSizeChanged,
+            onGamepadColorThemeChanged = onGamepadColorThemeChanged,
+            onGamepadDismissed = onGamepadDismissed,
+            onDismissRequest = { expanded = false },
         )
     }
 }
@@ -108,6 +111,7 @@ fun GamepadSettingsDialog(
     onGamepadStyleChanged: (GamepadStyle) -> Unit,
     onGamepadSizeChanged: (GamepadSize) -> Unit,
     onGamepadColorThemeChanged: (GamepadColorTheme) -> Unit,
+    onGamepadDismissed: () -> Unit,
     onDismissRequest: () -> Unit,
 ) {
     Dialog(onDismissRequest = onDismissRequest) {
@@ -136,6 +140,9 @@ fun GamepadSettingsDialog(
                 )
 
                 GamepadColorThemeSelector(onGamepadColorThemeChanged)
+                Button(onClick = onGamepadDismissed) {
+                    Text(text = "dismiss") // TODO style the button.
+                }
             }
         }
     }
@@ -262,6 +269,6 @@ fun ThemeSelectionRow(onOptionSelected: (Int) -> Unit, options: List<String>, se
 @Composable
 fun FunctionButtonsPreview() {
     VirtualGamepadTheme {
-        FunctionButtons(Modifier.width(300.dp).height(70.dp), { _ -> }, { _ -> }, { _ -> })
+        FunctionButtons(Modifier.width(300.dp).height(70.dp), { _ -> }, { _ -> }, { _ -> }, {})
     }
 }
