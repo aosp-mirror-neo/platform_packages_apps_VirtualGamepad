@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+     Copyright 2025 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name" msgid="6035193027151394210">"VirtualGamepad"</string>
+    <string name="gamepad_style" msgid="6814376412969877836">"ગેમપૅડની શૈલી"</string>
+    <string name="gamepad_theme" msgid="4664131014688907933">"થીમ"</string>
+  <string-array name="gamepad_theme_items">
+    <item msgid="5695899714886455695">"લાઇટ"</item>
+    <item msgid="5463289076002941503">"ડાર્ક"</item>
+  </string-array>
+    <string name="label_gamepad_style" msgid="1542718986571188995">"ગેમપૅડની શૈલી"</string>
+  <string-array name="gamepad_style_items">
+    <item msgid="812586061304147600">"ટ્વિન સ્ટિક, ઇનલાઇન"</item>
+    <item msgid="2842865123708624586">"ટ્વિન સ્ટિક, સ્ટૅગર્ડ"</item>
+  </string-array>
+    <string name="label_gamepad_size" msgid="622658226522409740">"કદ"</string>
+  <string-array name="gamepad_size_items">
+    <item msgid="7537897267679330793">"નાનું"</item>
+    <item msgid="4729939113023531137">"મધ્યમ"</item>
+    <item msgid="2035206024988565350">"મોટું"</item>
+  </string-array>
+    <string name="description_mode_button" msgid="134098723734776016">"મોડ બટન"</string>
+    <string name="description_joystick" msgid="5882281515287638189">"જૉયસ્ટિક"</string>
+</resources>
