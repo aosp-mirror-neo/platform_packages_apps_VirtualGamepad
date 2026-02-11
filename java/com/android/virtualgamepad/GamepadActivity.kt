@@ -16,6 +16,9 @@
 
 package com.android.virtualgamepad
 
+import android.app.AppGlobals
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.InputDevice
@@ -25,6 +28,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.compositionLocalOf
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import com.android.virtualgamepad.backend.LocalGamepadBackend
 import com.android.virtualgamepad.backend.SettingsRepo
@@ -37,6 +41,10 @@ val LocalGamepadState = compositionLocalOf<GamepadState?> { null }
 
 class GamepadActivity : ComponentActivity() {
     val gamepadBackend = LocalGamepadBackend()
+
+    // The caller package name provided by the app process. Note that this should NOT be used for
+    // anything that has security implications.
+    var callerPackageName: String? = null
     lateinit var gamepadState: GamepadState
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,18 +56,18 @@ class GamepadActivity : ComponentActivity() {
             } else {
                 GamepadTheme.MEDIUM_LIGHT
             }
+        callerPackageName = intent.getStringExtra(Intent.EXTRA_PACKAGE_NAME)
         gamepadState = GamepadState(gamepadBackend)
         setContent {
             val settingsRepo = SettingsRepo(defaultTheme, getPreferences(MODE_PRIVATE))
             LocalView.current.requestUnbufferedDispatch(InputDevice.SOURCE_TOUCHSCREEN)
+            val userId = LocalContext.current.userId
             VirtualGamepadTheme {
                 CompositionLocalProvider(LocalGamepadState provides gamepadState) {
                     Gamepad(
                         settingsRepo.getGamepadTheme(),
                         settingsRepo::setGamepadTheme,
-                        {
-                            // TODO(b/479289676) Dismiss the gamepad.
-                        },
+                        this::dismissGamepad,
                     )
                 }
             }
@@ -77,8 +85,34 @@ class GamepadActivity : ComponentActivity() {
         gamepadBackend.connect(this)
     }
 
+    override fun onResume() {
+        super.onResume()
+        // If the user opts out while the app is running, finish the gamepad activity.
+        // Note that the app needs to be restarted if the user opts in.
+        if (isGamepadDismissed()) {
+            finish()
+        }
+    }
+
     override fun onStop() {
         super.onStop()
         gamepadBackend.disconnect()
     }
+
+    fun dismissGamepad() {
+        callerPackageName?.let { callerPackageName ->
+            AppGlobals.getPackageManager()
+                .setVirtualGamepadUserOption(
+                    callerPackageName,
+                    userId,
+                    PackageManager.VIRTUAL_GAMEPAD_USER_OPTION_OPT_OUT,
+                )
+        }
+        finish()
+    }
+
+    fun isGamepadDismissed(): Boolean =
+        callerPackageName != null &&
+            AppGlobals.getPackageManager().getVirtualGamepadUserOption(callerPackageName, userId) ==
+                PackageManager.VIRTUAL_GAMEPAD_USER_OPTION_OPT_OUT
 }
