@@ -24,7 +24,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
@@ -67,6 +66,8 @@ fun Gamepad(
     val context = LocalContext.current
     val sharedPref = (context as? Activity)?.getPreferences(Context.MODE_PRIVATE)
     val layoutEditor = remember { LayoutEditor().also { it.load(sharedPref) } }
+    val gamepadLayoutSpec = GamepadLayoutSpec(gamepadTheme)
+    val screenWidthDp = LocalConfiguration.current.screenWidthDp
 
     CompositionLocalProvider(
         LocalGamepadTheme provides gamepadTheme,
@@ -75,7 +76,9 @@ fun Gamepad(
         Box(modifier = Modifier.fillMaxSize()) {
             GamepadBackground()
             FunctionButtonPanel(
-                modifier = Modifier.align(Alignment.TopCenter),
+                modifier =
+                    Modifier.align(Alignment.TopCenter)
+                        .padding(top = gamepadLayoutSpec.getTopFunctionMargin(screenWidthDp).dp),
                 onGamepadThemeChanged = { newGamepadTheme ->
                     gamepadTheme = newGamepadTheme
                     onGamepadThemeChanged(newGamepadTheme)
@@ -99,16 +102,11 @@ fun FunctionButtonPanel(
 ) {
     val screenWidthDp = LocalConfiguration.current.screenWidthDp
     val gamepadTheme = LocalGamepadTheme.current
+    val gamepadLayoutSpec = GamepadLayoutSpec(gamepadTheme)
 
-    val roundButtonSize = gamepadTheme.getRoundButtonSize(screenWidthDp)
-    val offsetFunctionButtons = gamepadTheme.getOffsetFunctionButtons(screenWidthDp)
+    val roundButtonSize = gamepadLayoutSpec.getRoundButtonSize(screenWidthDp)
     FunctionButtons(
-        modifier =
-            modifier
-                .fillMaxWidth()
-                .height(roundButtonSize.dp)
-                .padding(start = offsetFunctionButtons.x.dp, end = offsetFunctionButtons.x.dp)
-                .offset(y = offsetFunctionButtons.y.dp),
+        modifier = modifier.fillMaxWidth().height(roundButtonSize.dp),
         onGamepadStyleChanged = { style ->
             onGamepadThemeChanged(gamepadTheme.copy(style = style))
         },
@@ -127,16 +125,20 @@ fun LeftControlPanel(modifier: Modifier) {
     val gamepadTheme = LocalGamepadTheme.current
 
     val layoutSpec = GamepadLayoutSpec(gamepadTheme)
-    val joystickBox = layoutSpec.computeJoystickBoxSize()
+    val screenWidthDp = LocalConfiguration.current.screenWidthDp
 
-    val constraints = layoutSpec.computeLeftPanelConstraintSet()
+    val joystickBox = layoutSpec.computeJoystickBoxSize(screenWidthDp)
+    val constraints = layoutSpec.computeLeftPanelConstraintSet(screenWidthDp = screenWidthDp)
 
     ConstraintLayout(constraintSet = constraints, modifier = modifier.fillMaxSize()) {
-        val screenWidthDp = LocalConfiguration.current.screenWidthDp
         val screenHeightDp = LocalConfiguration.current.screenHeightDp
         PanelBackground(
             modifier = Modifier.fillMaxSize().layoutId(GamepadLayoutSpec.leftPanelBackgroundId),
-            rounding = layoutSpec.computeJoystickRadiusUnitCoordinateSystem(screenHeightDp),
+            rounding =
+                layoutSpec.computeJoystickRadiusUnitCoordinateSystem(
+                    screenWidthDp = screenWidthDp,
+                    screenHeightDp = screenHeightDp,
+                ),
             isPointOnRight = true,
             cornerX = layoutSpec.computePanelCornerXPosition(screenWidthDp = screenWidthDp),
             cornerY = layoutSpec.computeCornerYPosition(screenHeightDp),
@@ -182,19 +184,22 @@ fun RightControlPanel(modifier: Modifier) {
 
     val screenWidthDp = LocalConfiguration.current.screenWidthDp
     val gamepadTheme = LocalGamepadTheme.current
-
-    val joystickBox = gamepadTheme.getJoystickBox(screenWidthDp)
-
     val layoutSpec = GamepadLayoutSpec(gamepadTheme)
 
-    val constraintSet = layoutSpec.computeRightPanelConstraintSet()
+    val joystickBox = layoutSpec.computeJoystickBoxSize(screenWidthDp)
+
+    val constraintSet = layoutSpec.computeRightPanelConstraintSet(screenWidthDp)
 
     ConstraintLayout(constraintSet = constraintSet, modifier = modifier.fillMaxSize()) {
         val screenWidthDp = LocalConfiguration.current.screenWidthDp
         val screenHeightDp = LocalConfiguration.current.screenHeightDp
         PanelBackground(
             modifier = Modifier.fillMaxSize().layoutId(GamepadLayoutSpec.rightPanelBackgroundId),
-            rounding = layoutSpec.computeJoystickRadiusUnitCoordinateSystem(screenHeightDp),
+            rounding =
+                layoutSpec.computeJoystickRadiusUnitCoordinateSystem(
+                    screenWidthDp = screenWidthDp,
+                    screenHeightDp = screenHeightDp,
+                ),
             isPointOnRight = false,
             cornerX = layoutSpec.computePanelCornerXPosition(screenWidthDp = screenWidthDp),
             cornerY = layoutSpec.computeCornerYPosition(screenHeightDp),

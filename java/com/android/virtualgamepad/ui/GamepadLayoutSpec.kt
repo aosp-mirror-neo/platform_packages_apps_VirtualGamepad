@@ -17,6 +17,7 @@
 package com.android.virtualgamepad.ui
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.constraintlayout.compose.Dimension
@@ -31,68 +32,77 @@ import com.android.virtualgamepad.ui.theme.GamepadTheme
  */
 class GamepadLayoutSpec(private val gamepadTheme: GamepadTheme) {
 
-    private fun getRoundButtonSize() =
+    /**
+     * Returns a unit to establish a coordinate system for the UI components without having large
+     * scales. This is the size of the small round button. This helps place components when the size
+     * of the screen is too small. As an example, instead of placing the joystick 100dp from the
+     * left edge on a small screen it would be around 2 units away.
+     */
+    private fun getUnitSize(screenWidthDp: Int): Int = 56.adjust(screenWidthDp)
+
+    fun getFunctionButtonWidth(screenWidthDp: Int) = 72.adjust(screenWidthDp)
+
+    fun getFunctionButtonHeight(screenWidthDp: Int) = 48.adjust(screenWidthDp)
+
+    fun getRoundButtonSize(screenWidthDp: Int) =
         when (gamepadTheme.size) {
             GamepadSize.LARGE -> 70
             GamepadSize.MEDIUM -> 60
             GamepadSize.SMALL -> 56
-        }
+        }.adjust(screenWidthDp)
 
-    private fun getShoulderButtonSize() =
+    fun getTopFunctionMargin(screenWidthDp: Int) = 32.adjust(screenWidthDp)
+
+    private fun getShoulderButtonSize(screenWidthDp: Int) =
         when (gamepadTheme.size) {
             GamepadSize.LARGE -> 80
             GamepadSize.MEDIUM -> 76
             GamepadSize.SMALL -> 66
-        }
+        }.adjust(screenWidthDp)
 
-    private fun getLeftMargin() =
+    private fun getLeftMargin(screenWidthDp: Int) =
         when (gamepadTheme.size) {
             GamepadSize.LARGE -> 20
             GamepadSize.MEDIUM -> 30
             GamepadSize.SMALL -> 30
-        }
+        }.adjust(screenWidthDp)
 
-    private fun getLeftMarginInverted() =
-        when (gamepadTheme.size) {
-            GamepadSize.LARGE -> 16
-            GamepadSize.MEDIUM -> 16
-            GamepadSize.SMALL -> 16
-        }
+    private fun getLeftMarginInverted(screenWidthDp: Int) = 16.adjust(screenWidthDp)
 
-    private fun getBottomMarginInverted() =
+    private fun getBottomMarginInverted(screenWidthDp: Int) =
         when (gamepadTheme.size) {
             GamepadSize.LARGE -> 160
             GamepadSize.MEDIUM -> 150
             GamepadSize.SMALL -> 150
-        }
+        }.adjust(screenWidthDp)
 
-    private fun getRightMargin() =
+    private fun getRightMargin(screenWidthDp: Int) =
         when (gamepadTheme.size) {
             GamepadSize.LARGE -> 20
             GamepadSize.MEDIUM -> 30
             GamepadSize.SMALL -> 30
-        }
+        }.adjust(screenWidthDp)
 
-    private fun getBottomMargin() =
+    private fun getBottomMargin(screenWidthDp: Int) =
         when (gamepadTheme.size) {
             GamepadSize.LARGE -> 110
             GamepadSize.MEDIUM -> 135
             GamepadSize.SMALL -> 135
-        }
+        }.adjust(screenWidthDp)
 
-    private fun getShoulderMargin() =
+    private fun getShoulderMargin(screenWidthDp: Int) =
         when (gamepadTheme.size) {
             GamepadSize.LARGE -> 70
             GamepadSize.MEDIUM -> 50
             GamepadSize.SMALL -> 48
-        }
+        }.adjust(screenWidthDp)
 
-    private fun getShoulderMarginInverted() =
+    private fun getShoulderMarginInverted(screenWidthDp: Int) =
         when (gamepadTheme.size) {
             GamepadSize.LARGE -> 70
             GamepadSize.MEDIUM -> 50
             GamepadSize.SMALL -> 48
-        }
+        }.adjust(screenWidthDp)
 
     /**
      * Approximates the radius of the joystick in a unit coordinate system. The gamepad is expected
@@ -101,8 +111,8 @@ class GamepadLayoutSpec(private val gamepadTheme: GamepadTheme) {
      *
      * @param screenHeightDp the height of the view in dp.
      */
-    fun computeJoystickRadiusUnitCoordinateSystem(screenHeightDp: Int): Float {
-        val joystickRadius = computeJoystickBoxSize()
+    fun computeJoystickRadiusUnitCoordinateSystem(screenWidthDp: Int, screenHeightDp: Int): Float {
+        val joystickRadius = computeJoystickBoxSize(screenWidthDp)
         val panelHeight = screenHeightDp.toFloat()
         return joystickRadius / panelHeight
     }
@@ -114,15 +124,18 @@ class GamepadLayoutSpec(private val gamepadTheme: GamepadTheme) {
      * @param screenWidthDp the width of the panel in dp.
      */
     fun computePanelCornerXPosition(screenWidthDp: Int): Float {
-        val panelWidth = (screenWidthDp - gamepadTheme.getLeftRightSpacerWidth()) / 2f
-        val leftMargin =
+        val unit = getUnitSize(screenWidthDp)
+        // Since the units are normalized we can use a constant.
+        val multiplier =
             when (gamepadTheme.size) {
-                GamepadSize.LARGE -> panelWidth + 40
-                GamepadSize.MEDIUM -> panelWidth + 10
-                GamepadSize.SMALL -> panelWidth
-            }
-        val offset = (leftMargin) / panelWidth
-        val normalizedOffset = 2 * offset - 1
+                GamepadSize.LARGE -> 8f
+                GamepadSize.MEDIUM,
+                GamepadSize.SMALL -> 7.4f
+            }.adjust(screenWidthDp)
+        val offset = multiplier * unit
+        val panelWidth = ((screenWidthDp - gamepadTheme.getLeftRightSpacerWidth()) / 2f)
+        val unitOffset = offset / panelWidth.adjust(screenWidthDp)
+        val normalizedOffset = 2 * unitOffset - 1
         return normalizedOffset
     }
 
@@ -133,57 +146,67 @@ class GamepadLayoutSpec(private val gamepadTheme: GamepadTheme) {
      * @param screenHeightDp the height of the panel in dp.
      */
     fun computeCornerYPosition(screenHeightDp: Int): Float {
-        val bottomMargin =
-            when (gamepadTheme.size) {
-                GamepadSize.LARGE -> 160f
-                GamepadSize.MEDIUM -> 155f
-                GamepadSize.SMALL -> 150f
-            }
-        val offset = (screenHeightDp - bottomMargin) / screenHeightDp
-        val normalizedOffset = 2 * offset - 1
+        val unit = getUnitSize(screenHeightDp)
+        // Since the coordinates are normalized we can use a constant.
+        val multiplier = 11f.adjustHeight(screenHeightDp)
+
+        val offset = multiplier * unit
+        val unitOffset = offset / screenHeightDp.toFloat().adjustHeight(screenHeightDp)
+        val normalizedOffset = 2 * unitOffset - 1
         return normalizedOffset
     }
 
-    fun computeJoystickBoxSize(): Int {
-        return when (gamepadTheme.size) {
-            GamepadSize.LARGE -> 156
-            GamepadSize.MEDIUM -> 156
-            GamepadSize.SMALL -> 156
-        }
+    fun computeJoystickBoxSize(screenWidthDp: Int): Int {
+        return 156.adjust(screenWidthDp)
+    }
+
+    fun computeJoystickSize(screenWidthDp: Int): Int {
+        return 128.adjust(screenWidthDp)
+    }
+
+    fun componentMargin(screenWidthDp: Int): Int {
+        return 8.adjust(screenWidthDp)
     }
 
     @Composable
-    fun computeLeftPanelConstraintSet(): ConstraintSet {
+    fun computeLeftPanelConstraintSet(screenWidthDp: Int): ConstraintSet {
         return when (gamepadTheme.style) {
-            GamepadStyle.INLINE -> computeInlineLeftPanelConstraintSet()
-            GamepadStyle.INVERTED -> computeInvertedLeftPanelConstraintSet()
+            GamepadStyle.INLINE -> {
+                computeInlineLeftPanelConstraintSet(screenWidthDp = screenWidthDp)
+            }
+            GamepadStyle.INVERTED -> {
+                computeInvertedLeftPanelConstraintSet(screenWidthDp = screenWidthDp)
+            }
         }
     }
 
-    private fun computeInvertedLeftPanelConstraintSet(): ConstraintSet {
+    private fun computeInvertedLeftPanelConstraintSet(screenWidthDp: Int): ConstraintSet {
         return ConstraintSet {
             val dpadUpRef = createRefFor(dpadUpId)
             val dpadLeftRef = createRefFor(dpadLeftId)
             val dpadRightRef = createRefFor(dpadRightId)
             val dpadDownRef = createRefFor(dpadDownId)
-            val buttonSize = getRoundButtonSize()
+            val buttonSize = getRoundButtonSize(screenWidthDp = screenWidthDp)
 
             val l1 = createRefFor(l1Id)
             val l2 = createRefFor(l2Id)
             val l3 = createRefFor(l3Id)
-            val shoulderSize = getShoulderButtonSize()
+            val shoulderSize = getShoulderButtonSize(screenWidthDp)
 
             val joystick = createRefFor(leftJoystickId)
 
             val leftPanelBackground = createRefFor(leftPanelBackgroundId)
 
             constrain(joystick) {
-                absoluteLeft.linkTo(parent.absoluteLeft, margin = getLeftMarginInverted().dp)
-                bottom.linkTo(parent.bottom, margin = getBottomMarginInverted().dp)
+                absoluteLeft.linkTo(
+                    parent.absoluteLeft,
+                    margin = getLeftMarginInverted(screenWidthDp).dp,
+                )
+                bottom.linkTo(parent.bottom, margin = getBottomMarginInverted(screenWidthDp).dp)
             }
 
             constrain(dpadLeftRef) {
-                top.linkTo(joystick.bottom, margin = 8.dp)
+                top.linkTo(joystick.bottom, margin = componentMargin(screenWidthDp).dp)
                 absoluteRight.linkTo(joystick.absoluteRight)
                 width = Dimension.value(buttonSize.dp)
                 height = Dimension.value(buttonSize.dp)
@@ -209,14 +232,17 @@ class GamepadLayoutSpec(private val gamepadTheme: GamepadTheme) {
             constrain(l1) {
                 absoluteLeft.linkTo(dpadUpRef.absoluteLeft)
                 absoluteRight.linkTo(dpadUpRef.absoluteRight)
-                bottom.linkTo(dpadUpRef.top, margin = getShoulderMarginInverted().dp)
+                bottom.linkTo(dpadUpRef.top, margin = getShoulderMarginInverted(screenWidthDp).dp)
                 width = Dimension.value(shoulderSize.dp)
                 height = Dimension.value(shoulderSize.dp)
             }
             constrain(l2) {
                 absoluteLeft.linkTo(dpadRightRef.absoluteLeft)
                 absoluteRight.linkTo(dpadRightRef.absoluteRight)
-                bottom.linkTo(dpadRightRef.top, margin = getShoulderMarginInverted().dp)
+                bottom.linkTo(
+                    dpadRightRef.top,
+                    margin = getShoulderMarginInverted(screenWidthDp).dp,
+                )
                 width = Dimension.value(shoulderSize.dp)
                 height = Dimension.value(shoulderSize.dp)
             }
@@ -233,31 +259,31 @@ class GamepadLayoutSpec(private val gamepadTheme: GamepadTheme) {
         }
     }
 
-    private fun computeInlineLeftPanelConstraintSet(): ConstraintSet {
+    private fun computeInlineLeftPanelConstraintSet(screenWidthDp: Int): ConstraintSet {
         return ConstraintSet {
             val dpadUpRef = createRefFor(dpadUpId)
             val dpadLeftRef = createRefFor(dpadLeftId)
             val dpadRightRef = createRefFor(dpadRightId)
             val dpadDownRef = createRefFor(dpadDownId)
-            val buttonSize = getRoundButtonSize()
+            val buttonSize = getRoundButtonSize(screenWidthDp = screenWidthDp)
 
             val l1 = createRefFor(l1Id)
             val l2 = createRefFor(l2Id)
             val l3 = createRefFor(l3Id)
-            val shoulderSize = getShoulderButtonSize()
+            val shoulderSize = getShoulderButtonSize(screenWidthDp)
 
             val joystick = createRefFor(leftJoystickId)
 
             val leftPanelBackground = createRefFor(leftPanelBackgroundId)
 
             constrain(dpadLeftRef) {
-                absoluteLeft.linkTo(parent.absoluteLeft, margin = getLeftMargin().dp)
+                absoluteLeft.linkTo(parent.absoluteLeft, margin = getLeftMargin(screenWidthDp).dp)
                 bottom.linkTo(dpadDownRef.top)
                 width = Dimension.value(buttonSize.dp)
                 height = Dimension.value(buttonSize.dp)
             }
             constrain(dpadDownRef) {
-                bottom.linkTo(parent.bottom, margin = getBottomMargin().dp)
+                bottom.linkTo(parent.bottom, margin = getBottomMargin(screenWidthDp).dp)
                 absoluteLeft.linkTo(dpadLeftRef.absoluteRight)
                 width = Dimension.value(buttonSize.dp)
                 height = Dimension.value(buttonSize.dp)
@@ -277,14 +303,17 @@ class GamepadLayoutSpec(private val gamepadTheme: GamepadTheme) {
             constrain(l1) {
                 absoluteLeft.linkTo(dpadRightRef.absoluteLeft)
                 absoluteRight.linkTo(dpadRightRef.absoluteRight)
-                bottom.linkTo(dpadRightRef.top, margin = getShoulderMargin().dp)
+                bottom.linkTo(dpadRightRef.top, margin = getShoulderMargin(screenWidthDp).dp)
                 width = Dimension.value(shoulderSize.dp)
                 height = Dimension.value(shoulderSize.dp)
             }
             constrain(l2) {
                 top.linkTo(dpadUpRef.top)
                 bottom.linkTo(dpadUpRef.bottom)
-                absoluteLeft.linkTo(dpadUpRef.absoluteRight, margin = getShoulderMargin().dp)
+                absoluteLeft.linkTo(
+                    dpadUpRef.absoluteRight,
+                    margin = getShoulderMargin(screenWidthDp).dp,
+                )
                 width = Dimension.value(shoulderSize.dp)
                 height = Dimension.value(shoulderSize.dp)
             }
@@ -295,8 +324,11 @@ class GamepadLayoutSpec(private val gamepadTheme: GamepadTheme) {
                 height = Dimension.value(buttonSize.dp)
             }
             constrain(joystick) {
-                absoluteLeft.linkTo(dpadRightRef.absoluteRight, margin = 8.dp)
-                top.linkTo(l2.bottom, margin = 8.dp)
+                absoluteLeft.linkTo(
+                    dpadRightRef.absoluteRight,
+                    margin = componentMargin(screenWidthDp).dp,
+                )
+                top.linkTo(l2.bottom, margin = componentMargin(screenWidthDp).dp)
             }
             constrain(leftPanelBackground) {
                 absoluteLeft.linkTo(parent.absoluteLeft)
@@ -308,31 +340,34 @@ class GamepadLayoutSpec(private val gamepadTheme: GamepadTheme) {
     }
 
     @Composable
-    fun computeRightPanelConstraintSet(): ConstraintSet {
+    fun computeRightPanelConstraintSet(screenWidthDp: Int): ConstraintSet {
         return ConstraintSet {
             val faceButtonA = createRefFor(faceButtonAId)
             val faceButtonB = createRefFor(faceButtonBId)
             val faceButtonX = createRefFor(faceButtonXId)
             val faceButtonY = createRefFor(faceButtonYId)
-            val buttonSize = getRoundButtonSize()
+            val buttonSize = getRoundButtonSize(screenWidthDp)
 
             val r1 = createRefFor(r1Id)
             val r2 = createRefFor(r2Id)
             val r3 = createRefFor(r3Id)
-            val shoulderSize = getShoulderButtonSize()
+            val shoulderSize = getShoulderButtonSize(screenWidthDp)
 
             val joystick = createRefFor(rightJoystickId)
 
             val rightPanelBackground = createRefFor(rightPanelBackgroundId)
 
             constrain(faceButtonB) {
-                absoluteRight.linkTo(parent.absoluteRight, margin = getRightMargin().dp)
+                absoluteRight.linkTo(
+                    parent.absoluteRight,
+                    margin = getRightMargin(screenWidthDp).dp,
+                )
                 bottom.linkTo(faceButtonA.top)
                 width = Dimension.value(buttonSize.dp)
                 height = Dimension.value(buttonSize.dp)
             }
             constrain(faceButtonA) {
-                bottom.linkTo(parent.bottom, margin = getBottomMargin().dp)
+                bottom.linkTo(parent.bottom, margin = getBottomMargin(screenWidthDp).dp)
                 absoluteRight.linkTo(faceButtonB.absoluteLeft)
                 width = Dimension.value(buttonSize.dp)
                 height = Dimension.value(buttonSize.dp)
@@ -352,14 +387,17 @@ class GamepadLayoutSpec(private val gamepadTheme: GamepadTheme) {
             constrain(r1) {
                 absoluteRight.linkTo(faceButtonX.absoluteRight)
                 absoluteLeft.linkTo(faceButtonX.absoluteLeft)
-                bottom.linkTo(faceButtonX.top, margin = getShoulderMargin().dp)
+                bottom.linkTo(faceButtonX.top, margin = getShoulderMargin(screenWidthDp).dp)
                 width = Dimension.value(shoulderSize.dp)
                 height = Dimension.value(shoulderSize.dp)
             }
             constrain(r2) {
                 top.linkTo(faceButtonY.top)
                 bottom.linkTo(faceButtonY.bottom)
-                absoluteRight.linkTo(faceButtonY.absoluteLeft, margin = getShoulderMargin().dp)
+                absoluteRight.linkTo(
+                    faceButtonY.absoluteLeft,
+                    margin = getShoulderMargin(screenWidthDp).dp,
+                )
                 width = Dimension.value(shoulderSize.dp)
                 height = Dimension.value(shoulderSize.dp)
             }
@@ -370,8 +408,11 @@ class GamepadLayoutSpec(private val gamepadTheme: GamepadTheme) {
                 height = Dimension.value(buttonSize.dp)
             }
             constrain(joystick) {
-                absoluteRight.linkTo(faceButtonX.absoluteLeft, margin = 8.dp)
-                top.linkTo(r2.bottom, margin = 8.dp)
+                absoluteRight.linkTo(
+                    faceButtonX.absoluteLeft,
+                    margin = componentMargin(screenWidthDp).dp,
+                )
+                top.linkTo(r2.bottom, margin = componentMargin(screenWidthDp).dp)
             }
             constrain(rightPanelBackground) {
                 absoluteLeft.linkTo(parent.absoluteLeft)
@@ -380,6 +421,44 @@ class GamepadLayoutSpec(private val gamepadTheme: GamepadTheme) {
                 bottom.linkTo(parent.bottom)
             }
         }
+    }
+
+    // The design is based the width of 883dp. If the width is smaller, UI needs to be scaled.
+    /**
+     * Scales the value if the width is smaller than [widthDpBase]. The designs are based on a width
+     * of 883dp. If the width is smaller, UI components may not fit properly so we scale them.
+     */
+    private fun Int.adjust(screenWidthDp: Int): Int {
+        if (screenWidthDp >= widthDpBase) return this
+        return this * screenWidthDp / widthDpBase
+    }
+
+    /**
+     * Scales the value if the height is smaller than [heightDpBase]. The designs are based on a
+     * height of 426dp. If the height is smaller, UI components may not fit properly so we scale
+     * them. This is primarily for scaling vertical margins and padding.
+     */
+    private fun Float.adjustHeight(screenHeightDp: Int): Float {
+        if (screenHeightDp >= heightDpBase) return this
+        return this * screenHeightDp / heightDpBase
+    }
+
+    /**
+     * Scales the value if the width is smaller than [widthDpBase]. The designs are based on a width
+     * of 883dp. If the width is smaller, UI components may not fit properly so we scale them.
+     */
+    private fun Float.adjust(screenWidthDp: Int): Float {
+        if (screenWidthDp >= widthDpBase) return this
+        return this * screenWidthDp / widthDpBase
+    }
+
+    /**
+     * Scales the value if the width is smaller than [widthDpBase]. The designs are based on a width
+     * of 883dp. If the width is smaller, UI components may not fit properly so we scale them.
+     */
+    private fun IntOffset.adjust(screenWidthDp: Int): IntOffset {
+        if (screenWidthDp >= widthDpBase) return this
+        return this * screenWidthDp.toFloat() / widthDpBase.toFloat()
     }
 
     companion object {
@@ -401,5 +480,17 @@ class GamepadLayoutSpec(private val gamepadTheme: GamepadTheme) {
         const val leftJoystickId = "leftJoystick"
         const val leftPanelBackgroundId = "leftPanelBackground"
         const val rightPanelBackgroundId = "rightPanelBackground"
+
+        /**
+         * The base width used to compute the scaling factor for different display sizes. The user
+         * may adjust the display size in settings so we must account for that.
+         */
+        private const val widthDpBase = 883
+
+        /**
+         * The base height used to compute the scaling factor for different display sizes. The user
+         * may adjust the display size in settings so we must account for that.
+         */
+        private const val heightDpBase = 426
     }
 }

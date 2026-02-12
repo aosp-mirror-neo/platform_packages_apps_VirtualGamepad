@@ -42,6 +42,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.android.virtualgamepad.LocalGamepadState
 import com.android.virtualgamepad.R
+import com.android.virtualgamepad.ui.GamepadLayoutSpec
 import com.android.virtualgamepad.ui.LocalGamepadTheme
 import com.android.virtualgamepad.ui.LocalLayoutEditor
 import com.android.virtualgamepad.ui.theme.VirtualGamepadTheme
@@ -72,9 +73,10 @@ private fun Joystick(modifier: Modifier = Modifier, joystickType: JoystickType) 
 
     val density = with(LocalDensity.current) { 1.dp.toPx() }
     val screenWidthDp = LocalConfiguration.current.screenWidthDp
+    val layoutSpec = GamepadLayoutSpec(theme)
 
-    val joystickBox = theme.getJoystickBox(screenWidthDp)
-    val joystickSize = theme.getJoystickSize()
+    val joystickBox = layoutSpec.computeJoystickBoxSize(screenWidthDp)
+    val joystickSize = layoutSpec.computeJoystickSize(screenWidthDp)
     val joystickRes = theme.getJoystickResource()
 
     val boxSizePx = with(LocalDensity.current) { joystickBox.dp.toPx() }

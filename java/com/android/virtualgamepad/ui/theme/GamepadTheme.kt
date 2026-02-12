@@ -17,7 +17,6 @@
 package com.android.virtualgamepad.ui.theme
 
 import android.annotation.DrawableRes
-import androidx.compose.ui.unit.IntOffset
 import com.android.virtualgamepad.R
 import com.android.virtualgamepad.model.GameButtonType
 
@@ -37,9 +36,6 @@ enum class GamepadStyle {
     INVERTED,
 }
 
-// The design is based on the width of 883dp. If the width is smaller, UI needs to be scaled.
-private const val sizeBase = 883
-
 class GamepadTheme(
     val size: GamepadSize = GamepadSize.MEDIUM,
     val style: GamepadStyle = GamepadStyle.INLINE,
@@ -52,66 +48,7 @@ class GamepadTheme(
         colorTheme: GamepadColorTheme = this.colorTheme,
     ): GamepadTheme = GamepadTheme(size, style, colorTheme)
 
-    // The design is based the width of 883dp. If the width is smaller, UI needs to be scaled.
-    private fun Int.adjust(screenWidthDp: Int): Int {
-        if (screenWidthDp >= sizeBase) return this
-        return this * screenWidthDp / sizeBase
-    }
-
-    private fun Float.adjust(screenWidthDp: Int): Float {
-        if (screenWidthDp >= sizeBase) return this
-        return this * screenWidthDp / sizeBase
-    }
-
-    private fun IntOffset.adjust(screenWidthDp: Int): IntOffset {
-        if (screenWidthDp >= sizeBase) return this
-        return this * screenWidthDp.toFloat() / sizeBase.toFloat()
-    }
-
-    fun getRoundButtonSize(screenWidthDp: Int) =
-        when (size) {
-            GamepadSize.LARGE -> 70
-            GamepadSize.MEDIUM -> 60
-            GamepadSize.SMALL -> 56
-        }.adjust(screenWidthDp)
-
     fun getLeftRightSpacerWidth() = 32
-
-    fun getFunctionButtonWidth(screenWidthDp: Int) =
-        when (size) {
-            GamepadSize.LARGE -> 72
-            GamepadSize.MEDIUM -> 72
-            GamepadSize.SMALL -> 72
-        }.adjust(screenWidthDp)
-
-    fun getFunctionButtonHeight(screenWidthDp: Int) =
-        when (size) {
-            GamepadSize.LARGE -> 48
-            GamepadSize.MEDIUM -> 48
-            GamepadSize.SMALL -> 48
-        }.adjust(screenWidthDp)
-
-    fun getOffsetFunctionButtons(screenWidthDp: Int) =
-        when (size) {
-            GamepadSize.LARGE -> IntOffset(x = 295, y = 44)
-            GamepadSize.MEDIUM -> IntOffset(x = 295, y = 44)
-            GamepadSize.SMALL -> IntOffset(x = 295, y = 54)
-        }.adjust(screenWidthDp)
-
-    fun getJoystickBox(screenWidthDp: Int) =
-        when (size) {
-            GamepadSize.LARGE -> 156
-            GamepadSize.MEDIUM -> 156
-            GamepadSize.SMALL -> 156
-        }
-
-    fun getJoystickSize(): Int {
-        return when (size) {
-            GamepadSize.LARGE -> 128
-            GamepadSize.MEDIUM -> 128
-            GamepadSize.SMALL -> 128
-        }
-    }
 
     val backgroundColor =
         when (colorTheme) {
