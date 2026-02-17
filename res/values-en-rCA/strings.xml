@@ -18,13 +18,13 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name" msgid="6035193027151394210">"VirtualGamepad"</string>
-    <string name="gamepad_style" msgid="6814376412969877836">"Gamepad Style"</string>
+    <string name="gamepad_style" msgid="6814376412969877836">"Gamepad style"</string>
     <string name="gamepad_theme" msgid="4664131014688907933">"Theme"</string>
   <string-array name="gamepad_theme_items">
     <item msgid="5695899714886455695">"Light"</item>
     <item msgid="5463289076002941503">"Dark"</item>
   </string-array>
-    <string name="label_gamepad_style" msgid="1542718986571188995">"Gamepad Style"</string>
+    <string name="label_gamepad_style" msgid="1542718986571188995">"Gamepad style"</string>
   <string-array name="gamepad_style_items">
     <item msgid="812586061304147600">"Twin stick, inline"</item>
     <item msgid="2842865123708624586">"Twin stick, staggered"</item>
