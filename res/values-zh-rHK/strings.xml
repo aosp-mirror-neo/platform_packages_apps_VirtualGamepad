@@ -18,16 +18,16 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name" msgid="6035193027151394210">"VirtualGamepad"</string>
-    <string name="gamepad_style" msgid="6814376412969877836">"遊戲手把樣式"</string>
+    <string name="gamepad_style" msgid="6814376412969877836">"遊戲手掣樣式"</string>
     <string name="gamepad_theme" msgid="4664131014688907933">"主題"</string>
   <string-array name="gamepad_theme_items">
     <item msgid="5695899714886455695">"淺色"</item>
     <item msgid="5463289076002941503">"深色"</item>
   </string-array>
-    <string name="label_gamepad_style" msgid="1542718986571188995">"遊戲手把樣式"</string>
+    <string name="label_gamepad_style" msgid="1542718986571188995">"遊戲手掣樣式"</string>
   <string-array name="gamepad_style_items">
-    <item msgid="812586061304147600">"並排雙搖桿"</item>
-    <item msgid="2842865123708624586">"偏移雙搖桿"</item>
+    <item msgid="812586061304147600">"雙搖桿，並列"</item>
+    <item msgid="2842865123708624586">"雙搖桿，斜列"</item>
   </string-array>
     <string name="label_gamepad_size" msgid="622658226522409740">"大小"</string>
   <string-array name="gamepad_size_items">
