@@ -16,6 +16,7 @@
 
 package com.android.virtualgamepad.ui.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -30,7 +31,7 @@ import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
-import androidx.compose.material3.Button
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Card
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -142,8 +143,19 @@ fun GamepadSettingsDialog(
                 )
 
                 GamepadColorThemeSelector(onGamepadColorThemeChanged)
-                Button(onClick = onGamepadDismissed) {
-                    Text(text = "dismiss") // TODO style the button.
+                Row(
+                    modifier =
+                        Modifier.padding(top = 8.dp, bottom = 8.dp).clickable {
+                            onGamepadDismissed()
+                        },
+                    horizontalArrangement = Arrangement.Start,
+                ) {
+                    Icon(
+                        modifier = Modifier.padding(start = 8.dp, end = 8.dp),
+                        imageVector = Icons.Filled.Close,
+                        contentDescription = stringResource(R.string.description_hide_gamepad),
+                    )
+                    Text(text = stringResource(R.string.hide_gamepad))
                 }
             }
         }
@@ -158,6 +170,7 @@ fun GamepadStyleSelector(onGamepadStyleSelected: (GamepadStyle) -> Unit) {
             onGamepadStyleSelected(style)
         },
         label = stringResource(R.string.label_gamepad_style),
+        description = stringResource(R.string.description_gamepad_style_selector),
         items = stringArrayResource(R.array.gamepad_style_items).toList(),
         selectionIndex = gamepadStyleIndex(LocalGamepadTheme.current.style),
     )
@@ -171,6 +184,7 @@ fun GamepadSizeSelector(onGamepadSizeSelected: (GamepadSize) -> Unit) {
             onGamepadSizeSelected(size)
         },
         label = stringResource(R.string.label_gamepad_size),
+        description = stringResource(R.string.description_gamepad_size_selector),
         items = stringArrayResource(R.array.gamepad_size_items).toList(),
         selectionIndex = gamepadSizeIndex(LocalGamepadTheme.current.size),
     )
@@ -192,6 +206,7 @@ fun GamepadColorThemeSelector(onGamepadColorThemeSelected: (GamepadColorTheme) -
 fun GamepadDropdownMenu(
     onItemSelected: (Int) -> Unit,
     label: String,
+    description: String,
     items: List<String>,
     selectionIndex: Int,
 ) {
@@ -207,7 +222,7 @@ fun GamepadDropdownMenu(
                 modifier = Modifier.weight(1f),
                 style = MaterialTheme.typography.bodyLarge,
             )
-            Icon(imageVector = Icons.Default.ArrowDropDown, contentDescription = "Dropdown Arrow")
+            Icon(imageVector = Icons.Default.ArrowDropDown, contentDescription = description)
         }
 
         // Stable DropdownMenu
