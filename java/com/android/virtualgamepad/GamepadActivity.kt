@@ -28,7 +28,6 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.compositionLocalOf
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import com.android.virtualgamepad.backend.LocalGamepadBackend
 import com.android.virtualgamepad.backend.SettingsRepo
@@ -61,7 +60,6 @@ class GamepadActivity : ComponentActivity() {
         setContent {
             val settingsRepo = SettingsRepo(defaultTheme, getPreferences(MODE_PRIVATE))
             LocalView.current.requestUnbufferedDispatch(InputDevice.SOURCE_TOUCHSCREEN)
-            val userId = LocalContext.current.userId
             VirtualGamepadTheme {
                 CompositionLocalProvider(LocalGamepadState provides gamepadState) {
                     Gamepad(

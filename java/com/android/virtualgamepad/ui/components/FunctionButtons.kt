@@ -55,6 +55,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.android.virtualgamepad.R
 import com.android.virtualgamepad.model.GameButtonType
+import com.android.virtualgamepad.ui.GamepadLayoutSpec
 import com.android.virtualgamepad.ui.LocalGamepadTheme
 import com.android.virtualgamepad.ui.components.StringResourceAdapter.colorThemeIndex
 import com.android.virtualgamepad.ui.components.StringResourceAdapter.gamepadSizeIndex
@@ -75,9 +76,10 @@ fun FunctionButtons(
     var expanded by remember { mutableStateOf(false) }
     val theme = LocalGamepadTheme.current
     val screenWidthDp = LocalConfiguration.current.screenWidthDp
+    val gamepadLayoutSpec = GamepadLayoutSpec(theme)
 
-    val functionButtonWidth = theme.getFunctionButtonWidth(screenWidthDp)
-    val functionButtonHeight = theme.getFunctionButtonHeight(screenWidthDp)
+    val functionButtonWidth = gamepadLayoutSpec.getFunctionButtonWidth(screenWidthDp)
+    val functionButtonHeight = gamepadLayoutSpec.getFunctionButtonHeight(screenWidthDp)
 
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
