@@ -58,4 +58,14 @@
     <!-- Describes the joystick of a virtual gamepad. e.g., Used with accessibility. -->
     <string name="description_joystick">Joystick</string>
 
+    <!-- Describes the drop down menu for the gamepad style -->
+    <string name="description_gamepad_style_selector">Choose Gamepad Style</string>
+
+    <!-- Describes the drop down menu for the gamepad size -->
+    <string name="description_gamepad_size_selector">Choose Gamepad Size</string>
+
+    <!-- Description to hide the gamepad from the game UI -->
+    <string name="description_hide_gamepad">Hide Gamepad</string>
+    <!-- Dismisses the gamepad from the game UI -->
+    <string name="hide_gamepad">Hide Gamepad</string>
 </resources>

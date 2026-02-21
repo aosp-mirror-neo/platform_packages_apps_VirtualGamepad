@@ -37,4 +37,12 @@
   </string-array>
     <string name="description_mode_button" msgid="134098723734776016">"모드 버튼"</string>
     <string name="description_joystick" msgid="5882281515287638189">"조이스틱"</string>
+    <!-- no translation found for description_gamepad_style_selector (297072224066534053) -->
+    <skip />
+    <!-- no translation found for description_gamepad_size_selector (6024467919160938900) -->
+    <skip />
+    <!-- no translation found for description_hide_gamepad (3966885363696260306) -->
+    <skip />
+    <!-- no translation found for hide_gamepad (9081921379818022648) -->
+    <skip />
 </resources>
