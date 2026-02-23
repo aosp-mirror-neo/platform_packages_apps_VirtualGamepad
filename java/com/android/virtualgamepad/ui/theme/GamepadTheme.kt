@@ -17,6 +17,10 @@
 package com.android.virtualgamepad.ui.theme
 
 import android.annotation.DrawableRes
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
 import com.android.virtualgamepad.R
 import com.android.virtualgamepad.model.GameButtonType
 
@@ -76,6 +80,46 @@ class GamepadTheme(
 
     fun isLightTheme(): Boolean {
         return colorTheme == GamepadColorTheme.LIGHT
+    }
+
+    fun dialogTitleStyle(): TextStyle {
+        return TextStyle(
+            fontSize = 16.sp,
+            lineHeight = 24.sp,
+            fontWeight = FontWeight(500),
+            color = Color(0xFFD1D2CF),
+        )
+    }
+
+    fun dialogSubtitleStyle(): TextStyle {
+        return TextStyle(
+            fontSize = 14.sp,
+            lineHeight = 20.sp,
+            fontWeight = FontWeight(400),
+            color = Color(0xFF919390),
+        )
+    }
+
+    fun dialogHeaderStyle(): TextStyle {
+        return TextStyle(
+            fontSize = 14.sp,
+            lineHeight = 20.sp,
+            fontWeight = FontWeight(400),
+            color = Color(0xFFBFC9C3),
+        )
+    }
+
+    fun dropDownItemStyle(): TextStyle {
+        return TextStyle(
+            fontSize = 14.sp,
+            lineHeight = 20.sp,
+            fontWeight = FontWeight(500),
+            color = Color(0xFFBFC9C3),
+        )
+    }
+
+    fun dropdownColor(): Color {
+        return Color(0xFF2A2D2B)
     }
 
     @DrawableRes

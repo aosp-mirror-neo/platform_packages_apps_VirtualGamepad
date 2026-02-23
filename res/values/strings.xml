@@ -36,10 +36,10 @@
          positions. -->
     <string-array name="gamepad_style_items">
         <!-- Represents a gamepad layout with two joysticks positioned side-by-side/symmetrically. -->
-        <item>Twin stick, inline</item>
+        <item>Twin stick, Inline</item>
         <!-- Represents a gamepad layout with two joysticks where one is positioned higher
              than the other in an offset fashion. -->
-        <item>Twin stick, staggered</item>
+        <item>Twin stick, Staggered</item>
     </string-array>
     <!-- Label for the drop-down options for selecting the size of the gamepad. A smaller size
          would bring the buttons closer together and closer to the edge to accommodate smaller
@@ -68,4 +68,8 @@
     <string name="description_hide_gamepad">Hide Gamepad</string>
     <!-- Dismisses the gamepad from the game UI -->
     <string name="hide_gamepad">Hide Gamepad</string>
+    <!-- Describes opening the gamepad style menu.-->
+    <string name="description_gamepad_style">Open gamepad style menu.</string>
+    <!-- Formats the gamepad style as <type> | <size> if relevant we might reverse the order.-->
+    <string name="template_gamepad_style_text">%1$s | %2$s</string>
 </resources>
