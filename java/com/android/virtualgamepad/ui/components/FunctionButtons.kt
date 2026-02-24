@@ -16,6 +16,7 @@
 
 package com.android.virtualgamepad.ui.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -26,12 +27,16 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.SportsEsports
+import androidx.compose.material.icons.filled.Straighten
 import androidx.compose.material3.Card
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -64,7 +69,12 @@ import com.android.virtualgamepad.ui.components.StringResourceAdapter.gamepadSty
 import com.android.virtualgamepad.ui.theme.GamepadColorTheme
 import com.android.virtualgamepad.ui.theme.GamepadSize
 import com.android.virtualgamepad.ui.theme.GamepadStyle
+import com.android.virtualgamepad.ui.theme.GamepadTheme
 import com.android.virtualgamepad.ui.theme.VirtualGamepadTheme
+
+private const val DIALOG_STATE_COLLAPSED = 0
+private const val DIALOG_STATE_SETTINGS = 1
+private const val DIALOG_STATE_STYLE = 2
 
 @Composable
 fun FunctionButtons(
@@ -74,10 +84,10 @@ fun FunctionButtons(
     onGamepadColorThemeChanged: (GamepadColorTheme) -> Unit,
     onGamepadDismissed: () -> Unit,
 ) {
-    var expanded by remember { mutableStateOf(false) }
-    val theme = LocalGamepadTheme.current
+    var dialogState by remember { mutableStateOf(DIALOG_STATE_COLLAPSED) }
+    val gamepadTheme = LocalGamepadTheme.current
     val screenWidthDp = LocalConfiguration.current.screenWidthDp
-    val gamepadLayoutSpec = GamepadLayoutSpec(theme)
+    val gamepadLayoutSpec = GamepadLayoutSpec(gamepadTheme)
 
     val functionButtonWidth = gamepadLayoutSpec.getFunctionButtonWidth(screenWidthDp)
     val functionButtonHeight = gamepadLayoutSpec.getFunctionButtonHeight(screenWidthDp)
@@ -90,7 +100,7 @@ fun FunctionButtons(
         SettingsButton(
             modifier = Modifier.width(functionButtonWidth.dp).height(functionButtonHeight.dp)
         ) {
-            expanded = true
+            dialogState = DIALOG_STATE_SETTINGS
         }
         Spacer(modifier = Modifier.width(128.dp))
         GameButton(
@@ -98,28 +108,39 @@ fun FunctionButtons(
             modifier = Modifier.width(functionButtonWidth.dp).height(functionButtonHeight.dp),
         )
     }
-    if (expanded) {
-        GamepadSettingsDialog(
-            onGamepadStyleChanged = onGamepadStyleChanged,
-            onGamepadSizeChanged = onGamepadSizeChanged,
-            onGamepadColorThemeChanged = onGamepadColorThemeChanged,
-            onGamepadDismissed = onGamepadDismissed,
-            onDismissRequest = { expanded = false },
-        )
+    when (dialogState) {
+        DIALOG_STATE_SETTINGS -> {
+            GamepadSettingsDialog(
+                gamepadTheme = gamepadTheme,
+                onGamepadDismissed = onGamepadDismissed,
+                onDismissRequest = { dialogState = DIALOG_STATE_COLLAPSED },
+                onGamepadStyleRequest = { dialogState = DIALOG_STATE_STYLE },
+            )
+        }
+
+        DIALOG_STATE_STYLE -> {
+            GamepadStyleDialog(
+                gamepadTheme = gamepadTheme,
+                onGamepadStyleChanged = onGamepadStyleChanged,
+                onGamepadSizeChanged = onGamepadSizeChanged,
+                onGamepadColorThemeChanged = onGamepadColorThemeChanged,
+                onDismissRequest = { dialogState = DIALOG_STATE_COLLAPSED },
+            )
+        }
     }
 }
 
 @Composable
-fun GamepadSettingsDialog(
+fun GamepadStyleDialog(
+    gamepadTheme: GamepadTheme,
     onGamepadStyleChanged: (GamepadStyle) -> Unit,
     onGamepadSizeChanged: (GamepadSize) -> Unit,
     onGamepadColorThemeChanged: (GamepadColorTheme) -> Unit,
-    onGamepadDismissed: () -> Unit,
     onDismissRequest: () -> Unit,
 ) {
     Dialog(onDismissRequest = onDismissRequest) {
         Card(
-            modifier = Modifier.fillMaxWidth().padding(16.dp),
+            modifier = Modifier.width(364.dp).wrapContentHeight().padding(16.dp),
             shape = MaterialTheme.shapes.large,
         ) {
             Column(
@@ -127,35 +148,92 @@ fun GamepadSettingsDialog(
                 verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 // Row 1: Text
-                Text(
+                DialogLineHeader(
                     text = stringResource(R.string.gamepad_style),
-                    style = MaterialTheme.typography.titleMedium,
+                    gamepadTheme = gamepadTheme,
                 )
 
                 // Row 2: Dropdown Menu 1
-                GamepadStyleSelector(onGamepadStyleChanged)
-                GamepadSizeSelector(onGamepadSizeChanged)
+                GamepadStyleSelector(gamepadTheme, onGamepadStyleChanged)
+                GamepadSizeSelector(gamepadTheme, onGamepadSizeChanged)
 
                 // Row 4: Text
-                Text(
+                DialogLineHeader(
                     text = stringResource(R.string.gamepad_theme),
-                    style = MaterialTheme.typography.bodyMedium,
+                    gamepadTheme = gamepadTheme,
                 )
 
                 GamepadColorThemeSelector(onGamepadColorThemeChanged)
+            }
+        }
+    }
+}
+
+@Composable
+fun GamepadSettingsDialog(
+    gamepadTheme: GamepadTheme,
+    onGamepadStyleRequest: () -> Unit,
+    onGamepadDismissed: () -> Unit,
+    onDismissRequest: () -> Unit,
+) {
+    Dialog(onDismissRequest = onDismissRequest) {
+        Card(
+            modifier = Modifier.width(364.dp).wrapContentHeight().padding(16.dp),
+            shape = MaterialTheme.shapes.large,
+        ) {
+            Column(
+                modifier = Modifier.padding(16.dp).fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                // Row 1: Gamepad style button
+                Row(
+                    modifier =
+                        Modifier.padding(top = 8.dp, bottom = 8.dp).clickable {
+                            onGamepadStyleRequest()
+                        },
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Icon(
+                        modifier = Modifier.padding(start = 8.dp, end = 8.dp),
+                        imageVector = Icons.Filled.SportsEsports,
+                        contentDescription = stringResource(R.string.description_gamepad_style),
+                    )
+                    Column() {
+                        DialogTitle(
+                            text = stringResource(R.string.gamepad_style),
+                            gamepadTheme = gamepadTheme,
+                        )
+                        val styleIndex = gamepadStyleIndex(LocalGamepadTheme.current.style)
+                        val style = stringArrayResource(R.array.gamepad_style_items).get(styleIndex)
+                        val sizeIndex = gamepadSizeIndex(LocalGamepadTheme.current.size)
+                        val size = stringArrayResource(R.array.gamepad_size_items).get(sizeIndex)
+                        DialogSubtitle(
+                            text =
+                                stringResource(R.string.template_gamepad_style_text, style, size),
+                            gamepadTheme = gamepadTheme,
+                        )
+                    }
+                }
+
+                // Row 3: Dismiss Gamepad button
                 Row(
                     modifier =
                         Modifier.padding(top = 8.dp, bottom = 8.dp).clickable {
                             onGamepadDismissed()
                         },
                     horizontalArrangement = Arrangement.Start,
+                    verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Icon(
                         modifier = Modifier.padding(start = 8.dp, end = 8.dp),
                         imageVector = Icons.Filled.Close,
                         contentDescription = stringResource(R.string.description_hide_gamepad),
                     )
-                    Text(text = stringResource(R.string.hide_gamepad))
+                    DialogTitle(
+                        text = stringResource(R.string.hide_gamepad),
+                        gamepadTheme = gamepadTheme,
+                    )
                 }
             }
         }
@@ -163,13 +241,37 @@ fun GamepadSettingsDialog(
 }
 
 @Composable
-fun GamepadStyleSelector(onGamepadStyleSelected: (GamepadStyle) -> Unit) {
+internal fun DialogLineHeader(gamepadTheme: GamepadTheme, text: String) {
+    Text(text = text, style = gamepadTheme.dialogHeaderStyle())
+}
+
+@Composable
+internal fun DialogTitle(gamepadTheme: GamepadTheme, text: String) {
+    Text(text = text, style = gamepadTheme.dialogTitleStyle())
+}
+
+@Composable
+internal fun DialogSubtitle(gamepadTheme: GamepadTheme, text: String) {
+    Text(text = text, style = gamepadTheme.dialogSubtitleStyle())
+}
+
+@Composable
+fun GamepadStyleSelector(
+    gamepadTheme: GamepadTheme,
+    onGamepadStyleSelected: (GamepadStyle) -> Unit,
+) {
     GamepadDropdownMenu(
+        gamepadTheme = gamepadTheme,
         onItemSelected = { index ->
             val style = StringResourceAdapter.gamepadStyleFromIndex(index)
             onGamepadStyleSelected(style)
         },
-        label = stringResource(R.string.label_gamepad_style),
+        leadingIcon = {
+            Icon(
+                imageVector = Icons.Filled.SportsEsports,
+                contentDescription = stringResource(R.string.description_gamepad_style),
+            )
+        },
         description = stringResource(R.string.description_gamepad_style_selector),
         items = stringArrayResource(R.array.gamepad_style_items).toList(),
         selectionIndex = gamepadStyleIndex(LocalGamepadTheme.current.style),
@@ -177,13 +279,19 @@ fun GamepadStyleSelector(onGamepadStyleSelected: (GamepadStyle) -> Unit) {
 }
 
 @Composable
-fun GamepadSizeSelector(onGamepadSizeSelected: (GamepadSize) -> Unit) {
+fun GamepadSizeSelector(gamepadTheme: GamepadTheme, onGamepadSizeSelected: (GamepadSize) -> Unit) {
     GamepadDropdownMenu(
+        gamepadTheme = gamepadTheme,
         onItemSelected = { index ->
             val size = StringResourceAdapter.gamepadSizeFromIndex(index)
             onGamepadSizeSelected(size)
         },
-        label = stringResource(R.string.label_gamepad_size),
+        leadingIcon = {
+            Icon(
+                imageVector = Icons.Filled.Straighten,
+                contentDescription = stringResource(R.string.description_gamepad_style),
+            )
+        },
         description = stringResource(R.string.description_gamepad_size_selector),
         items = stringArrayResource(R.array.gamepad_size_items).toList(),
         selectionIndex = gamepadSizeIndex(LocalGamepadTheme.current.size),
@@ -204,11 +312,12 @@ fun GamepadColorThemeSelector(onGamepadColorThemeSelected: (GamepadColorTheme) -
 
 @Composable
 fun GamepadDropdownMenu(
+    gamepadTheme: GamepadTheme,
     onItemSelected: (Int) -> Unit,
-    label: String,
     description: String,
     items: List<String>,
     selectionIndex: Int,
+    leadingIcon: @Composable () -> Unit,
 ) {
     var expanded by remember { mutableStateOf(false) }
     var selectedIndex by remember { mutableStateOf(selectionIndex) }
@@ -217,23 +326,31 @@ fun GamepadDropdownMenu(
     Box {
         // Clickable element to show selection and toggle menu
         OutlinedButton(onClick = { expanded = true }, modifier = Modifier.fillMaxWidth()) {
-            Text(
-                text = "$label: $selectedText",
-                modifier = Modifier.weight(1f),
-                style = MaterialTheme.typography.bodyLarge,
-            )
-            Icon(imageVector = Icons.Default.ArrowDropDown, contentDescription = description)
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Start,
+            ) {
+                Box(modifier = Modifier.padding(start = 8.dp, end = 8.dp)) { leadingIcon() }
+                Text(
+                    text = selectedText,
+                    modifier = Modifier.weight(1f),
+                    style = gamepadTheme.dropDownItemStyle(),
+                )
+                Icon(imageVector = Icons.Default.ArrowDropDown, contentDescription = description)
+            }
         }
 
         // Stable DropdownMenu
         DropdownMenu(
             expanded = expanded,
             onDismissRequest = { expanded = false },
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.background(gamepadTheme.dropdownColor()),
+            shape = RoundedCornerShape(28.dp),
         ) {
             items.forEachIndexed { index, item ->
                 DropdownMenuItem(
-                    text = { Text(item) },
+                    text = { Text(text = item, style = gamepadTheme.dropDownItemStyle()) },
+                    leadingIcon = leadingIcon,
                     onClick = {
                         selectedIndex = index
                         expanded = false
