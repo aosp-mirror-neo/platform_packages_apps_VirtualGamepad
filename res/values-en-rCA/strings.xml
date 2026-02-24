@@ -37,12 +37,8 @@
   </string-array>
     <string name="description_mode_button" msgid="134098723734776016">"Mode button"</string>
     <string name="description_joystick" msgid="5882281515287638189">"Joystick"</string>
-    <!-- no translation found for description_gamepad_style_selector (297072224066534053) -->
-    <skip />
-    <!-- no translation found for description_gamepad_size_selector (6024467919160938900) -->
-    <skip />
-    <!-- no translation found for description_hide_gamepad (3966885363696260306) -->
-    <skip />
-    <!-- no translation found for hide_gamepad (9081921379818022648) -->
-    <skip />
+    <string name="description_gamepad_style_selector" msgid="297072224066534053">"Choose Gamepad Style"</string>
+    <string name="description_gamepad_size_selector" msgid="6024467919160938900">"Choose Gamepad Size"</string>
+    <string name="description_hide_gamepad" msgid="3966885363696260306">"Hide Gamepad"</string>
+    <string name="hide_gamepad" msgid="9081921379818022648">"Hide Gamepad"</string>
 </resources>
