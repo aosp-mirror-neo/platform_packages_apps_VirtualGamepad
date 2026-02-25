@@ -25,24 +25,26 @@
     <item msgid="5463289076002941503">"ጠቆር ያለ"</item>
   </string-array>
     <string name="label_gamepad_style" msgid="1542718986571188995">"የመጫወቻ ንጣፍ ቅጥ"</string>
-  <string-array name="gamepad_style_items">
-    <item msgid="812586061304147600">"መንታ ዱላ፣ ውስጠ መስመር"</item>
-    <item msgid="2842865123708624586">"መንታ ዱላ፣ የተንጋደደ"</item>
-  </string-array>
+    <!-- no translation found for gamepad_style_items:0 (6427033374051500762) -->
+    <!-- no translation found for gamepad_style_items:1 (3695137406491092399) -->
     <string name="label_gamepad_size" msgid="622658226522409740">"መጠን"</string>
   <string-array name="gamepad_size_items">
     <item msgid="7537897267679330793">"ትንሽ"</item>
     <item msgid="4729939113023531137">"መካከለኛ"</item>
     <item msgid="2035206024988565350">"ትልቅ"</item>
   </string-array>
+    <!-- no translation found for description_haptics (4255683342015357067) -->
+    <skip />
     <string name="description_mode_button" msgid="134098723734776016">"የሁነታ አዝራር"</string>
     <string name="description_joystick" msgid="5882281515287638189">"ጆይስቲክ"</string>
-    <!-- no translation found for description_gamepad_style_selector (297072224066534053) -->
+    <string name="description_gamepad_style_selector" msgid="297072224066534053">"የመጫወቻ ንጣፍ ቅጥ ይምረጡ"</string>
+    <string name="description_gamepad_size_selector" msgid="6024467919160938900">"የመጫወቻ ንጣፍ መጠን ይምረጡ"</string>
+    <string name="description_hide_gamepad" msgid="3966885363696260306">"የመጫወቻ ንጣፍን ይደበቁ"</string>
+    <string name="hide_gamepad" msgid="9081921379818022648">"የመጫወቻ ንጣፍን ይደበቁ"</string>
+    <!-- no translation found for description_gamepad_style (170962546539192503) -->
     <skip />
-    <!-- no translation found for description_gamepad_size_selector (6024467919160938900) -->
+    <!-- no translation found for template_gamepad_style_text (7553801998279684500) -->
     <skip />
-    <!-- no translation found for description_hide_gamepad (3966885363696260306) -->
-    <skip />
-    <!-- no translation found for hide_gamepad (9081921379818022648) -->
+    <!-- no translation found for haptics (1767688276155159411) -->
     <skip />
 </resources>
