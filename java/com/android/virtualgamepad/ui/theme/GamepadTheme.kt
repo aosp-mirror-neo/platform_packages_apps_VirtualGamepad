@@ -41,16 +41,18 @@ enum class GamepadStyle {
 }
 
 class GamepadTheme(
+    val isHapticsEnabled: Boolean = true,
     val size: GamepadSize = GamepadSize.MEDIUM,
     val style: GamepadStyle = GamepadStyle.INLINE,
     val colorTheme: GamepadColorTheme = GamepadColorTheme.LIGHT,
 ) {
 
     fun copy(
+        isHapticsEnabled: Boolean = this.isHapticsEnabled,
         size: GamepadSize = this.size,
         style: GamepadStyle = this.style,
         colorTheme: GamepadColorTheme = this.colorTheme,
-    ): GamepadTheme = GamepadTheme(size, style, colorTheme)
+    ): GamepadTheme = GamepadTheme(isHapticsEnabled, size, style, colorTheme)
 
     fun getLeftRightSpacerWidth() = 32
 
@@ -239,16 +241,46 @@ class GamepadTheme(
 
     companion object {
         val LARGE_LIGHT =
-            GamepadTheme(GamepadSize.LARGE, GamepadStyle.INLINE, GamepadColorTheme.LIGHT)
+            GamepadTheme(
+                isHapticsEnabled = true,
+                GamepadSize.LARGE,
+                GamepadStyle.INLINE,
+                GamepadColorTheme.LIGHT,
+            )
         val LARGE_DARK =
-            GamepadTheme(GamepadSize.LARGE, GamepadStyle.INLINE, GamepadColorTheme.DARK)
+            GamepadTheme(
+                isHapticsEnabled = true,
+                GamepadSize.LARGE,
+                GamepadStyle.INLINE,
+                GamepadColorTheme.DARK,
+            )
         val MEDIUM_LIGHT =
-            GamepadTheme(GamepadSize.MEDIUM, GamepadStyle.INLINE, GamepadColorTheme.LIGHT)
+            GamepadTheme(
+                isHapticsEnabled = true,
+                GamepadSize.MEDIUM,
+                GamepadStyle.INLINE,
+                GamepadColorTheme.LIGHT,
+            )
         val MEDIUM_DARK =
-            GamepadTheme(GamepadSize.MEDIUM, GamepadStyle.INLINE, GamepadColorTheme.DARK)
+            GamepadTheme(
+                isHapticsEnabled = true,
+                GamepadSize.MEDIUM,
+                GamepadStyle.INLINE,
+                GamepadColorTheme.DARK,
+            )
         val SMALL_LIGHT =
-            GamepadTheme(GamepadSize.SMALL, GamepadStyle.INLINE, GamepadColorTheme.LIGHT)
+            GamepadTheme(
+                isHapticsEnabled = true,
+                GamepadSize.SMALL,
+                GamepadStyle.INLINE,
+                GamepadColorTheme.LIGHT,
+            )
         val SMALL_DARK =
-            GamepadTheme(GamepadSize.SMALL, GamepadStyle.INLINE, GamepadColorTheme.DARK)
+            GamepadTheme(
+                isHapticsEnabled = true,
+                GamepadSize.SMALL,
+                GamepadStyle.INLINE,
+                GamepadColorTheme.DARK,
+            )
     }
 }

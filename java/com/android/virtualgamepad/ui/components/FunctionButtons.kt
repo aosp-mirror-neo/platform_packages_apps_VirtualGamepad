@@ -37,6 +37,7 @@ import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.SportsEsports
 import androidx.compose.material.icons.filled.Straighten
+import androidx.compose.material.icons.filled.Vibration
 import androidx.compose.material3.Card
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -44,6 +45,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.RadioButton
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -80,6 +82,7 @@ private const val DIALOG_STATE_STYLE = 2
 fun FunctionButtons(
     modifier: Modifier = Modifier,
     onGamepadStyleChanged: (GamepadStyle) -> Unit,
+    onGamepadHapticsChanged: (Boolean) -> Unit,
     onGamepadSizeChanged: (GamepadSize) -> Unit,
     onGamepadColorThemeChanged: (GamepadColorTheme) -> Unit,
     onGamepadDismissed: () -> Unit,
@@ -115,6 +118,7 @@ fun FunctionButtons(
                 onGamepadDismissed = onGamepadDismissed,
                 onDismissRequest = { dialogState = DIALOG_STATE_COLLAPSED },
                 onGamepadStyleRequest = { dialogState = DIALOG_STATE_STYLE },
+                onGamepadHapticsChanged = onGamepadHapticsChanged,
             )
         }
 
@@ -175,6 +179,7 @@ fun GamepadSettingsDialog(
     onGamepadStyleRequest: () -> Unit,
     onGamepadDismissed: () -> Unit,
     onDismissRequest: () -> Unit,
+    onGamepadHapticsChanged: (Boolean) -> Unit,
 ) {
     Dialog(onDismissRequest = onDismissRequest) {
         Card(
@@ -214,6 +219,33 @@ fun GamepadSettingsDialog(
                             gamepadTheme = gamepadTheme,
                         )
                     }
+                }
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Row(
+                        modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
+                        horizontalArrangement = Arrangement.Start,
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Icon(
+                            modifier = Modifier.padding(start = 8.dp, end = 8.dp),
+                            imageVector = Icons.Filled.Vibration,
+                            contentDescription = stringResource(R.string.description_haptics),
+                        )
+                        DialogTitle(
+                            text = stringResource(R.string.haptics),
+                            gamepadTheme = gamepadTheme,
+                        )
+                    }
+
+                    Switch(
+                        checked = gamepadTheme.isHapticsEnabled,
+                        onCheckedChange = onGamepadHapticsChanged,
+                    )
                 }
 
                 // Row 3: Dismiss Gamepad button
@@ -403,6 +435,13 @@ fun ThemeSelectionRow(onOptionSelected: (Int) -> Unit, options: List<String>, se
 @Composable
 fun FunctionButtonsPreview() {
     VirtualGamepadTheme {
-        FunctionButtons(Modifier.width(300.dp).height(70.dp), { _ -> }, { _ -> }, { _ -> }, {})
+        FunctionButtons(
+            Modifier.width(300.dp).height(70.dp),
+            { _ -> },
+            { _ -> },
+            { _ -> },
+            { _ -> },
+            {},
+        )
     }
 }
