@@ -76,4 +76,6 @@
     <string name="template_gamepad_style_text">%1$s | %2$s</string>
     <!-- Haptics for a gamepad -->
     <string name="haptics">Haptics</string>
+    <!-- Says that a switch is checked or on -->
+    <string name="description_checked">Checked</string>
 </resources>
