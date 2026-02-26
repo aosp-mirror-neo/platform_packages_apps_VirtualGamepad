@@ -29,6 +29,7 @@ class SettingsRepo(
 ) {
 
     fun setGamepadTheme(gamepadTheme: GamepadTheme) {
+        setHapticsEnabled(gamepadTheme.isHapticsEnabled)
         setGamepadColorTheme(gamepadTheme.colorTheme)
         setGamepadSize(gamepadTheme.size)
         setGamepadStyle(gamepadTheme.style)
@@ -36,10 +37,19 @@ class SettingsRepo(
 
     fun getGamepadTheme(): GamepadTheme {
         return GamepadTheme(
+            isHapticsEnabled = isHapticsEnabled(),
             size = getGamepadSize(),
             style = getGamepadStyle(),
             colorTheme = getGamepadColorTheme(),
         )
+    }
+
+    private fun isHapticsEnabled(): Boolean {
+        return sharedPreferences.getBoolean(KEY_HAPTICS_ENABLED, true)
+    }
+
+    private fun setHapticsEnabled(enabled: Boolean) {
+        sharedPreferences.edit { putBoolean(KEY_HAPTICS_ENABLED, enabled) }
     }
 
     private fun setGamepadColorTheme(gamepadColorTheme: GamepadColorTheme) {
@@ -130,6 +140,7 @@ class SettingsRepo(
     }
 
     companion object {
+        private const val KEY_HAPTICS_ENABLED = "com.android.virtualgamepad.KEY_HAPTICS_ENABLED"
         private const val KEY_COLOR_THEME = "com.android.virtualgamepad.KEY_COLOR_THEME"
         private const val VALUE_COLOR_THEME_LIGHT = 0
         private const val VALUE_COLOR_THEME_DARK = 1

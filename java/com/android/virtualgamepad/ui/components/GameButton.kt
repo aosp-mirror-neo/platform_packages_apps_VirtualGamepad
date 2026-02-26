@@ -141,11 +141,15 @@ fun GameButton(
         modifier,
         onButtonDown = {
             gamepadState?.onButtonDown(gameButtonType)
-            Haptics.onPressed(localView)
+            if (theme.isHapticsEnabled) {
+                Haptics.onPressed(localView)
+            }
         },
         onButtonUp = {
             gamepadState?.onButtonUp(gameButtonType)
-            Haptics.onReleased(localView)
+            if (theme.isHapticsEnabled) {
+                Haptics.onReleased(localView)
+            }
         },
         onClick = onClick,
     )

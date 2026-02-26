@@ -52,6 +52,8 @@
         <item>Large</item>
     </string-array>
 
+    <!-- The option to enable or disable  haptics -->
+    <string name="description_haptics">Haptics Setting</string>
     <!-- The button descriptor for a virtual gamepad. e.g., Used with accessibility. -->
     <string name="description_mode_button">Mode button</string>
 
@@ -72,4 +74,6 @@
     <string name="description_gamepad_style">Open gamepad style menu.</string>
     <!-- Formats the gamepad style as <type> | <size> if relevant we might reverse the order.-->
     <string name="template_gamepad_style_text">%1$s | %2$s</string>
+    <!-- Haptics for a gamepad -->
+    <string name="haptics">Haptics</string>
 </resources>

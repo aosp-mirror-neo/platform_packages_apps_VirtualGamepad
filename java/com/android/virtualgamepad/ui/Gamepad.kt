@@ -110,6 +110,9 @@ fun FunctionButtonPanel(
         onGamepadStyleChanged = { style ->
             onGamepadThemeChanged(gamepadTheme.copy(style = style))
         },
+        onGamepadHapticsChanged = { isHapticsEnabled ->
+            onGamepadThemeChanged(gamepadTheme.copy(isHapticsEnabled = isHapticsEnabled))
+        },
         onGamepadSizeChanged = { size -> onGamepadThemeChanged(gamepadTheme.copy(size = size)) },
         onGamepadColorThemeChanged = { colorTheme ->
             onGamepadThemeChanged(gamepadTheme.copy(colorTheme = colorTheme))
