@@ -28,7 +28,9 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.compositionLocalOf
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.unit.Density
 import com.android.virtualgamepad.backend.LocalGamepadBackend
 import com.android.virtualgamepad.backend.SettingsRepo
 import com.android.virtualgamepad.model.GamepadState
@@ -45,6 +47,7 @@ class GamepadActivity : ComponentActivity() {
     // anything that has security implications.
     var callerPackageName: String? = null
     lateinit var gamepadState: GamepadState
+    lateinit var fixedDensity: Density
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,11 +60,15 @@ class GamepadActivity : ComponentActivity() {
             }
         callerPackageName = intent.getStringExtra(Intent.EXTRA_PACKAGE_NAME)
         gamepadState = GamepadState(gamepadBackend)
+        fixedDensity = Density(2.5f, 1f)
         setContent {
             val settingsRepo = SettingsRepo(defaultTheme, getPreferences(MODE_PRIVATE))
             LocalView.current.requestUnbufferedDispatch(InputDevice.SOURCE_TOUCHSCREEN)
             VirtualGamepadTheme {
-                CompositionLocalProvider(LocalGamepadState provides gamepadState) {
+                CompositionLocalProvider(
+                    LocalGamepadState provides gamepadState,
+                    LocalDensity provides fixedDensity,
+                ) {
                     Gamepad(
                         settingsRepo.getGamepadTheme(),
                         settingsRepo::setGamepadTheme,

@@ -17,7 +17,6 @@
 package com.android.virtualgamepad.ui
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.constraintlayout.compose.Dimension
@@ -38,11 +37,22 @@ class GamepadLayoutSpec(private val gamepadTheme: GamepadTheme) {
      * of the screen is too small. As an example, instead of placing the joystick 100dp from the
      * left edge on a small screen it would be around 2 units away.
      */
-    private fun getUnitSize(screenWidthDp: Int): Int = 56.adjust(screenWidthDp)
+    private fun getUnitSize(): Int = 56
 
-    fun getFunctionButtonWidth(screenWidthDp: Int) = 72.adjust(screenWidthDp)
+    fun getFunctionButtonWidth() = 72
 
-    fun getFunctionButtonHeight(screenWidthDp: Int) = 48.adjust(screenWidthDp)
+    fun getFunctionButtonHeight() = 48
+
+    fun panelRounding() = .5f
+
+    fun panelX() =
+        when (gamepadTheme.size) {
+            GamepadSize.LARGE -> 1.25f
+            GamepadSize.MEDIUM -> 1.18f
+            GamepadSize.SMALL -> 1.12f
+        }
+
+    fun panelY() = .25f
 
     fun getRoundButtonSize(screenWidthDp: Int) =
         when (gamepadTheme.size) {
@@ -103,58 +113,6 @@ class GamepadLayoutSpec(private val gamepadTheme: GamepadTheme) {
             GamepadSize.MEDIUM -> 50
             GamepadSize.SMALL -> 48
         }.adjust(screenWidthDp)
-
-    /**
-     * Approximates the radius of the joystick in a unit coordinate system. The gamepad is expected
-     * to be in a landscape orientation so the approximation is assuming the joystick is in a square
-     * that has [screenHeightDp] as the dimension.
-     *
-     * @param screenHeightDp the height of the view in dp.
-     */
-    fun computeJoystickRadiusUnitCoordinateSystem(screenWidthDp: Int, screenHeightDp: Int): Float {
-        val joystickRadius = computeJoystickBoxSize(screenWidthDp)
-        val panelHeight = screenHeightDp.toFloat()
-        return joystickRadius / panelHeight
-    }
-
-    /**
-     * Returns the X coordinate for the panel corner in a unit coordinate system. The units are
-     * normalized around the panel width.
-     *
-     * @param screenWidthDp the width of the panel in dp.
-     */
-    fun computePanelCornerXPosition(screenWidthDp: Int): Float {
-        val unit = getUnitSize(screenWidthDp)
-        // Since the units are normalized we can use a constant.
-        val multiplier =
-            when (gamepadTheme.size) {
-                GamepadSize.LARGE -> 8f
-                GamepadSize.MEDIUM,
-                GamepadSize.SMALL -> 7.4f
-            }.adjust(screenWidthDp)
-        val offset = multiplier * unit
-        val panelWidth = ((screenWidthDp - gamepadTheme.getLeftRightSpacerWidth()) / 2f)
-        val unitOffset = offset / panelWidth.adjust(screenWidthDp)
-        val normalizedOffset = 2 * unitOffset - 1
-        return normalizedOffset
-    }
-
-    /**
-     * Returns the Y coordinate for the panel corner in a unit coordinate system. The units are
-     * normalized around the panel height.
-     *
-     * @param screenHeightDp the height of the panel in dp.
-     */
-    fun computeCornerYPosition(screenHeightDp: Int): Float {
-        val unit = getUnitSize(screenHeightDp)
-        // Since the coordinates are normalized we can use a constant.
-        val multiplier = 11f.adjustHeight(screenHeightDp)
-
-        val offset = multiplier * unit
-        val unitOffset = offset / screenHeightDp.toFloat().adjustHeight(screenHeightDp)
-        val normalizedOffset = 2 * unitOffset - 1
-        return normalizedOffset
-    }
 
     fun computeJoystickBoxSize(screenWidthDp: Int): Int {
         return 156.adjust(screenWidthDp)
@@ -429,36 +387,9 @@ class GamepadLayoutSpec(private val gamepadTheme: GamepadTheme) {
      * of 883dp. If the width is smaller, UI components may not fit properly so we scale them.
      */
     private fun Int.adjust(screenWidthDp: Int): Int {
-        if (screenWidthDp >= widthDpBase) return this
-        return this * screenWidthDp / widthDpBase
-    }
-
-    /**
-     * Scales the value if the height is smaller than [heightDpBase]. The designs are based on a
-     * height of 426dp. If the height is smaller, UI components may not fit properly so we scale
-     * them. This is primarily for scaling vertical margins and padding.
-     */
-    private fun Float.adjustHeight(screenHeightDp: Int): Float {
-        if (screenHeightDp >= heightDpBase) return this
-        return this * screenHeightDp / heightDpBase
-    }
-
-    /**
-     * Scales the value if the width is smaller than [widthDpBase]. The designs are based on a width
-     * of 883dp. If the width is smaller, UI components may not fit properly so we scale them.
-     */
-    private fun Float.adjust(screenWidthDp: Int): Float {
-        if (screenWidthDp >= widthDpBase) return this
-        return this * screenWidthDp / widthDpBase
-    }
-
-    /**
-     * Scales the value if the width is smaller than [widthDpBase]. The designs are based on a width
-     * of 883dp. If the width is smaller, UI components may not fit properly so we scale them.
-     */
-    private fun IntOffset.adjust(screenWidthDp: Int): IntOffset {
-        if (screenWidthDp >= widthDpBase) return this
-        return this * screenWidthDp.toFloat() / widthDpBase.toFloat()
+        return this
+        //        if (screenWidthDp >= widthDpBase) return this
+        //        return this * screenWidthDp / widthDpBase
     }
 
     companion object {
@@ -480,17 +411,5 @@ class GamepadLayoutSpec(private val gamepadTheme: GamepadTheme) {
         const val leftJoystickId = "leftJoystick"
         const val leftPanelBackgroundId = "leftPanelBackground"
         const val rightPanelBackgroundId = "rightPanelBackground"
-
-        /**
-         * The base width used to compute the scaling factor for different display sizes. The user
-         * may adjust the display size in settings so we must account for that.
-         */
-        private const val widthDpBase = 883
-
-        /**
-         * The base height used to compute the scaling factor for different display sizes. The user
-         * may adjust the display size in settings so we must account for that.
-         */
-        private const val heightDpBase = 426
     }
 }

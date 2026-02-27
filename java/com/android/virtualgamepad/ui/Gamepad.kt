@@ -137,14 +137,10 @@ fun LeftControlPanel(modifier: Modifier) {
         val screenHeightDp = LocalConfiguration.current.screenHeightDp
         PanelBackground(
             modifier = Modifier.fillMaxSize().layoutId(GamepadLayoutSpec.leftPanelBackgroundId),
-            rounding =
-                layoutSpec.computeJoystickRadiusUnitCoordinateSystem(
-                    screenWidthDp = screenWidthDp,
-                    screenHeightDp = screenHeightDp,
-                ),
+            rounding = layoutSpec.panelRounding(),
             isPointOnRight = true,
-            cornerX = layoutSpec.computePanelCornerXPosition(screenWidthDp = screenWidthDp),
-            cornerY = layoutSpec.computeCornerYPosition(screenHeightDp),
+            cornerX = layoutSpec.panelX(),
+            cornerY = layoutSpec.panelY(),
         )
         GameButton(GameButtonType.DPAD_UP, modifier = Modifier.layoutId(GamepadLayoutSpec.dpadUpId))
 
@@ -198,14 +194,10 @@ fun RightControlPanel(modifier: Modifier) {
         val screenHeightDp = LocalConfiguration.current.screenHeightDp
         PanelBackground(
             modifier = Modifier.fillMaxSize().layoutId(GamepadLayoutSpec.rightPanelBackgroundId),
-            rounding =
-                layoutSpec.computeJoystickRadiusUnitCoordinateSystem(
-                    screenWidthDp = screenWidthDp,
-                    screenHeightDp = screenHeightDp,
-                ),
+            rounding = layoutSpec.panelRounding(),
             isPointOnRight = false,
-            cornerX = layoutSpec.computePanelCornerXPosition(screenWidthDp = screenWidthDp),
-            cornerY = layoutSpec.computeCornerYPosition(screenHeightDp),
+            cornerX = layoutSpec.panelX(),
+            cornerY = layoutSpec.panelY(),
         )
         GameButton(GameButtonType.A, modifier = Modifier.layoutId(GamepadLayoutSpec.faceButtonAId))
 
