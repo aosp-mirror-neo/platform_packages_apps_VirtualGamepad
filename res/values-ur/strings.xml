@@ -25,24 +25,26 @@
     <item msgid="5463289076002941503">"گہرا"</item>
   </string-array>
     <string name="label_gamepad_style" msgid="1542718986571188995">"گیم پیڈ اسٹائل"</string>
-  <string-array name="gamepad_style_items">
-    <item msgid="812586061304147600">"جڑواں اسٹک، ان لائن"</item>
-    <item msgid="2842865123708624586">"جڑواں اسٹک، متزلزل"</item>
-  </string-array>
+    <!-- no translation found for gamepad_style_items:0 (6427033374051500762) -->
+    <!-- no translation found for gamepad_style_items:1 (3695137406491092399) -->
     <string name="label_gamepad_size" msgid="622658226522409740">"سائز"</string>
   <string-array name="gamepad_size_items">
     <item msgid="7537897267679330793">"چھوٹا"</item>
     <item msgid="4729939113023531137">"متوسط"</item>
     <item msgid="2035206024988565350">"بڑا"</item>
   </string-array>
+    <!-- no translation found for description_haptics (4255683342015357067) -->
+    <skip />
     <string name="description_mode_button" msgid="134098723734776016">"موڈ بٹن"</string>
     <string name="description_joystick" msgid="5882281515287638189">"جوائے اسٹک"</string>
-    <!-- no translation found for description_gamepad_style_selector (297072224066534053) -->
+    <string name="description_gamepad_style_selector" msgid="297072224066534053">"گیم پیڈ اسٹائل منتخب کریں"</string>
+    <string name="description_gamepad_size_selector" msgid="6024467919160938900">"گیم پیڈ کا سائز منتخب کریں"</string>
+    <string name="description_hide_gamepad" msgid="3966885363696260306">"گیم پیڈ چھپائیں"</string>
+    <string name="hide_gamepad" msgid="9081921379818022648">"گیم پیڈ چھپائیں"</string>
+    <!-- no translation found for description_gamepad_style (170962546539192503) -->
     <skip />
-    <!-- no translation found for description_gamepad_size_selector (6024467919160938900) -->
+    <!-- no translation found for template_gamepad_style_text (7553801998279684500) -->
     <skip />
-    <!-- no translation found for description_hide_gamepad (3966885363696260306) -->
-    <skip />
-    <!-- no translation found for hide_gamepad (9081921379818022648) -->
+    <!-- no translation found for haptics (1767688276155159411) -->
     <skip />
 </resources>

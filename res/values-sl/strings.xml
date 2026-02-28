@@ -25,24 +25,26 @@
     <item msgid="5463289076002941503">"Temna"</item>
   </string-array>
     <string name="label_gamepad_style" msgid="1542718986571188995">"Slog igralnega ploščka"</string>
-  <string-array name="gamepad_style_items">
-    <item msgid="812586061304147600">"Dve palici, vzporedno"</item>
-    <item msgid="2842865123708624586">"Dve palici, ena nad drugo"</item>
-  </string-array>
+    <!-- no translation found for gamepad_style_items:0 (6427033374051500762) -->
+    <!-- no translation found for gamepad_style_items:1 (3695137406491092399) -->
     <string name="label_gamepad_size" msgid="622658226522409740">"Velikost"</string>
   <string-array name="gamepad_size_items">
     <item msgid="7537897267679330793">"Majhna"</item>
     <item msgid="4729939113023531137">"Srednja"</item>
     <item msgid="2035206024988565350">"Velika"</item>
   </string-array>
+    <!-- no translation found for description_haptics (4255683342015357067) -->
+    <skip />
     <string name="description_mode_button" msgid="134098723734776016">"Gumb za način"</string>
     <string name="description_joystick" msgid="5882281515287638189">"Krmilna palica"</string>
-    <!-- no translation found for description_gamepad_style_selector (297072224066534053) -->
+    <string name="description_gamepad_style_selector" msgid="297072224066534053">"Izbira sloga igralnega ploščka"</string>
+    <string name="description_gamepad_size_selector" msgid="6024467919160938900">"Izbira velikosti igralnega ploščka"</string>
+    <string name="description_hide_gamepad" msgid="3966885363696260306">"Skrij igralni plošček"</string>
+    <string name="hide_gamepad" msgid="9081921379818022648">"Skrij igralni plošček"</string>
+    <!-- no translation found for description_gamepad_style (170962546539192503) -->
     <skip />
-    <!-- no translation found for description_gamepad_size_selector (6024467919160938900) -->
+    <!-- no translation found for template_gamepad_style_text (7553801998279684500) -->
     <skip />
-    <!-- no translation found for description_hide_gamepad (3966885363696260306) -->
-    <skip />
-    <!-- no translation found for hide_gamepad (9081921379818022648) -->
+    <!-- no translation found for haptics (1767688276155159411) -->
     <skip />
 </resources>
