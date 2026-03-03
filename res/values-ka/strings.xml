@@ -39,12 +39,14 @@
     <string name="description_joystick" msgid="5882281515287638189">"ჯოისტიკი"</string>
     <string name="description_gamepad_style_selector" msgid="297072224066534053">"აირჩიეთ გეიმპედის სტილი"</string>
     <string name="description_gamepad_size_selector" msgid="6024467919160938900">"აირჩიეთ გეიმპედის ზომა"</string>
-    <string name="description_hide_gamepad" msgid="3966885363696260306">"გეიმპდის დამალვა"</string>
-    <string name="hide_gamepad" msgid="9081921379818022648">"გეიმპდის დამალვა"</string>
+    <string name="description_hide_gamepad" msgid="3966885363696260306">"გეიმპედის დამალვა"</string>
+    <string name="hide_gamepad" msgid="9081921379818022648">"გეიმპედის დამალვა"</string>
     <!-- no translation found for description_gamepad_style (170962546539192503) -->
     <skip />
     <!-- no translation found for template_gamepad_style_text (7553801998279684500) -->
     <skip />
     <!-- no translation found for haptics (1767688276155159411) -->
+    <skip />
+    <!-- no translation found for description_checked (3645847096266326666) -->
     <skip />
 </resources>
