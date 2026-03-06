@@ -37,18 +37,16 @@
     <skip />
     <string name="description_mode_button" msgid="134098723734776016">"Modusknoppie"</string>
     <string name="description_joystick" msgid="5882281515287638189">"Speelstok"</string>
-    <!-- no translation found for description_gamepad_style_selector (297072224066534053) -->
-    <skip />
-    <!-- no translation found for description_gamepad_size_selector (6024467919160938900) -->
-    <skip />
-    <!-- no translation found for description_hide_gamepad (3966885363696260306) -->
-    <skip />
-    <!-- no translation found for hide_gamepad (9081921379818022648) -->
-    <skip />
+    <string name="description_gamepad_style_selector" msgid="297072224066534053">"Kies speletjiebeheerderstyl"</string>
+    <string name="description_gamepad_size_selector" msgid="6024467919160938900">"Kies speletjiebeheerdergrootte"</string>
+    <string name="description_hide_gamepad" msgid="3966885363696260306">"Versteek speletjiebeheerder"</string>
+    <string name="hide_gamepad" msgid="9081921379818022648">"Versteek speletjiebeheerder"</string>
     <!-- no translation found for description_gamepad_style (170962546539192503) -->
     <skip />
     <!-- no translation found for template_gamepad_style_text (7553801998279684500) -->
     <skip />
     <!-- no translation found for haptics (1767688276155159411) -->
+    <skip />
+    <!-- no translation found for description_checked (3645847096266326666) -->
     <skip />
 </resources>

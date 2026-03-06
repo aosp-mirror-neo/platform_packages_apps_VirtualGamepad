@@ -25,26 +25,26 @@
     <item msgid="5463289076002941503">"ଡାର୍କ"</item>
   </string-array>
     <string name="label_gamepad_style" msgid="1542718986571188995">"ଗେମପେଡ ଷ୍ଟାଇଲ"</string>
-    <!-- no translation found for gamepad_style_items:0 (6427033374051500762) -->
-    <!-- no translation found for gamepad_style_items:1 (3695137406491092399) -->
+  <string-array name="gamepad_style_items">
+    <item msgid="6427033374051500762">"ଟ୍ୱିନ ଷ୍ଟିକ, ଇନଲାଇନ"</item>
+    <item msgid="3695137406491092399">"ଟ୍ୱିନ ଷ୍ଟିକ, ଷ୍ଟାଗର୍ଡ"</item>
+  </string-array>
     <string name="label_gamepad_size" msgid="622658226522409740">"ସାଇଜ"</string>
   <string-array name="gamepad_size_items">
     <item msgid="7537897267679330793">"ଛୋଟ"</item>
     <item msgid="4729939113023531137">"ମଧ୍ୟମ"</item>
     <item msgid="2035206024988565350">"ବଡ଼"</item>
   </string-array>
-    <!-- no translation found for description_haptics (4255683342015357067) -->
-    <skip />
+    <string name="description_haptics" msgid="4255683342015357067">"ହାପଟିକ୍ସ ସେଟିଂ"</string>
     <string name="description_mode_button" msgid="134098723734776016">"ମୋଡ ବଟନ"</string>
     <string name="description_joystick" msgid="5882281515287638189">"ଜଏଷ୍ଟିକ"</string>
     <string name="description_gamepad_style_selector" msgid="297072224066534053">"ଗେମପେଡ ଷ୍ଟାଇଲ ବାଛନ୍ତୁ"</string>
     <string name="description_gamepad_size_selector" msgid="6024467919160938900">"ଗେମପେଡ ସାଇଜ ବାଛନ୍ତୁ"</string>
     <string name="description_hide_gamepad" msgid="3966885363696260306">"ଗେମପେଡକୁ ଲୁଚାନ୍ତୁ"</string>
     <string name="hide_gamepad" msgid="9081921379818022648">"ଗେମପେଡକୁ ଲୁଚାନ୍ତୁ"</string>
-    <!-- no translation found for description_gamepad_style (170962546539192503) -->
-    <skip />
-    <!-- no translation found for template_gamepad_style_text (7553801998279684500) -->
-    <skip />
-    <!-- no translation found for haptics (1767688276155159411) -->
+    <string name="description_gamepad_style" msgid="170962546539192503">"ଗେମପେଡ ଷ୍ଟାଇଲ ମେନୁ ଖୋଲନ୍ତୁ।"</string>
+    <string name="template_gamepad_style_text" msgid="7553801998279684500">"%1$s | %2$s"</string>
+    <string name="haptics" msgid="1767688276155159411">"ହାପଟିକ୍ସ"</string>
+    <!-- no translation found for description_checked (3645847096266326666) -->
     <skip />
 </resources>

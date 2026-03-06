@@ -35,8 +35,7 @@
     <item msgid="4729939113023531137">"Medium"</item>
     <item msgid="2035206024988565350">"Large"</item>
   </string-array>
-    <!-- no translation found for description_haptics (4255683342015357067) -->
-    <skip />
+    <string name="description_haptics" msgid="4255683342015357067">"Haptics Setting"</string>
     <string name="description_mode_button" msgid="134098723734776016">"Mode button"</string>
     <string name="description_joystick" msgid="5882281515287638189">"Joystick"</string>
     <string name="description_gamepad_style_selector" msgid="297072224066534053">"Choose Gamepad Style"</string>
@@ -45,6 +44,7 @@
     <string name="hide_gamepad" msgid="9081921379818022648">"Hide Gamepad"</string>
     <string name="description_gamepad_style" msgid="170962546539192503">"Open gamepad style menu."</string>
     <string name="template_gamepad_style_text" msgid="7553801998279684500">"%1$s | %2$s"</string>
-    <!-- no translation found for haptics (1767688276155159411) -->
+    <string name="haptics" msgid="1767688276155159411">"Haptics"</string>
+    <!-- no translation found for description_checked (3645847096266326666) -->
     <skip />
 </resources>
