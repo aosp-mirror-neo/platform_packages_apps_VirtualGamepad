@@ -95,8 +95,8 @@ fun FunctionButtons(
     val screenWidthDp = LocalConfiguration.current.screenWidthDp
     val gamepadLayoutSpec = GamepadLayoutSpec(gamepadTheme)
 
-    val functionButtonWidth = gamepadLayoutSpec.getFunctionButtonWidth(screenWidthDp)
-    val functionButtonHeight = gamepadLayoutSpec.getFunctionButtonHeight(screenWidthDp)
+    val functionButtonWidth = gamepadLayoutSpec.getFunctionButtonWidth()
+    val functionButtonHeight = gamepadLayoutSpec.getFunctionButtonHeight()
 
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
