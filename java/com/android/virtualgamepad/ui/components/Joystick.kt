@@ -87,6 +87,9 @@ private fun Joystick(modifier: Modifier = Modifier, joystickType: JoystickType) 
     val boundedDragOffsetPx = remember { mutableStateOf(Offset(0f, 0f)) }
     val boundedDragOffsetDp = remember { mutableStateOf(Offset(0f, 0f)) }
 
+    // Haptic state
+    val isHittingBounds = remember { mutableStateOf(false) }
+
     // Layout editor
     val layoutEditor = LocalLayoutEditor.current
     val moving = layoutEditor.moving
@@ -112,6 +115,16 @@ private fun Joystick(modifier: Modifier = Modifier, joystickType: JoystickType) 
         }
     }
 
+    fun updateBoundaryHaptics() {
+        val newHittingBounds = rawDragOffsetPx.value.getDistance() >= maxDragRangePx / 2.0f
+        if (newHittingBounds && !isHittingBounds.value) {
+            Haptics.startBoundaryVibration(localView)
+            isHittingBounds.value = true
+        } else if (!newHittingBounds) {
+            isHittingBounds.value = false
+        }
+    }
+
     fun addOffset(dragAmount: Offset) {
         rawDragOffsetPx.value += dragAmount
 
@@ -121,13 +134,16 @@ private fun Joystick(modifier: Modifier = Modifier, joystickType: JoystickType) 
         boundedDragOffsetDp.value = boundedDragOffsetPx.value / density
 
         updateJoystickState()
+        updateBoundaryHaptics()
     }
 
     fun resetOffset() {
         rawDragOffsetPx.value = Offset(0f, 0f)
         boundedDragOffsetPx.value = Offset(0f, 0f)
         boundedDragOffsetDp.value = Offset(0f, 0f)
+
         updateJoystickState()
+        updateBoundaryHaptics()
     }
 
     var containerModifier = modifier.size(joystickBox.dp)
