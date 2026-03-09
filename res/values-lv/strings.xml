@@ -25,28 +25,26 @@
     <item msgid="5463289076002941503">"Tumšais"</item>
   </string-array>
     <string name="label_gamepad_style" msgid="1542718986571188995">"Spēļu vadāmierīces stils"</string>
-    <!-- no translation found for gamepad_style_items:0 (6427033374051500762) -->
-    <!-- no translation found for gamepad_style_items:1 (3695137406491092399) -->
+  <string-array name="gamepad_style_items">
+    <item msgid="6427033374051500762">"Divas sviras, izvietotas vienā līmenī"</item>
+    <item msgid="3695137406491092399">"Divas sviras, izvietotas pakāpeniski"</item>
+  </string-array>
     <string name="label_gamepad_size" msgid="622658226522409740">"Lielums"</string>
   <string-array name="gamepad_size_items">
     <item msgid="7537897267679330793">"Maza"</item>
     <item msgid="4729939113023531137">"Vidēja"</item>
     <item msgid="2035206024988565350">"Liela"</item>
   </string-array>
-    <!-- no translation found for description_haptics (4255683342015357067) -->
-    <skip />
+    <string name="description_haptics" msgid="4255683342015357067">"Haptiskās tehnoloģijas iestatījums"</string>
     <string name="description_mode_button" msgid="134098723734776016">"Režīma poga"</string>
     <string name="description_joystick" msgid="5882281515287638189">"Kursorsvira"</string>
     <string name="description_gamepad_style_selector" msgid="297072224066534053">"Izvēlieties spēļu vadāmierīces stilu"</string>
     <string name="description_gamepad_size_selector" msgid="6024467919160938900">"Izvēlieties spēļu vadāmierīces lielumu"</string>
     <string name="description_hide_gamepad" msgid="3966885363696260306">"Paslēpiet spēļu vadāmierīci"</string>
     <string name="hide_gamepad" msgid="9081921379818022648">"Paslēpt spēļu vadāmierīci"</string>
-    <!-- no translation found for description_gamepad_style (170962546539192503) -->
-    <skip />
-    <!-- no translation found for template_gamepad_style_text (7553801998279684500) -->
-    <skip />
-    <!-- no translation found for haptics (1767688276155159411) -->
-    <skip />
+    <string name="description_gamepad_style" msgid="170962546539192503">"Atveriet spēļu vadāmierīces stila izvēlni."</string>
+    <string name="template_gamepad_style_text" msgid="7553801998279684500">"%1$s | %2$s"</string>
+    <string name="haptics" msgid="1767688276155159411">"Haptiskā tehnoloģija"</string>
     <!-- no translation found for description_checked (3645847096266326666) -->
     <skip />
 </resources>

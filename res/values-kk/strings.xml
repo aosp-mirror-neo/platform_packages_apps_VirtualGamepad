@@ -25,28 +25,26 @@
     <item msgid="5463289076002941503">"Қараңғы"</item>
   </string-array>
     <string name="label_gamepad_style" msgid="1542718986571188995">"Геймпад стилі"</string>
-    <!-- no translation found for gamepad_style_items:0 (6427033374051500762) -->
-    <!-- no translation found for gamepad_style_items:1 (3695137406491092399) -->
+  <string-array name="gamepad_style_items">
+    <item msgid="6427033374051500762">"Қос джойстик, бір қатарда"</item>
+    <item msgid="3695137406491092399">"Қос джойстик, сатылы"</item>
+  </string-array>
     <string name="label_gamepad_size" msgid="622658226522409740">"Өлшемі"</string>
   <string-array name="gamepad_size_items">
     <item msgid="7537897267679330793">"Кішi"</item>
     <item msgid="4729939113023531137">"Орташа"</item>
     <item msgid="2035206024988565350">"Үлкен"</item>
   </string-array>
-    <!-- no translation found for description_haptics (4255683342015357067) -->
-    <skip />
+    <string name="description_haptics" msgid="4255683342015357067">"Хептика параметрі"</string>
     <string name="description_mode_button" msgid="134098723734776016">"Режим түймесі"</string>
     <string name="description_joystick" msgid="5882281515287638189">"Джойстик"</string>
     <string name="description_gamepad_style_selector" msgid="297072224066534053">"Геймпад стилін таңдау"</string>
     <string name="description_gamepad_size_selector" msgid="6024467919160938900">"Геймпад өлшемін таңдау"</string>
     <string name="description_hide_gamepad" msgid="3966885363696260306">"Геймпадты жасыру"</string>
     <string name="hide_gamepad" msgid="9081921379818022648">"Геймпадты жасыру"</string>
-    <!-- no translation found for description_gamepad_style (170962546539192503) -->
-    <skip />
-    <!-- no translation found for template_gamepad_style_text (7553801998279684500) -->
-    <skip />
-    <!-- no translation found for haptics (1767688276155159411) -->
-    <skip />
+    <string name="description_gamepad_style" msgid="170962546539192503">"Геймпад стиліне қатысты мәзірді ашады."</string>
+    <string name="template_gamepad_style_text" msgid="7553801998279684500">"%1$s | %2$s"</string>
+    <string name="haptics" msgid="1767688276155159411">"Хептика"</string>
     <!-- no translation found for description_checked (3645847096266326666) -->
     <skip />
 </resources>
