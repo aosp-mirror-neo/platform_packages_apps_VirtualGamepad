@@ -41,7 +41,7 @@
     <string name="description_gamepad_style_selector" msgid="297072224066534053">"Escolhe o estilo do gamepad"</string>
     <string name="description_gamepad_size_selector" msgid="6024467919160938900">"Escolhe o tamanho do gamepad"</string>
     <string name="description_hide_gamepad" msgid="3966885363696260306">"Oculta o gamepad"</string>
-    <string name="hide_gamepad" msgid="9081921379818022648">"Ocultar gamepad"</string>
+    <string name="hide_gamepad" msgid="9081921379818022648">"Oculta o gamepad"</string>
     <string name="description_gamepad_style" msgid="170962546539192503">"Abrir menu de estilo de gamepad."</string>
     <string name="template_gamepad_style_text" msgid="7553801998279684500">"%1$s | %2$s"</string>
     <string name="haptics" msgid="1767688276155159411">"Funcionalidade tátil"</string>

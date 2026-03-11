@@ -31,4 +31,9 @@ object Haptics {
         if (!enabled) return
         view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_RELEASE)
     }
+
+    fun startBoundaryVibration(view: View) {
+        if (!enabled) return
+        view.performHapticFeedback(HapticFeedbackConstants.SEGMENT_FREQUENT_TICK)
+    }
 }
