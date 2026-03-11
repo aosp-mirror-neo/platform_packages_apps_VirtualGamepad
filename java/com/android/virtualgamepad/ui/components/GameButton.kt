@@ -51,6 +51,9 @@ internal fun GamePadButton(
     onButtonDown: () -> Unit = {},
     onButtonUp: () -> Unit = {},
     onClick: () -> Unit = {},
+    // Called when the button is clicked without detecting pressing. This can happen for
+    // accessibility or keyboard interactions.
+    onNonPressingClick: () -> Unit = {},
 ) {
 
     // Layout editor
@@ -112,7 +115,12 @@ internal fun GamePadButton(
             updatedModifier.clickable(
                 interactionSource = interactionSource,
                 indication = null,
-                onClick = onClick,
+                onClick = {
+                    onClick()
+                    if (!isPressed) {
+                        onNonPressingClick()
+                    }
+                },
             )
     ) {
         Image(
@@ -124,11 +132,7 @@ internal fun GamePadButton(
 }
 
 @Composable
-fun GameButton(
-    gameButtonType: GameButtonType,
-    modifier: Modifier = Modifier,
-    onClick: () -> Unit = {},
-) {
+fun GameButton(gameButtonType: GameButtonType, modifier: Modifier = Modifier) {
     val key = gameButtonType.name
     val localView = LocalView.current
     val gamepadState = LocalGamepadState.current
@@ -151,7 +155,13 @@ fun GameButton(
                 Haptics.onReleased(localView)
             }
         },
-        onClick = onClick,
+        onNonPressingClick = {
+            gamepadState?.onButtonDown(gameButtonType)
+            // Add a small delay to simulate a tap. Games might not react correctly if the down
+            // event and the up event are too close to each other.
+            Thread.sleep(50)
+            gamepadState?.onButtonUp(gameButtonType)
+        },
     )
 }
 
