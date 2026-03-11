@@ -25,6 +25,7 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -88,7 +89,31 @@ private fun Joystick(modifier: Modifier = Modifier, joystickType: JoystickType) 
     val boundedDragOffsetDp = remember { mutableStateOf(Offset(0f, 0f)) }
 
     // Haptic state
+    val isDragging = remember { mutableStateOf(false) }
     val isHittingBounds = remember { mutableStateOf(false) }
+    val isFirstRun = remember { mutableStateOf(true) }
+
+    LaunchedEffect(isDragging.value) {
+        if (isFirstRun.value) {
+            // Skip the first run to prevent onReleased() when creating the joystick.
+            isFirstRun.value = false
+            return@LaunchedEffect
+        }
+        if (isDragging.value) {
+            if (theme.isHapticsEnabled) {
+                Haptics.onPressed(localView)
+            }
+        } else {
+            if (theme.isHapticsEnabled) {
+                Haptics.onReleased(localView)
+            }
+        }
+    }
+    LaunchedEffect(isHittingBounds.value) {
+        if (isHittingBounds.value && theme.isHapticsEnabled) {
+            Haptics.startBoundaryVibration(localView)
+        }
+    }
 
     // Layout editor
     val layoutEditor = LocalLayoutEditor.current
@@ -116,13 +141,7 @@ private fun Joystick(modifier: Modifier = Modifier, joystickType: JoystickType) 
     }
 
     fun updateBoundaryHaptics() {
-        val newHittingBounds = rawDragOffsetPx.value.getDistance() >= maxDragRangePx / 2.0f
-        if (newHittingBounds && !isHittingBounds.value) {
-            Haptics.startBoundaryVibration(localView)
-            isHittingBounds.value = true
-        } else if (!newHittingBounds) {
-            isHittingBounds.value = false
-        }
+        isHittingBounds.value = rawDragOffsetPx.value.getDistance() >= maxDragRangePx / 2.0f
     }
 
     fun addOffset(dragAmount: Offset) {
@@ -193,7 +212,7 @@ private fun Joystick(modifier: Modifier = Modifier, joystickType: JoystickType) 
                             it.pointerInput(Unit) {
                                 detectDragGestures(
                                     onDragStart = { offset ->
-                                        Haptics.onPressed(localView)
+                                        isDragging.value = true
 
                                         // The offset is relative to the top-left corner of the
                                         // containing box, so we need to convert it to relative to
@@ -205,11 +224,11 @@ private fun Joystick(modifier: Modifier = Modifier, joystickType: JoystickType) 
                                     },
                                     onDragEnd = {
                                         resetOffset()
-                                        Haptics.onReleased(localView)
+                                        isDragging.value = false
                                     },
                                     onDragCancel = {
                                         resetOffset()
-                                        Haptics.onReleased(localView)
+                                        isDragging.value = false
                                     },
                                     onDrag = { change, dragAmount ->
                                         change.consume()
