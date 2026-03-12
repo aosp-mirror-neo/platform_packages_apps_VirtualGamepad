@@ -45,6 +45,5 @@
     <string name="description_gamepad_style" msgid="170962546539192503">"Abre o menú de estilo do mando de videoxogos."</string>
     <string name="template_gamepad_style_text" msgid="7553801998279684500">"%1$s | %2$s"</string>
     <string name="haptics" msgid="1767688276155159411">"Tecnoloxía háptica"</string>
-    <!-- no translation found for description_checked (3645847096266326666) -->
-    <skip />
+    <string name="description_checked" msgid="3645847096266326666">"Marcado"</string>
 </resources>
