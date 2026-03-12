@@ -91,7 +91,6 @@ class LocalGamepadBackend : GamepadBackend {
             gamepad.sendMotionEvent(
                 synthesizeGamepadMotionEvent(gamepadState, previousState, eventTimeNanos)
             )
-            Log.e(TAG, "Gamepad motion event MSG_LEFT_JOYSTICK sent")
         }
     }
 
@@ -104,7 +103,6 @@ class LocalGamepadBackend : GamepadBackend {
             gamepad.sendMotionEvent(
                 synthesizeGamepadMotionEvent(gamepadState, previousState, eventTimeNanos)
             )
-            Log.e(TAG, "Gamepad motion event MSG_RIGHT_JOYSTICK sent")
         }
     }
 
@@ -182,7 +180,6 @@ class LocalGamepadBackend : GamepadBackend {
                     gamepad.sendMotionEvent(
                         synthesizeGamepadMotionEvent(gamepadState, previousState, eventTimeNanos)
                     )
-                    Log.e(TAG, "Gamepad motion event MSG_KEY_EVENT sent")
                 }
             }
             // L2 and R2 send both motion events and key events.
@@ -192,14 +189,12 @@ class LocalGamepadBackend : GamepadBackend {
                     gamepad.sendMotionEvent(
                         synthesizeGamepadMotionEvent(gamepadState, previousState, eventTimeNanos)
                     )
-                    Log.e(TAG, "Gamepad motion event MSG_KEY_EVENT sent")
                 }
                 val keyEvent =
                     VirtualKeyEvent.Builder()
                         .setKeyCode(gameButtonType.keyCode)
                         .setAction(action)
                         .build()
-                Log.e(TAG, "MSG_KEY_EVENT $keyEvent")
                 gamepad.sendKeyEvent(keyEvent)
             }
             // Other buttons send only key events.
@@ -209,7 +204,6 @@ class LocalGamepadBackend : GamepadBackend {
                         .setKeyCode(gameButtonType.keyCode)
                         .setAction(action)
                         .build()
-                Log.e(TAG, "MSG_KEY_EVENT $keyEvent")
                 gamepad.sendKeyEvent(keyEvent)
             }
         }
@@ -227,12 +221,12 @@ class LocalGamepadBackend : GamepadBackend {
         config.associatedDisplayId = context.displayId
         config.registerTriggerAxes = true
         gamepad = inputManager.createVirtualGamepad(config)
-        Log.e(TAG, "Gamepad initialized")
+        Log.i(TAG, "Gamepad initialized")
     }
 
     override fun disconnect() {
         gamepad.close()
-        Log.e(TAG, "Gamepad destroyed")
+        Log.i(TAG, "Gamepad destroyed")
     }
 
     private fun synthesizeGamepadMotionEvent(
