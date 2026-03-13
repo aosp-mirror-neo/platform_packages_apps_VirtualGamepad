@@ -36,9 +36,6 @@ import com.android.virtualgamepad.model.GameButtonType.R2
 
 /** A gamepad backend that calls the InputManager to create a virtual gamepad. */
 class LocalGamepadBackend : GamepadBackend {
-
-    private val TAG = "LocalGamepadBackend"
-
     /** A data class that tracks the state of the gamepad's triggers and joysticks. */
     private data class GamepadState(
         var x: Float = 0.0f,
@@ -80,7 +77,6 @@ class LocalGamepadBackend : GamepadBackend {
 
     private val gamepadState = GamepadState()
     private val dpadState = DpadState()
-    private lateinit var gamepad: VirtualGamepad
 
     override fun onLeftJoystick(x: Float, y: Float) {
         val previousState = gamepadState.copy()
@@ -88,7 +84,7 @@ class LocalGamepadBackend : GamepadBackend {
         gamepadState.x = x
         gamepadState.y = y
         if (gamepadState != previousState) {
-            gamepad.sendMotionEvent(
+            gamepad?.sendMotionEvent(
                 synthesizeGamepadMotionEvent(gamepadState, previousState, eventTimeNanos)
             )
         }
@@ -100,7 +96,7 @@ class LocalGamepadBackend : GamepadBackend {
         gamepadState.z = z
         gamepadState.rz = rz
         if (gamepadState != previousState) {
-            gamepad.sendMotionEvent(
+            gamepad?.sendMotionEvent(
                 synthesizeGamepadMotionEvent(gamepadState, previousState, eventTimeNanos)
             )
         }
@@ -177,7 +173,7 @@ class LocalGamepadBackend : GamepadBackend {
             DPAD_LEFT,
             DPAD_RIGHT -> {
                 if (gamepadState != previousState) {
-                    gamepad.sendMotionEvent(
+                    gamepad?.sendMotionEvent(
                         synthesizeGamepadMotionEvent(gamepadState, previousState, eventTimeNanos)
                     )
                 }
@@ -186,7 +182,7 @@ class LocalGamepadBackend : GamepadBackend {
             L2,
             R2 -> {
                 if (gamepadState != previousState) {
-                    gamepad.sendMotionEvent(
+                    gamepad?.sendMotionEvent(
                         synthesizeGamepadMotionEvent(gamepadState, previousState, eventTimeNanos)
                     )
                 }
@@ -195,7 +191,7 @@ class LocalGamepadBackend : GamepadBackend {
                         .setKeyCode(gameButtonType.keyCode)
                         .setAction(action)
                         .build()
-                gamepad.sendKeyEvent(keyEvent)
+                gamepad?.sendKeyEvent(keyEvent)
             }
             // Other buttons send only key events.
             else -> {
@@ -204,29 +200,42 @@ class LocalGamepadBackend : GamepadBackend {
                         .setKeyCode(gameButtonType.keyCode)
                         .setAction(action)
                         .build()
-                gamepad.sendKeyEvent(keyEvent)
+                gamepad?.sendKeyEvent(keyEvent)
             }
         }
     }
 
     override fun connect(context: Activity) {
-        val inputManager = context.getSystemService(InputManager::class.java)
-        val config = VirtualGamepadConfig()
+        synchronized(lock) {
+            if (refCount == 0) {
+                val inputManager = context.getSystemService(InputManager::class.java)
+                val config = VirtualGamepadConfig()
 
-        // TODO(jiamingliu) update these values
-        config.name = "Android Virtual Gamepad"
-        config.vendorId = 1234
-        config.productId = 5678
+                // TODO(jiamingliu) update these values
+                config.name = "Android Virtual Gamepad"
+                config.vendorId = 1234
+                config.productId = 5678
 
-        config.associatedDisplayId = context.displayId
-        config.registerTriggerAxes = true
-        gamepad = inputManager.createVirtualGamepad(config)
-        Log.i(TAG, "Gamepad initialized")
+                config.associatedDisplayId = context.displayId
+                config.registerTriggerAxes = true
+                gamepad = inputManager.createVirtualGamepad(config)
+                Log.i(TAG, "Gamepad initialized")
+            }
+            refCount++
+        }
     }
 
     override fun disconnect() {
-        gamepad.close()
-        Log.i(TAG, "Gamepad destroyed")
+        synchronized(lock) {
+            if (refCount > 0) {
+                refCount--
+                if (refCount == 0) {
+                    gamepad?.close()
+                    gamepad = null
+                    Log.i(TAG, "Gamepad destroyed")
+                }
+            }
+        }
     }
 
     private fun synthesizeGamepadMotionEvent(
@@ -260,5 +269,12 @@ class LocalGamepadBackend : GamepadBackend {
             builder.setRTrigger(currentState.rTrigger)
         }
         return builder.build()
+    }
+
+    companion object {
+        private const val TAG = "LocalGamepadBackend"
+        private val lock = Any()
+        private var gamepad: VirtualGamepad? = null
+        private var refCount = 0
     }
 }
