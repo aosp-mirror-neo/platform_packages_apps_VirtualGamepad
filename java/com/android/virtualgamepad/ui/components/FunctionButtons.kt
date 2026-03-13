@@ -40,6 +40,7 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.SportsEsports
 import androidx.compose.material.icons.filled.Straighten
 import androidx.compose.material.icons.filled.Vibration
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -80,6 +81,7 @@ import com.android.virtualgamepad.ui.theme.VirtualGamepadTheme
 private const val DIALOG_STATE_COLLAPSED = 0
 private const val DIALOG_STATE_SETTINGS = 1
 private const val DIALOG_STATE_STYLE = 2
+private const val DIALOG_STATE_HIDE_CONFIRM = 3
 
 @Composable
 fun FunctionButtons(
@@ -88,7 +90,7 @@ fun FunctionButtons(
     onGamepadHapticsChanged: (Boolean) -> Unit,
     onGamepadSizeChanged: (GamepadSize) -> Unit,
     onGamepadColorThemeChanged: (GamepadColorTheme) -> Unit,
-    onGamepadDismissed: () -> Unit,
+    onGamepadDismissed: (Boolean) -> Unit,
 ) {
     var dialogState by remember { mutableStateOf(DIALOG_STATE_COLLAPSED) }
     val gamepadTheme = LocalGamepadTheme.current
@@ -118,7 +120,7 @@ fun FunctionButtons(
         DIALOG_STATE_SETTINGS -> {
             GamepadSettingsDialog(
                 gamepadTheme = gamepadTheme,
-                onGamepadDismissed = onGamepadDismissed,
+                onGamepadHideRequest = { dialogState = DIALOG_STATE_HIDE_CONFIRM },
                 onDismissRequest = { dialogState = DIALOG_STATE_COLLAPSED },
                 onGamepadStyleRequest = { dialogState = DIALOG_STATE_STYLE },
                 onGamepadHapticsChanged = onGamepadHapticsChanged,
@@ -131,6 +133,14 @@ fun FunctionButtons(
                 onGamepadStyleChanged = onGamepadStyleChanged,
                 onGamepadSizeChanged = onGamepadSizeChanged,
                 onGamepadColorThemeChanged = onGamepadColorThemeChanged,
+                onDismissRequest = { dialogState = DIALOG_STATE_COLLAPSED },
+            )
+        }
+
+        DIALOG_STATE_HIDE_CONFIRM -> {
+            GamepadHideConfirmDialog(
+                gamepadTheme = gamepadTheme,
+                onGamepadDismissed = onGamepadDismissed,
                 onDismissRequest = { dialogState = DIALOG_STATE_COLLAPSED },
             )
         }
@@ -180,7 +190,7 @@ fun GamepadStyleDialog(
 fun GamepadSettingsDialog(
     gamepadTheme: GamepadTheme,
     onGamepadStyleRequest: () -> Unit,
-    onGamepadDismissed: () -> Unit,
+    onGamepadHideRequest: () -> Unit,
     onDismissRequest: () -> Unit,
     onGamepadHapticsChanged: (Boolean) -> Unit,
 ) {
@@ -268,7 +278,7 @@ fun GamepadSettingsDialog(
                 Row(
                     modifier =
                         Modifier.padding(top = 8.dp, bottom = 8.dp).clickable {
-                            onGamepadDismissed()
+                            onGamepadHideRequest()
                         },
                     horizontalArrangement = Arrangement.Start,
                     verticalAlignment = Alignment.CenterVertically,
@@ -282,6 +292,54 @@ fun GamepadSettingsDialog(
                         text = stringResource(R.string.hide_gamepad),
                         gamepadTheme = gamepadTheme,
                     )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun GamepadHideConfirmDialog(
+    gamepadTheme: GamepadTheme,
+    onGamepadDismissed: (Boolean) -> Unit,
+    onDismissRequest: () -> Unit,
+) {
+    Dialog(onDismissRequest = onDismissRequest) {
+        Card(
+            modifier = Modifier.width(364.dp).wrapContentHeight().padding(16.dp),
+            shape = MaterialTheme.shapes.large,
+        ) {
+            Column(
+                modifier = Modifier.padding(16.dp).fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+            ) {
+                DialogTitle(
+                    text = stringResource(R.string.hide_gamepad_title),
+                    gamepadTheme = gamepadTheme,
+                )
+
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
+                    // Highlighted option: Hide for now
+                    Button(
+                        onClick = { onGamepadDismissed(false) },
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(28.dp),
+                    ) {
+                        Text(text = stringResource(R.string.hide_for_now))
+                    }
+
+                    // Secondary option: Always hide
+                    OutlinedButton(
+                        onClick = { onGamepadDismissed(true) },
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(28.dp),
+                    ) {
+                        Text(text = stringResource(R.string.always_hide))
+                    }
                 }
             }
         }

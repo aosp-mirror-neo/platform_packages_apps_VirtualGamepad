@@ -111,4 +111,9 @@
     <string name="haptics">Haptics</string>
     <!-- Says that a switch is checked or on -->
     <string name="description_checked">Checked</string>
+    <!-- Hide the gamepad temporarily. The gamepad will show again when the game is launched next
+         time. -->
+    <string name="hide_for_now">Hide for now</string>
+    <string name="always_hide">Always hide for this game</string>
+    <string name="hide_gamepad_title">Hide the virtual gamepad?</string>
 </resources>

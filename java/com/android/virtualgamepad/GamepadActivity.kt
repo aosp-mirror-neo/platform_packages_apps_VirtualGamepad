@@ -21,6 +21,8 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.InputDevice
 import android.view.WindowManager
 import androidx.activity.ComponentActivity
@@ -104,16 +106,25 @@ class GamepadActivity : ComponentActivity() {
         gamepadBackend.disconnect()
     }
 
-    fun dismissGamepad() {
-        callerPackageName?.let { callerPackageName ->
-            AppGlobals.getPackageManager()
-                .setVirtualGamepadUserOption(
-                    callerPackageName,
-                    userId,
-                    PackageManager.VIRTUAL_GAMEPAD_USER_OPTION_OPT_OUT,
-                )
+    fun dismissGamepad(alwaysHide: Boolean) {
+        callerPackageName?.let { pkg ->
+            setUserOption(pkg, PackageManager.VIRTUAL_GAMEPAD_USER_OPTION_OPT_OUT)
+            if (!alwaysHide) {
+                // Hide for now: revert OPT_OUT after 2 seconds.
+                // TODO(b/491541162) find a better way to pass the temporary opt-out to the game
+                // process.
+                Handler(Looper.getMainLooper())
+                    .postDelayed(
+                        { setUserOption(pkg, PackageManager.VIRTUAL_GAMEPAD_USER_OPTION_UNSET) },
+                        2000,
+                    )
+            }
         }
         finish()
+    }
+
+    private fun setUserOption(packageName: String, option: Int) {
+        AppGlobals.getPackageManager().setVirtualGamepadUserOption(packageName, userId, option)
     }
 
     fun isGamepadDismissed(): Boolean =
