@@ -86,11 +86,17 @@ class GamepadTheme(
     }
 
     fun dialogTitleStyle(): TextStyle {
+        val color =
+            if (isLightTheme()) {
+                Color(0xFF313332)
+            } else {
+                Color(0xFFD1D2CF)
+            }
         return TextStyle(
             fontSize = 16.sp,
             lineHeight = 24.sp,
             fontWeight = FontWeight(500),
-            color = Color(0xFFD1D2CF),
+            color = color,
         )
     }
 
@@ -103,21 +109,49 @@ class GamepadTheme(
         )
     }
 
+    fun dialogColor(): Color {
+        return if (isLightTheme()) {
+            Color(0xFFFFFFFF)
+        } else {
+            Color(0xFF000000)
+        }
+    }
+
     fun dialogHeaderStyle(): TextStyle {
+        val color =
+            if (isLightTheme()) {
+                Color(0xFF313332)
+            } else {
+                Color(0xFFBFC9C3)
+            }
         return TextStyle(
             fontSize = 14.sp,
             lineHeight = 20.sp,
             fontWeight = FontWeight(400),
-            color = Color(0xFFBFC9C3),
+            color = color,
         )
     }
 
+    fun dropdownItemTint(): Color {
+        return if (isLightTheme()) {
+            Color(0xFF313332)
+        } else {
+            Color(0xFFBFC9C3)
+        }
+    }
+
     fun dropDownItemStyle(): TextStyle {
+        val color =
+            if (isLightTheme()) {
+                Color(0xFF313332)
+            } else {
+                Color(0xFFBFC9C3)
+            }
         return TextStyle(
             fontSize = 14.sp,
             lineHeight = 20.sp,
             fontWeight = FontWeight(500),
-            color = Color(0xFFBFC9C3),
+            color = color,
         )
     }
 

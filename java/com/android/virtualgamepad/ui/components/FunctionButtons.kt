@@ -42,6 +42,7 @@ import androidx.compose.material.icons.filled.Straighten
 import androidx.compose.material.icons.filled.Vibration
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
@@ -58,7 +59,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
@@ -94,7 +94,6 @@ fun FunctionButtons(
 ) {
     var dialogState by remember { mutableStateOf(DIALOG_STATE_COLLAPSED) }
     val gamepadTheme = LocalGamepadTheme.current
-    val screenWidthDp = LocalConfiguration.current.screenWidthDp
     val gamepadLayoutSpec = GamepadLayoutSpec(gamepadTheme)
 
     val functionButtonWidth = gamepadLayoutSpec.getFunctionButtonWidth()
@@ -159,6 +158,7 @@ fun GamepadStyleDialog(
         Card(
             modifier = Modifier.width(364.dp).wrapContentHeight().padding(16.dp),
             shape = MaterialTheme.shapes.large,
+            colors = CardDefaults.cardColors(containerColor = gamepadTheme.dialogColor()),
         ) {
             Column(
                 modifier = Modifier.padding(16.dp).fillMaxWidth(),
@@ -198,6 +198,7 @@ fun GamepadSettingsDialog(
         Card(
             modifier = Modifier.width(364.dp).wrapContentHeight().padding(16.dp),
             shape = MaterialTheme.shapes.large,
+            colors = CardDefaults.cardColors(containerColor = gamepadTheme.dialogColor()),
         ) {
             Column(
                 modifier = Modifier.padding(16.dp).fillMaxWidth(),
@@ -376,6 +377,7 @@ fun GamepadStyleSelector(
             Icon(
                 imageVector = Icons.Filled.SportsEsports,
                 contentDescription = stringResource(R.string.description_gamepad_style),
+                tint = gamepadTheme.dropdownItemTint(),
             )
         },
         description = stringResource(R.string.description_gamepad_style_selector),
@@ -396,6 +398,7 @@ fun GamepadSizeSelector(gamepadTheme: GamepadTheme, onGamepadSizeSelected: (Game
             Icon(
                 imageVector = Icons.Filled.Straighten,
                 contentDescription = stringResource(R.string.description_gamepad_style),
+                tint = gamepadTheme.dropdownItemTint(),
             )
         },
         description = stringResource(R.string.description_gamepad_size_selector),
