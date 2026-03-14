@@ -32,6 +32,7 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
@@ -40,7 +41,9 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.SportsEsports
 import androidx.compose.material.icons.filled.Straighten
 import androidx.compose.material.icons.filled.Vibration
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
@@ -57,10 +60,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
@@ -80,6 +84,7 @@ import com.android.virtualgamepad.ui.theme.VirtualGamepadTheme
 private const val DIALOG_STATE_COLLAPSED = 0
 private const val DIALOG_STATE_SETTINGS = 1
 private const val DIALOG_STATE_STYLE = 2
+private const val DIALOG_STATE_HIDE_CONFIRM = 3
 
 @Composable
 fun FunctionButtons(
@@ -88,11 +93,10 @@ fun FunctionButtons(
     onGamepadHapticsChanged: (Boolean) -> Unit,
     onGamepadSizeChanged: (GamepadSize) -> Unit,
     onGamepadColorThemeChanged: (GamepadColorTheme) -> Unit,
-    onGamepadDismissed: () -> Unit,
+    onGamepadDismissed: (Boolean) -> Unit,
 ) {
     var dialogState by remember { mutableStateOf(DIALOG_STATE_COLLAPSED) }
     val gamepadTheme = LocalGamepadTheme.current
-    val screenWidthDp = LocalConfiguration.current.screenWidthDp
     val gamepadLayoutSpec = GamepadLayoutSpec(gamepadTheme)
 
     val functionButtonWidth = gamepadLayoutSpec.getFunctionButtonWidth()
@@ -118,7 +122,7 @@ fun FunctionButtons(
         DIALOG_STATE_SETTINGS -> {
             GamepadSettingsDialog(
                 gamepadTheme = gamepadTheme,
-                onGamepadDismissed = onGamepadDismissed,
+                onGamepadHideRequest = { dialogState = DIALOG_STATE_HIDE_CONFIRM },
                 onDismissRequest = { dialogState = DIALOG_STATE_COLLAPSED },
                 onGamepadStyleRequest = { dialogState = DIALOG_STATE_STYLE },
                 onGamepadHapticsChanged = onGamepadHapticsChanged,
@@ -131,6 +135,14 @@ fun FunctionButtons(
                 onGamepadStyleChanged = onGamepadStyleChanged,
                 onGamepadSizeChanged = onGamepadSizeChanged,
                 onGamepadColorThemeChanged = onGamepadColorThemeChanged,
+                onDismissRequest = { dialogState = DIALOG_STATE_COLLAPSED },
+            )
+        }
+
+        DIALOG_STATE_HIDE_CONFIRM -> {
+            GamepadHideConfirmDialog(
+                gamepadTheme = gamepadTheme,
+                onGamepadDismissed = onGamepadDismissed,
                 onDismissRequest = { dialogState = DIALOG_STATE_COLLAPSED },
             )
         }
@@ -149,6 +161,7 @@ fun GamepadStyleDialog(
         Card(
             modifier = Modifier.width(364.dp).wrapContentHeight().padding(16.dp),
             shape = MaterialTheme.shapes.large,
+            colors = CardDefaults.cardColors(containerColor = gamepadTheme.dialogColor()),
         ) {
             Column(
                 modifier = Modifier.padding(16.dp).fillMaxWidth(),
@@ -180,7 +193,7 @@ fun GamepadStyleDialog(
 fun GamepadSettingsDialog(
     gamepadTheme: GamepadTheme,
     onGamepadStyleRequest: () -> Unit,
-    onGamepadDismissed: () -> Unit,
+    onGamepadHideRequest: () -> Unit,
     onDismissRequest: () -> Unit,
     onGamepadHapticsChanged: (Boolean) -> Unit,
 ) {
@@ -188,6 +201,7 @@ fun GamepadSettingsDialog(
         Card(
             modifier = Modifier.width(364.dp).wrapContentHeight().padding(16.dp),
             shape = MaterialTheme.shapes.large,
+            colors = CardDefaults.cardColors(containerColor = gamepadTheme.dialogColor()),
         ) {
             Column(
                 modifier = Modifier.padding(16.dp).fillMaxWidth(),
@@ -224,20 +238,34 @@ fun GamepadSettingsDialog(
                     }
                 }
 
+                // Row 2: Haptics
+                val hapticsStateDescription =
+                    stringResource(
+                        if (gamepadTheme.isHapticsEnabled) R.string.haptics_on
+                        else R.string.haptics_off
+                    )
                 Row(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier =
+                        Modifier.fillMaxWidth()
+                            .toggleable(
+                                value = gamepadTheme.isHapticsEnabled,
+                                onValueChange = onGamepadHapticsChanged,
+                            )
+                            .semantics(mergeDescendants = true) {
+                                stateDescription = hapticsStateDescription
+                            }
+                            .padding(top = 8.dp, bottom = 8.dp),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Row(
-                        modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
                         horizontalArrangement = Arrangement.Start,
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
                         Icon(
                             modifier = Modifier.padding(start = 8.dp, end = 8.dp),
                             imageVector = Icons.Filled.Vibration,
-                            contentDescription = stringResource(R.string.description_haptics),
+                            contentDescription = null,
                         )
                         DialogTitle(
                             text = stringResource(R.string.haptics),
@@ -247,14 +275,14 @@ fun GamepadSettingsDialog(
 
                     Switch(
                         checked = gamepadTheme.isHapticsEnabled,
-                        onCheckedChange = onGamepadHapticsChanged,
+                        onCheckedChange = null,
+                        enabled = true,
                         thumbContent =
                             if (gamepadTheme.isHapticsEnabled) {
                                 {
                                     Icon(
                                         imageVector = Icons.Filled.Check,
-                                        contentDescription =
-                                            stringResource(R.string.description_checked),
+                                        contentDescription = null,
                                         modifier = Modifier.size(SwitchDefaults.IconSize),
                                     )
                                 }
@@ -268,7 +296,7 @@ fun GamepadSettingsDialog(
                 Row(
                     modifier =
                         Modifier.padding(top = 8.dp, bottom = 8.dp).clickable {
-                            onGamepadDismissed()
+                            onGamepadHideRequest()
                         },
                     horizontalArrangement = Arrangement.Start,
                     verticalAlignment = Alignment.CenterVertically,
@@ -282,6 +310,54 @@ fun GamepadSettingsDialog(
                         text = stringResource(R.string.hide_gamepad),
                         gamepadTheme = gamepadTheme,
                     )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun GamepadHideConfirmDialog(
+    gamepadTheme: GamepadTheme,
+    onGamepadDismissed: (Boolean) -> Unit,
+    onDismissRequest: () -> Unit,
+) {
+    Dialog(onDismissRequest = onDismissRequest) {
+        Card(
+            modifier = Modifier.width(364.dp).wrapContentHeight().padding(16.dp),
+            shape = MaterialTheme.shapes.large,
+        ) {
+            Column(
+                modifier = Modifier.padding(16.dp).fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+            ) {
+                DialogTitle(
+                    text = stringResource(R.string.hide_gamepad_title),
+                    gamepadTheme = gamepadTheme,
+                )
+
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
+                    // Highlighted option: Hide for now
+                    Button(
+                        onClick = { onGamepadDismissed(false) },
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(28.dp),
+                    ) {
+                        Text(text = stringResource(R.string.hide_for_now))
+                    }
+
+                    // Secondary option: Always hide
+                    OutlinedButton(
+                        onClick = { onGamepadDismissed(true) },
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(28.dp),
+                    ) {
+                        Text(text = stringResource(R.string.always_hide))
+                    }
                 }
             }
         }
@@ -318,6 +394,7 @@ fun GamepadStyleSelector(
             Icon(
                 imageVector = Icons.Filled.SportsEsports,
                 contentDescription = stringResource(R.string.description_gamepad_style),
+                tint = gamepadTheme.dropdownItemTint(),
             )
         },
         description = stringResource(R.string.description_gamepad_style_selector),
@@ -338,6 +415,7 @@ fun GamepadSizeSelector(gamepadTheme: GamepadTheme, onGamepadSizeSelected: (Game
             Icon(
                 imageVector = Icons.Filled.Straighten,
                 contentDescription = stringResource(R.string.description_gamepad_style),
+                tint = gamepadTheme.dropdownItemTint(),
             )
         },
         description = stringResource(R.string.description_gamepad_size_selector),

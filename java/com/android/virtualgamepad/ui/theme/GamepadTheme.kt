@@ -17,6 +17,7 @@
 package com.android.virtualgamepad.ui.theme
 
 import android.annotation.DrawableRes
+import android.annotation.StringRes
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -85,11 +86,17 @@ class GamepadTheme(
     }
 
     fun dialogTitleStyle(): TextStyle {
+        val color =
+            if (isLightTheme()) {
+                Color(0xFF313332)
+            } else {
+                Color(0xFFD1D2CF)
+            }
         return TextStyle(
             fontSize = 16.sp,
             lineHeight = 24.sp,
             fontWeight = FontWeight(500),
-            color = Color(0xFFD1D2CF),
+            color = color,
         )
     }
 
@@ -102,21 +109,49 @@ class GamepadTheme(
         )
     }
 
+    fun dialogColor(): Color {
+        return if (isLightTheme()) {
+            Color(0xFFFFFFFF)
+        } else {
+            Color(0xFF000000)
+        }
+    }
+
     fun dialogHeaderStyle(): TextStyle {
+        val color =
+            if (isLightTheme()) {
+                Color(0xFF313332)
+            } else {
+                Color(0xFFBFC9C3)
+            }
         return TextStyle(
             fontSize = 14.sp,
             lineHeight = 20.sp,
             fontWeight = FontWeight(400),
-            color = Color(0xFFBFC9C3),
+            color = color,
         )
     }
 
+    fun dropdownItemTint(): Color {
+        return if (isLightTheme()) {
+            Color(0xFF313332)
+        } else {
+            Color(0xFFBFC9C3)
+        }
+    }
+
     fun dropDownItemStyle(): TextStyle {
+        val color =
+            if (isLightTheme()) {
+                Color(0xFF313332)
+            } else {
+                Color(0xFFBFC9C3)
+            }
         return TextStyle(
             fontSize = 14.sp,
             lineHeight = 20.sp,
             fontWeight = FontWeight(500),
-            color = Color(0xFFBFC9C3),
+            color = color,
         )
     }
 
@@ -139,6 +174,32 @@ class GamepadTheme(
             R.drawable.button_settings
         } else {
             R.drawable.button_settings_dark
+        }
+    }
+
+    @DrawableRes
+    fun settingsButtonDescription(): Int {
+        return R.string.description_game_button_settings
+    }
+
+    @StringRes
+    fun gameButtonDescription(gameButtonType: GameButtonType): Int {
+        when (gameButtonType) {
+            GameButtonType.A -> return R.string.description_game_button_a
+            GameButtonType.B -> return R.string.description_game_button_b
+            GameButtonType.X -> return R.string.description_game_button_x
+            GameButtonType.Y -> return R.string.description_game_button_y
+            GameButtonType.L1 -> return R.string.description_game_button_l1
+            GameButtonType.L2 -> return R.string.description_game_button_l2
+            GameButtonType.L3 -> return R.string.description_game_button_l3
+            GameButtonType.R1 -> return R.string.description_game_button_r1
+            GameButtonType.R2 -> return R.string.description_game_button_r2
+            GameButtonType.R3 -> return R.string.description_game_button_r3
+            GameButtonType.DPAD_UP -> return R.string.description_game_button_dpad_up
+            GameButtonType.DPAD_DOWN -> return R.string.description_game_button_dpad_down
+            GameButtonType.DPAD_LEFT -> return R.string.description_game_button_dpad_left
+            GameButtonType.DPAD_RIGHT -> return R.string.description_game_button_dpad_right
+            GameButtonType.Menu -> return R.string.description_game_button_menu
         }
     }
 

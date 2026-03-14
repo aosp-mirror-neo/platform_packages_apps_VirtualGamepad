@@ -60,6 +60,39 @@
     <!-- Describes the joystick of a virtual gamepad. e.g., Used with accessibility. -->
     <string name="description_joystick">Joystick</string>
 
+    <!-- Description for game button A. Used with accessibility. -->
+    <string name="description_game_button_a">A Button</string>
+    <!-- Description for game button B. Used with accessibility. -->
+    <string name="description_game_button_b">B Button</string>
+    <!-- Description for game button X. Used with accessibility. -->
+    <string name="description_game_button_x">X Button</string>
+    <!-- Description for game button Y. Used with accessibility. -->
+    <string name="description_game_button_y">Y Button</string>
+    <!-- Description for game button L1. Used with accessibility. -->
+    <string name="description_game_button_l1">L1 Button</string>
+    <!-- Description for game button L2. Used with accessibility. -->
+    <string name="description_game_button_l2">L2 Button</string>
+    <!-- Description for game button L3. Used with accessibility. -->
+    <string name="description_game_button_l3">L3 Button</string>
+    <!-- Description for game button R1. Used with accessibility. -->
+    <string name="description_game_button_r1">R1 Button</string>
+    <!-- Description for game button R2. Used with accessibility. -->
+    <string name="description_game_button_r2">R2 Button</string>
+    <!-- Description for game button R3. Used with accessibility. -->
+    <string name="description_game_button_r3">R3 Button</string>
+    <!-- Description for game button DPAD UP. Used with accessibility. -->
+    <string name="description_game_button_dpad_up">D-pad Up</string>
+    <!-- Description for game button DPAD DOWN. Used with accessibility. -->
+    <string name="description_game_button_dpad_down">D-pad Down</string>
+    <!-- Description for game button DPAD LEFT. Used with accessibility. -->
+    <string name="description_game_button_dpad_left">D-pad Left</string>
+    <!-- Description for game button DPAD RIGHT. Used with accessibility. -->
+    <string name="description_game_button_dpad_right">D-pad Right</string>
+    <!-- Description for game button Menu. Used with accessibility. -->
+    <string name="description_game_button_menu">Menu Button</string>
+    <!-- Description for game button Settings. Used with accessibility. -->
+    <string name="description_game_button_settings">Settings Button</string>
+
     <!-- Describes the drop down menu for the gamepad style -->
     <string name="description_gamepad_style_selector">Choose Gamepad Style</string>
 
@@ -76,6 +109,15 @@
     <string name="template_gamepad_style_text">%1$s | %2$s</string>
     <!-- Haptics for a gamepad -->
     <string name="haptics">Haptics</string>
+    <!-- Haptics state description when enabled -->
+    <string name="haptics_on">Haptics On</string>
+    <!-- Haptics state description when disabled -->
+    <string name="haptics_off">Haptics Off</string>
     <!-- Says that a switch is checked or on -->
     <string name="description_checked">Checked</string>
+    <!-- Hide the gamepad temporarily. The gamepad will show again when the game is launched next
+         time. -->
+    <string name="hide_for_now">Hide for now</string>
+    <string name="always_hide">Always hide for this game</string>
+    <string name="hide_gamepad_title">Hide the virtual gamepad?</string>
 </resources>

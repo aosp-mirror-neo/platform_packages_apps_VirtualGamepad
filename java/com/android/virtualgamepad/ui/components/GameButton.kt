@@ -17,6 +17,7 @@
 package com.android.virtualgamepad.ui.components
 
 import android.annotation.DrawableRes
+import android.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectDragGestures
@@ -36,8 +37,8 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
 import com.android.virtualgamepad.LocalGamepadState
-import com.android.virtualgamepad.R
 import com.android.virtualgamepad.model.GameButtonType
 import com.android.virtualgamepad.ui.LocalGamepadTheme
 import com.android.virtualgamepad.ui.LocalLayoutEditor
@@ -46,6 +47,7 @@ import kotlin.math.max
 @Composable
 internal fun GamePadButton(
     @DrawableRes buttonRes: Int,
+    @StringRes descriptionRes: Int,
     key: String,
     modifier: Modifier = Modifier,
     onButtonDown: () -> Unit = {},
@@ -109,7 +111,7 @@ internal fun GamePadButton(
             }
     }
     // End of layout editor logic
-
+    val description = stringResource(descriptionRes)
     Box(
         modifier =
             updatedModifier.clickable(
@@ -126,7 +128,7 @@ internal fun GamePadButton(
         Image(
             modifier = Modifier.fillMaxSize(),
             painter = painterResource(buttonRes),
-            contentDescription = stringResource(R.string.description_mode_button),
+            contentDescription = description,
         )
     }
 }
@@ -138,9 +140,11 @@ fun GameButton(gameButtonType: GameButtonType, modifier: Modifier = Modifier) {
     val gamepadState = LocalGamepadState.current
     val theme = LocalGamepadTheme.current
     val buttonRes = theme.gameButtonResource(gameButtonType)
+    val buttonDescription = theme.gameButtonDescription(gameButtonType)
 
     GamePadButton(
         buttonRes,
+        buttonDescription,
         key,
         modifier,
         onButtonDown = {
@@ -170,9 +174,11 @@ fun SettingsButton(modifier: Modifier = Modifier, onClick: () -> Unit) {
 
     val theme = LocalGamepadTheme.current
     val buttonRes = theme.settingsButtonResource()
+    val descriptionRes = theme.settingsButtonDescription()
 
     GamePadButton(
         buttonRes,
+        descriptionRes,
         "Settings",
         modifier,
         onButtonDown = {},

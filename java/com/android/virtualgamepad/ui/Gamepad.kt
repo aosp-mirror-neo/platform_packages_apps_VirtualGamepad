@@ -59,7 +59,7 @@ val LocalLayoutEditor = compositionLocalOf { LayoutEditor() }
 fun Gamepad(
     theme: GamepadTheme? = null,
     onGamepadThemeChanged: (GamepadTheme) -> Unit = { _ -> },
-    onGamepadDismissed: () -> Unit = {},
+    onGamepadDismissed: (Boolean) -> Unit = {},
 ) {
     var gamepadTheme by remember { mutableStateOf(theme ?: GamepadTheme()) }
 
@@ -98,7 +98,7 @@ fun Gamepad(
 fun FunctionButtonPanel(
     modifier: Modifier,
     onGamepadThemeChanged: (GamepadTheme) -> Unit = { _ -> },
-    onGamepadDismissed: () -> Unit = {},
+    onGamepadDismissed: (Boolean) -> Unit = {},
 ) {
     val screenWidthDp = LocalConfiguration.current.screenWidthDp
     val gamepadTheme = LocalGamepadTheme.current
