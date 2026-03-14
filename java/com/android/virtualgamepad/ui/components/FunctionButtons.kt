@@ -32,6 +32,7 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
@@ -62,6 +63,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
@@ -235,20 +238,34 @@ fun GamepadSettingsDialog(
                     }
                 }
 
+                // Row 2: Haptics
+                val hapticsStateDescription =
+                    stringResource(
+                        if (gamepadTheme.isHapticsEnabled) R.string.haptics_on
+                        else R.string.haptics_off
+                    )
                 Row(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier =
+                        Modifier.fillMaxWidth()
+                            .toggleable(
+                                value = gamepadTheme.isHapticsEnabled,
+                                onValueChange = onGamepadHapticsChanged,
+                            )
+                            .semantics(mergeDescendants = true) {
+                                stateDescription = hapticsStateDescription
+                            }
+                            .padding(top = 8.dp, bottom = 8.dp),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Row(
-                        modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
                         horizontalArrangement = Arrangement.Start,
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
                         Icon(
                             modifier = Modifier.padding(start = 8.dp, end = 8.dp),
                             imageVector = Icons.Filled.Vibration,
-                            contentDescription = stringResource(R.string.description_haptics),
+                            contentDescription = null,
                         )
                         DialogTitle(
                             text = stringResource(R.string.haptics),
@@ -258,14 +275,14 @@ fun GamepadSettingsDialog(
 
                     Switch(
                         checked = gamepadTheme.isHapticsEnabled,
-                        onCheckedChange = onGamepadHapticsChanged,
+                        onCheckedChange = null,
+                        enabled = true,
                         thumbContent =
                             if (gamepadTheme.isHapticsEnabled) {
                                 {
                                     Icon(
                                         imageVector = Icons.Filled.Check,
-                                        contentDescription =
-                                            stringResource(R.string.description_checked),
+                                        contentDescription = null,
                                         modifier = Modifier.size(SwitchDefaults.IconSize),
                                     )
                                 }

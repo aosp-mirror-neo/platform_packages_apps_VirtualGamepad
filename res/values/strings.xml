@@ -109,6 +109,10 @@
     <string name="template_gamepad_style_text">%1$s | %2$s</string>
     <!-- Haptics for a gamepad -->
     <string name="haptics">Haptics</string>
+    <!-- Haptics state description when enabled -->
+    <string name="haptics_on">Haptics On</string>
+    <!-- Haptics state description when disabled -->
+    <string name="haptics_off">Haptics Off</string>
     <!-- Says that a switch is checked or on -->
     <string name="description_checked">Checked</string>
     <!-- Hide the gamepad temporarily. The gamepad will show again when the game is launched next
