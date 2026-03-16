@@ -35,7 +35,7 @@
     <item msgid="4729939113023531137">"Oʻrtacha"</item>
     <item msgid="2035206024988565350">"Yirik"</item>
   </string-array>
-    <string name="description_haptics" msgid="4255683342015357067">"Tebrenish sozlamasi"</string>
+    <string name="description_haptics" msgid="4255683342015357067">"Tebranish sozlamasi"</string>
     <string name="description_mode_button" msgid="134098723734776016">"Rejim tugmasi"</string>
     <string name="description_joystick" msgid="5882281515287638189">"Joystik"</string>
     <string name="description_gamepad_style_selector" msgid="297072224066534053">"Geympad uslubini tanlang"</string>
@@ -44,7 +44,6 @@
     <string name="hide_gamepad" msgid="9081921379818022648">"Geympadni berkitish"</string>
     <string name="description_gamepad_style" msgid="170962546539192503">"Geympad uslubidagi menyusini oching."</string>
     <string name="template_gamepad_style_text" msgid="7553801998279684500">"%1$s | %2$s"</string>
-    <string name="haptics" msgid="1767688276155159411">"Tebrenishli effektlar"</string>
-    <!-- no translation found for description_checked (3645847096266326666) -->
-    <skip />
+    <string name="haptics" msgid="1767688276155159411">"Tebranishli effektlar"</string>
+    <string name="description_checked" msgid="3645847096266326666">"Belgilandi"</string>
 </resources>

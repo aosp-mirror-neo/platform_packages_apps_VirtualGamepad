@@ -45,6 +45,5 @@
     <string name="description_gamepad_style" msgid="170962546539192503">"開啟遊戲手把樣式選單。"</string>
     <string name="template_gamepad_style_text" msgid="7553801998279684500">"%1$s | %2$s"</string>
     <string name="haptics" msgid="1767688276155159411">"觸覺回饋"</string>
-    <!-- no translation found for description_checked (3645847096266326666) -->
-    <skip />
+    <string name="description_checked" msgid="3645847096266326666">"已勾選"</string>
 </resources>

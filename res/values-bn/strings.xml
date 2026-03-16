@@ -47,6 +47,5 @@
     <!-- no translation found for template_gamepad_style_text (7553801998279684500) -->
     <skip />
     <string name="haptics" msgid="1767688276155159411">"হ্যাপটিক"</string>
-    <!-- no translation found for description_checked (3645847096266326666) -->
-    <skip />
+    <string name="description_checked" msgid="3645847096266326666">"টিক চিহ্ন দিয়েছেন"</string>
 </resources>
