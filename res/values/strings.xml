@@ -57,8 +57,10 @@
     <!-- The button descriptor for a virtual gamepad. e.g., Used with accessibility. -->
     <string name="description_mode_button">Mode button</string>
 
-    <!-- Describes the joystick of a virtual gamepad. e.g., Used with accessibility. -->
-    <string name="description_joystick">Joystick</string>
+    <!-- Describes the left joystick of a virtual gamepad. e.g., Used with accessibility. -->
+    <string name="description_left_joystick">Left Joystick</string>
+    <!-- Describes the right joystick of a virtual gamepad. e.g., Used with accessibility. -->
+    <string name="description_right_joystick">Right Joystick</string>
 
     <!-- Description for game button A. Used with accessibility. -->
     <string name="description_game_button_a">A Button</string>
