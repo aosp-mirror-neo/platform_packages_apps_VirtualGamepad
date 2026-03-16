@@ -240,6 +240,12 @@ private fun Joystick(modifier: Modifier = Modifier, joystickType: JoystickType) 
                     }
         )
 
+        val joystickRes =
+            if (joystickType == JoystickType.JOYSTICK_LEFT) {
+                R.string.description_left_joystick
+            } else {
+                R.string.description_right_joystick
+            }
         // Stick container to handle drag events. This avoids issues related to rotations of the
         // child views.
         Box(
@@ -251,7 +257,7 @@ private fun Joystick(modifier: Modifier = Modifier, joystickType: JoystickType) 
             Image(
                 modifier = Modifier.fillMaxSize(),
                 painter = painterResource(joystickRes),
-                contentDescription = stringResource(R.string.description_joystick),
+                contentDescription = stringResource(joystickRes),
             )
         }
     }
