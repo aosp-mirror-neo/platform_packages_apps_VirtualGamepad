@@ -99,12 +99,8 @@
     <!-- Describes the drop down menu for the gamepad size -->
     <string name="description_gamepad_size_selector">Choose Gamepad Size</string>
 
-    <!-- Description to hide the gamepad from the game UI -->
-    <string name="description_hide_gamepad">Hide Gamepad</string>
     <!-- Dismisses the gamepad from the game UI -->
     <string name="hide_gamepad">Hide Gamepad</string>
-    <!-- Describes opening the gamepad style menu.-->
-    <string name="description_gamepad_style">Open gamepad style menu.</string>
     <!-- Formats the gamepad style as <type> | <size> if relevant we might reverse the order.-->
     <string name="template_gamepad_style_text">%1$s | %2$s</string>
     <!-- Haptics for a gamepad -->
