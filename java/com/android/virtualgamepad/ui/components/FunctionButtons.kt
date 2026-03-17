@@ -219,7 +219,7 @@ fun GamepadSettingsDialog(
                     Icon(
                         modifier = Modifier.padding(start = 8.dp, end = 8.dp),
                         imageVector = Icons.Filled.SportsEsports,
-                        contentDescription = stringResource(R.string.description_gamepad_style),
+                        contentDescription = null,
                     )
                     Column() {
                         DialogTitle(
@@ -304,7 +304,7 @@ fun GamepadSettingsDialog(
                     Icon(
                         modifier = Modifier.padding(start = 8.dp, end = 8.dp),
                         imageVector = Icons.Filled.Close,
-                        contentDescription = stringResource(R.string.description_hide_gamepad),
+                        contentDescription = null,
                     )
                     DialogTitle(
                         text = stringResource(R.string.hide_gamepad),
@@ -393,7 +393,7 @@ fun GamepadStyleSelector(
         leadingIcon = {
             Icon(
                 imageVector = Icons.Filled.SportsEsports,
-                contentDescription = stringResource(R.string.description_gamepad_style),
+                contentDescription = null,
                 tint = gamepadTheme.dropdownItemTint(),
             )
         },
@@ -414,7 +414,7 @@ fun GamepadSizeSelector(gamepadTheme: GamepadTheme, onGamepadSizeSelected: (Game
         leadingIcon = {
             Icon(
                 imageVector = Icons.Filled.Straighten,
-                contentDescription = stringResource(R.string.description_gamepad_style),
+                contentDescription = null,
                 tint = gamepadTheme.dropdownItemTint(),
             )
         },
