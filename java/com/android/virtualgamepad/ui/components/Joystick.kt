@@ -240,7 +240,7 @@ private fun Joystick(modifier: Modifier = Modifier, joystickType: JoystickType) 
                     }
         )
 
-        val joystickRes =
+        val joystickDescriptionRes =
             if (joystickType == JoystickType.JOYSTICK_LEFT) {
                 R.string.description_left_joystick
             } else {
@@ -257,7 +257,7 @@ private fun Joystick(modifier: Modifier = Modifier, joystickType: JoystickType) 
             Image(
                 modifier = Modifier.fillMaxSize(),
                 painter = painterResource(joystickRes),
-                contentDescription = stringResource(joystickRes),
+                contentDescription = stringResource(joystickDescriptionRes),
             )
         }
     }
