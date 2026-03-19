@@ -183,7 +183,7 @@ fun GamepadStyleDialog(
                     gamepadTheme = gamepadTheme,
                 )
 
-                GamepadColorThemeSelector(onGamepadColorThemeChanged)
+                GamepadColorThemeSelector(gamepadTheme, onGamepadColorThemeChanged)
             }
         }
     }
@@ -220,6 +220,7 @@ fun GamepadSettingsDialog(
                         modifier = Modifier.padding(start = 8.dp, end = 8.dp),
                         imageVector = Icons.Filled.SportsEsports,
                         contentDescription = null,
+                        tint = gamepadTheme.dialogIconTint(),
                     )
                     Column() {
                         DialogTitle(
@@ -266,6 +267,7 @@ fun GamepadSettingsDialog(
                             modifier = Modifier.padding(start = 8.dp, end = 8.dp),
                             imageVector = Icons.Filled.Vibration,
                             contentDescription = null,
+                            tint = gamepadTheme.dialogIconTint(),
                         )
                         DialogTitle(
                             text = stringResource(R.string.haptics),
@@ -305,6 +307,7 @@ fun GamepadSettingsDialog(
                         modifier = Modifier.padding(start = 8.dp, end = 8.dp),
                         imageVector = Icons.Filled.Close,
                         contentDescription = null,
+                        tint = gamepadTheme.dialogIconTint(),
                     )
                     DialogTitle(
                         text = stringResource(R.string.hide_gamepad),
@@ -425,8 +428,12 @@ fun GamepadSizeSelector(gamepadTheme: GamepadTheme, onGamepadSizeSelected: (Game
 }
 
 @Composable
-fun GamepadColorThemeSelector(onGamepadColorThemeSelected: (GamepadColorTheme) -> Unit) {
+fun GamepadColorThemeSelector(
+    gamepadTheme: GamepadTheme,
+    onGamepadColorThemeSelected: (GamepadColorTheme) -> Unit,
+) {
     ThemeSelectionRow(
+        gamepadTheme = gamepadTheme,
         onOptionSelected = { index ->
             val colorTheme = StringResourceAdapter.colorThemeFromIndex(index)
             onGamepadColorThemeSelected(colorTheme)
@@ -489,7 +496,12 @@ fun GamepadDropdownMenu(
 }
 
 @Composable
-fun ThemeSelectionRow(onOptionSelected: (Int) -> Unit, options: List<String>, selectionIndex: Int) {
+fun ThemeSelectionRow(
+    gamepadTheme: GamepadTheme,
+    onOptionSelected: (Int) -> Unit,
+    options: List<String>,
+    selectionIndex: Int,
+) {
     val selectedOption = remember { mutableStateOf(options[selectionIndex]) }
 
     Row(
@@ -517,7 +529,7 @@ fun ThemeSelectionRow(onOptionSelected: (Int) -> Unit, options: List<String>, se
                 )
                 Text(
                     text = text,
-                    style = MaterialTheme.typography.bodyMedium,
+                    style = gamepadTheme.dialogHeaderStyle(),
                     modifier = Modifier.padding(start = 4.dp),
                 )
             }
