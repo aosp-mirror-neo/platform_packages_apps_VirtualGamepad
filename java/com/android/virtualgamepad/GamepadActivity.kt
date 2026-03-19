@@ -20,6 +20,7 @@ import android.app.AppGlobals
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Configuration
+import android.hardware.input.InputManager
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -42,8 +43,9 @@ import com.android.virtualgamepad.ui.theme.VirtualGamepadTheme
 
 val LocalGamepadState = compositionLocalOf<GamepadState?> { null }
 
-class GamepadActivity : ComponentActivity() {
+class GamepadActivity : ComponentActivity(), InputManager.InputDeviceListener {
     val gamepadBackend = LocalGamepadBackend()
+    private lateinit var inputManager: InputManager
 
     // The caller package name provided by the app process. Note that this should NOT be used for
     // anything that has security implications.
@@ -53,6 +55,7 @@ class GamepadActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        inputManager = getSystemService(InputManager::class.java)!!
         enableEdgeToEdge()
         val defaultTheme =
             if (isSystemInDarkTheme()) {
@@ -89,6 +92,7 @@ class GamepadActivity : ComponentActivity() {
 
     override fun onStart() {
         super.onStart()
+        inputManager.registerInputDeviceListener(this, null)
         gamepadBackend.connect(this)
     }
 
@@ -96,13 +100,14 @@ class GamepadActivity : ComponentActivity() {
         super.onResume()
         // If the user opts out while the app is running, finish the gamepad activity.
         // Note that the app needs to be restarted if the user opts in.
-        if (isGamepadDismissed()) {
+        if (isGamepadDismissed() || isPhysicalGamepadConnected()) {
             finish()
         }
     }
 
     override fun onStop() {
         super.onStop()
+        inputManager.unregisterInputDeviceListener(this)
         gamepadBackend.disconnect()
     }
 
@@ -131,4 +136,33 @@ class GamepadActivity : ComponentActivity() {
         callerPackageName != null &&
             AppGlobals.getPackageManager().getVirtualGamepadUserOption(callerPackageName, userId) ==
                 PackageManager.VIRTUAL_GAMEPAD_USER_OPTION_OPT_OUT
+
+    override fun onInputDeviceAdded(deviceId: Int) {
+        val device = inputManager.getInputDevice(deviceId) ?: return
+        if (isPhysicalGamepadDevice(device)) {
+            finish()
+        }
+    }
+
+    override fun onInputDeviceChanged(deviceId: Int) {}
+
+    override fun onInputDeviceRemoved(deviceId: Int) {}
+
+    private fun isPhysicalGamepadConnected(): Boolean {
+        for (id in inputManager.inputDeviceIds) {
+            val device = inputManager.getInputDevice(id) ?: continue
+            if (isPhysicalGamepadDevice(device)) {
+                return true
+            }
+        }
+        return false
+    }
+
+    private fun isPhysicalGamepadDevice(device: InputDevice): Boolean {
+        if (device.isVirtual) return false
+        if (device.name == LocalGamepadBackend.name) return false
+        val sources = device.sources
+        return (sources and InputDevice.SOURCE_GAMEPAD) == InputDevice.SOURCE_GAMEPAD ||
+            (sources and InputDevice.SOURCE_JOYSTICK) == InputDevice.SOURCE_JOYSTICK
+    }
 }
