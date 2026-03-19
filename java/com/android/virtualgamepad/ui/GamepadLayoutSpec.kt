@@ -119,7 +119,7 @@ class GamepadLayoutSpec(private val gamepadTheme: GamepadTheme) {
     }
 
     fun computeJoystickSize(screenWidthDp: Int): Int {
-        return 128.adjust(screenWidthDp)
+        return 88.adjust(screenWidthDp)
     }
 
     fun componentMargin(screenWidthDp: Int): Int {
@@ -388,8 +388,6 @@ class GamepadLayoutSpec(private val gamepadTheme: GamepadTheme) {
      */
     private fun Int.adjust(screenWidthDp: Int): Int {
         return this
-        //        if (screenWidthDp >= widthDpBase) return this
-        //        return this * screenWidthDp / widthDpBase
     }
 
     companion object {

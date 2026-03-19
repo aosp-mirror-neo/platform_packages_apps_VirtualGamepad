@@ -134,7 +134,6 @@ fun LeftControlPanel(modifier: Modifier) {
     val constraints = layoutSpec.computeLeftPanelConstraintSet(screenWidthDp = screenWidthDp)
 
     ConstraintLayout(constraintSet = constraints, modifier = modifier.fillMaxSize()) {
-        val screenHeightDp = LocalConfiguration.current.screenHeightDp
         PanelBackground(
             modifier = Modifier.fillMaxSize().layoutId(GamepadLayoutSpec.leftPanelBackgroundId),
             rounding = layoutSpec.panelRounding(),

@@ -16,7 +16,6 @@
 
 package com.android.virtualgamepad.ui.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.Box
@@ -37,8 +36,9 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalView
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.android.virtualgamepad.LocalGamepadState
@@ -78,7 +78,6 @@ private fun Joystick(modifier: Modifier = Modifier, joystickType: JoystickType) 
 
     val joystickBox = layoutSpec.computeJoystickBoxSize(screenWidthDp)
     val joystickSize = layoutSpec.computeJoystickSize(screenWidthDp)
-    val joystickRes = theme.getJoystickResource()
 
     val boxSizePx = with(LocalDensity.current) { joystickBox.dp.toPx() }
     val maxDragRangePx = boxSizePx * 0.7f // TODO confirm this value
@@ -246,6 +245,7 @@ private fun Joystick(modifier: Modifier = Modifier, joystickType: JoystickType) 
             } else {
                 R.string.description_right_joystick
             }
+        val joystickDescription = stringResource(joystickDescriptionRes)
         // Stick container to handle drag events. This avoids issues related to rotations of the
         // child views.
         Box(
@@ -253,12 +253,9 @@ private fun Joystick(modifier: Modifier = Modifier, joystickType: JoystickType) 
                 Modifier.align(Alignment.Center)
                     .size(joystickSize.dp)
                     .offset(x = boundedDragOffsetDp.value.x.dp, y = boundedDragOffsetDp.value.y.dp)
+                    .semantics { contentDescription = joystickDescription }
         ) {
-            Image(
-                modifier = Modifier.fillMaxSize(),
-                painter = painterResource(joystickRes),
-                contentDescription = stringResource(joystickDescriptionRes),
-            )
+            StickView(modifier = Modifier.fillMaxSize())
         }
     }
 }
