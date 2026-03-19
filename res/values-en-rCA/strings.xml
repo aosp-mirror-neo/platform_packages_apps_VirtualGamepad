@@ -37,13 +37,33 @@
   </string-array>
     <string name="description_haptics" msgid="4255683342015357067">"Haptics Setting"</string>
     <string name="description_mode_button" msgid="134098723734776016">"Mode button"</string>
-    <string name="description_joystick" msgid="5882281515287638189">"Joystick"</string>
+    <string name="description_left_joystick" msgid="5406405195257229228">"Left Joystick"</string>
+    <string name="description_right_joystick" msgid="9073065621415451452">"Right Joystick"</string>
+    <string name="description_game_button_a" msgid="565020166602556927">"A Button"</string>
+    <string name="description_game_button_b" msgid="2334214701613606265">"B Button"</string>
+    <string name="description_game_button_x" msgid="646518634176999799">"X Button"</string>
+    <string name="description_game_button_y" msgid="3090300453669663980">"Y Button"</string>
+    <string name="description_game_button_l1" msgid="8475754862453977141">"L1 Button"</string>
+    <string name="description_game_button_l2" msgid="466582867693098789">"L2 Button"</string>
+    <string name="description_game_button_l3" msgid="3316463141263227183">"L3 Button"</string>
+    <string name="description_game_button_r1" msgid="5242858818263311317">"R1 Button"</string>
+    <string name="description_game_button_r2" msgid="7382666063820434694">"R2 Button"</string>
+    <string name="description_game_button_r3" msgid="4479373295349888209">"R3 Button"</string>
+    <string name="description_game_button_dpad_up" msgid="2715921095782428378">"D-pad Up"</string>
+    <string name="description_game_button_dpad_down" msgid="1858088218437888724">"D-pad Down"</string>
+    <string name="description_game_button_dpad_left" msgid="8393335206810345172">"D-pad Left"</string>
+    <string name="description_game_button_dpad_right" msgid="2000128117333892742">"D-pad Right"</string>
+    <string name="description_game_button_menu" msgid="8541271480908458336">"Menu Button"</string>
+    <string name="description_game_button_settings" msgid="5844119343547223522">"Settings Button"</string>
     <string name="description_gamepad_style_selector" msgid="297072224066534053">"Choose Gamepad Style"</string>
     <string name="description_gamepad_size_selector" msgid="6024467919160938900">"Choose Gamepad Size"</string>
-    <string name="description_hide_gamepad" msgid="3966885363696260306">"Hide Gamepad"</string>
     <string name="hide_gamepad" msgid="9081921379818022648">"Hide Gamepad"</string>
-    <string name="description_gamepad_style" msgid="170962546539192503">"Open gamepad style menu."</string>
     <string name="template_gamepad_style_text" msgid="7553801998279684500">"%1$s | %2$s"</string>
     <string name="haptics" msgid="1767688276155159411">"Haptics"</string>
+    <string name="haptics_on" msgid="9206660300904569349">"Haptics On"</string>
+    <string name="haptics_off" msgid="8201627856207321040">"Haptics Off"</string>
     <string name="description_checked" msgid="3645847096266326666">"Checked"</string>
+    <string name="hide_for_now" msgid="3387621488459401371">"Hide for now"</string>
+    <string name="always_hide" msgid="2803132328640444142">"Always hide for this game"</string>
+    <string name="hide_gamepad_title" msgid="1648190198618593238">"Hide the virtual gamepad?"</string>
 </resources>

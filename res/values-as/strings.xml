@@ -37,13 +37,56 @@
   </string-array>
     <string name="description_haptics" msgid="4255683342015357067">"হেপ্‌টিক্সৰ ছেটিং"</string>
     <string name="description_mode_button" msgid="134098723734776016">"ম’ডৰ বুটাম"</string>
-    <string name="description_joystick" msgid="5882281515287638189">"জয়ষ্টিক"</string>
+    <!-- no translation found for description_left_joystick (5406405195257229228) -->
+    <skip />
+    <!-- no translation found for description_right_joystick (9073065621415451452) -->
+    <skip />
+    <!-- no translation found for description_game_button_a (565020166602556927) -->
+    <skip />
+    <!-- no translation found for description_game_button_b (2334214701613606265) -->
+    <skip />
+    <!-- no translation found for description_game_button_x (646518634176999799) -->
+    <skip />
+    <!-- no translation found for description_game_button_y (3090300453669663980) -->
+    <skip />
+    <!-- no translation found for description_game_button_l1 (8475754862453977141) -->
+    <skip />
+    <!-- no translation found for description_game_button_l2 (466582867693098789) -->
+    <skip />
+    <!-- no translation found for description_game_button_l3 (3316463141263227183) -->
+    <skip />
+    <!-- no translation found for description_game_button_r1 (5242858818263311317) -->
+    <skip />
+    <!-- no translation found for description_game_button_r2 (7382666063820434694) -->
+    <skip />
+    <!-- no translation found for description_game_button_r3 (4479373295349888209) -->
+    <skip />
+    <!-- no translation found for description_game_button_dpad_up (2715921095782428378) -->
+    <skip />
+    <!-- no translation found for description_game_button_dpad_down (1858088218437888724) -->
+    <skip />
+    <!-- no translation found for description_game_button_dpad_left (8393335206810345172) -->
+    <skip />
+    <!-- no translation found for description_game_button_dpad_right (2000128117333892742) -->
+    <skip />
+    <!-- no translation found for description_game_button_menu (8541271480908458336) -->
+    <skip />
+    <!-- no translation found for description_game_button_settings (5844119343547223522) -->
+    <skip />
     <string name="description_gamepad_style_selector" msgid="297072224066534053">"গে’মপেডৰ শৈলী বাছনি কৰক"</string>
     <string name="description_gamepad_size_selector" msgid="6024467919160938900">"গে’মপেডৰ আকাৰ বাছনি কৰক"</string>
-    <string name="description_hide_gamepad" msgid="3966885363696260306">"গে’মপেড লুকুৱাওক"</string>
     <string name="hide_gamepad" msgid="9081921379818022648">"গে’মপেড লুকুৱাওক"</string>
-    <string name="description_gamepad_style" msgid="170962546539192503">"গে’মপেডৰ শৈলীৰ মেনু খোলক।"</string>
     <string name="template_gamepad_style_text" msgid="7553801998279684500">"%1$s | %2$s"</string>
     <string name="haptics" msgid="1767688276155159411">"হেপ্‌টিক্স"</string>
+    <!-- no translation found for haptics_on (9206660300904569349) -->
+    <skip />
+    <!-- no translation found for haptics_off (8201627856207321040) -->
+    <skip />
     <string name="description_checked" msgid="3645847096266326666">"টিক চিহ্ন দিয়া হৈছে"</string>
+    <!-- no translation found for hide_for_now (3387621488459401371) -->
+    <skip />
+    <!-- no translation found for always_hide (2803132328640444142) -->
+    <skip />
+    <!-- no translation found for hide_gamepad_title (1648190198618593238) -->
+    <skip />
 </resources>
