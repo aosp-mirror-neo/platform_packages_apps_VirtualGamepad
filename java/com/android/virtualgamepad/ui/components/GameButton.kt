@@ -47,6 +47,7 @@ import kotlin.math.max
 @Composable
 internal fun GamePadButton(
     @DrawableRes buttonRes: Int,
+    @DrawableRes pressedButtonRes: Int,
     @StringRes descriptionRes: Int,
     key: String,
     modifier: Modifier = Modifier,
@@ -127,7 +128,7 @@ internal fun GamePadButton(
     ) {
         Image(
             modifier = Modifier.fillMaxSize(),
-            painter = painterResource(buttonRes),
+            painter = painterResource(if (isPressed) pressedButtonRes else buttonRes),
             contentDescription = description,
         )
     }
@@ -139,14 +140,17 @@ fun GameButton(gameButtonType: GameButtonType, modifier: Modifier = Modifier) {
     val localView = LocalView.current
     val gamepadState = LocalGamepadState.current
     val theme = LocalGamepadTheme.current
+
     val buttonRes = theme.gameButtonResource(gameButtonType)
+    val pressedButtonRes = theme.gameButtonPressedResource(gameButtonType)
     val buttonDescription = theme.gameButtonDescription(gameButtonType)
 
     GamePadButton(
-        buttonRes,
-        buttonDescription,
-        key,
-        modifier,
+        buttonRes = buttonRes,
+        pressedButtonRes = pressedButtonRes,
+        descriptionRes = buttonDescription,
+        key = key,
+        modifier = modifier,
         onButtonDown = {
             gamepadState?.onButtonDown(gameButtonType)
             if (theme.isHapticsEnabled) {
@@ -173,14 +177,17 @@ fun GameButton(gameButtonType: GameButtonType, modifier: Modifier = Modifier) {
 fun SettingsButton(modifier: Modifier = Modifier, onClick: () -> Unit) {
 
     val theme = LocalGamepadTheme.current
+
     val buttonRes = theme.settingsButtonResource()
+    val pressedButtonRes = theme.settingsButtonPressedResource()
     val descriptionRes = theme.settingsButtonDescription()
 
     GamePadButton(
-        buttonRes,
-        descriptionRes,
-        "Settings",
-        modifier,
+        buttonRes = buttonRes,
+        pressedButtonRes = pressedButtonRes,
+        descriptionRes = descriptionRes,
+        key = "Settings",
+        modifier = modifier,
         onButtonDown = {},
         onButtonUp = {},
         onClick = onClick,

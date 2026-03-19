@@ -178,6 +178,15 @@ class GamepadTheme(
     }
 
     @DrawableRes
+    fun settingsButtonPressedResource(): Int {
+        return if (isLightTheme()) {
+            R.drawable.button_pressed_settings
+        } else {
+            R.drawable.button_pressed_settings_dark
+        }
+    }
+
+    @DrawableRes
     fun settingsButtonDescription(): Int {
         return R.string.description_game_button_settings
     }
@@ -296,6 +305,103 @@ class GamepadTheme(
                     R.drawable.button_menu
                 } else {
                     R.drawable.button_menu_dark
+                }
+        }
+    }
+
+    @DrawableRes
+    fun gameButtonPressedResource(gameButtonType: GameButtonType): Int {
+        val isLightTheme = isLightTheme()
+        return when (gameButtonType) {
+            GameButtonType.A ->
+                if (isLightTheme) {
+                    R.drawable.button_pressed_c_a
+                } else {
+                    R.drawable.button_pressed_c_a_dark
+                }
+            GameButtonType.B ->
+                if (isLightTheme) {
+                    R.drawable.button_pressed_c_b
+                } else {
+                    R.drawable.button_pressed_c_b_dark
+                }
+            GameButtonType.X ->
+                if (isLightTheme) {
+                    R.drawable.button_pressed_c_x
+                } else {
+                    R.drawable.button_pressed_c_x_dark
+                }
+            GameButtonType.Y ->
+                if (isLightTheme) {
+                    R.drawable.button_pressed_c_y
+                } else {
+                    R.drawable.button_pressed_c_y_dark
+                }
+            GameButtonType.L1 ->
+                if (isLightTheme) {
+                    R.drawable.button_pressed_l1
+                } else {
+                    R.drawable.button_pressed_l1_dark
+                }
+            GameButtonType.L2 ->
+                if (isLightTheme) {
+                    R.drawable.button_pressed_l2
+                } else {
+                    R.drawable.button_pressed_l2_dark
+                }
+            GameButtonType.L3 ->
+                if (isLightTheme) {
+                    R.drawable.button_pressed_l3
+                } else {
+                    R.drawable.button_pressed_l3_dark
+                }
+            GameButtonType.R1 ->
+                if (isLightTheme) {
+                    R.drawable.button_pressed_r1
+                } else {
+                    R.drawable.button_pressed_r1_dark
+                }
+            GameButtonType.R2 ->
+                if (isLightTheme) {
+                    R.drawable.button_pressed_r2
+                } else {
+                    R.drawable.button_pressed_r2_dark
+                }
+            GameButtonType.R3 ->
+                if (isLightTheme) {
+                    R.drawable.button_pressed_r3
+                } else {
+                    R.drawable.button_pressed_r3_dark
+                }
+            GameButtonType.DPAD_UP ->
+                if (isLightTheme) {
+                    R.drawable.button_pressed_d_u
+                } else {
+                    R.drawable.button_pressed_d_u_dark
+                }
+            GameButtonType.DPAD_DOWN ->
+                if (isLightTheme) {
+                    R.drawable.button_pressed_d_d
+                } else {
+                    R.drawable.button_pressed_d_d_dark
+                }
+            GameButtonType.DPAD_LEFT ->
+                if (isLightTheme) {
+                    R.drawable.button_pressed_d_l
+                } else {
+                    R.drawable.button_pressed_d_l_dark
+                }
+            GameButtonType.DPAD_RIGHT ->
+                if (isLightTheme) {
+                    R.drawable.button_pressed_d_r
+                } else {
+                    R.drawable.button_pressed_d_r_dark
+                }
+            GameButtonType.Menu ->
+                if (isLightTheme) {
+                    R.drawable.button_pressed_menu
+                } else {
+                    R.drawable.button_pressed_menu_dark
                 }
         }
     }
