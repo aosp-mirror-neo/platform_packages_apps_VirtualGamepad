@@ -211,10 +211,9 @@ class LocalGamepadBackend : GamepadBackend {
                 val inputManager = context.getSystemService(InputManager::class.java)
                 val config = VirtualGamepadConfig()
 
-                // TODO(jiamingliu) update these values
-                config.name = "Android Virtual Gamepad"
-                config.vendorId = 1234
-                config.productId = 5678
+                config.name = name
+                config.vendorId = vendorId
+                config.productId = productId
 
                 config.associatedDisplayId = context.displayId
                 config.registerTriggerAxes = true
@@ -272,6 +271,9 @@ class LocalGamepadBackend : GamepadBackend {
     }
 
     companion object {
+        const val name = "Android Virtual Gamepad"
+        const val vendorId = 0x18d1
+        const val productId = 0xefff
         private const val TAG = "LocalGamepadBackend"
         private val lock = Any()
         private var gamepad: VirtualGamepad? = null
