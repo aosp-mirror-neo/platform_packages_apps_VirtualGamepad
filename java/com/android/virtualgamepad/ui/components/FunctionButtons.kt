@@ -16,7 +16,6 @@
 
 package com.android.virtualgamepad.ui.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -469,7 +468,11 @@ fun GamepadDropdownMenu(
                     modifier = Modifier.weight(1f),
                     style = gamepadTheme.dropDownItemStyle(),
                 )
-                Icon(imageVector = Icons.Default.ArrowDropDown, contentDescription = description)
+                Icon(
+                    imageVector = Icons.Default.ArrowDropDown,
+                    contentDescription = description,
+                    tint = gamepadTheme.dialogIconTint(),
+                )
             }
         }
 
@@ -477,8 +480,8 @@ fun GamepadDropdownMenu(
         DropdownMenu(
             expanded = expanded,
             onDismissRequest = { expanded = false },
-            modifier = Modifier.background(gamepadTheme.dropdownColor()),
-            shape = RoundedCornerShape(28.dp),
+            containerColor = gamepadTheme.dropdownColor(),
+            shape = MaterialTheme.shapes.large,
         ) {
             items.forEachIndexed { index, item ->
                 DropdownMenuItem(

@@ -20,7 +20,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -68,26 +67,23 @@ fun StickView(modifier: Modifier = Modifier) {
     }
 }
 
-@Preview
+@Preview(showBackground = true, widthDp = 200, heightDp = 200)
 @Composable
-fun StickViewLightPreview() {
-    CompositionLocalProvider(LocalGamepadTheme provides GamepadTheme.MEDIUM_LIGHT) {
-        VirtualGamepadTheme(darkTheme = false) {
-            Box(modifier = Modifier.size(200.dp), contentAlignment = Alignment.Center) {
-                StickView(modifier = Modifier.size(100.dp))
-            }
+fun StickViewPreview() {
+    VirtualGamepadTheme {
+        Box(modifier = Modifier.size(200.dp), contentAlignment = Alignment.Center) {
+            StickView(modifier = Modifier.size(100.dp))
         }
     }
 }
 
-@Preview
+@Preview(showBackground = true, widthDp = 200, heightDp = 200)
 @Composable
 fun StickViewDarkPreview() {
-    CompositionLocalProvider(LocalGamepadTheme provides GamepadTheme.MEDIUM_DARK) {
-        VirtualGamepadTheme(darkTheme = true) {
-            Box(modifier = Modifier.size(200.dp), contentAlignment = Alignment.Center) {
-                StickView(modifier = Modifier.size(100.dp))
-            }
+    val gamepadTheme = GamepadTheme.MEDIUM_DARK
+    VirtualGamepadTheme(darkTheme = true) {
+        Box(modifier = Modifier.size(200.dp), contentAlignment = Alignment.Center) {
+            StickView(modifier = Modifier.size(100.dp))
         }
     }
 }
