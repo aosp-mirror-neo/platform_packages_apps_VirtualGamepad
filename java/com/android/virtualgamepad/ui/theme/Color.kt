@@ -36,6 +36,8 @@ val SlatColorDark = Color(0xFF000000)
 val Gray4A = Color(0xFF4A4A4A)
 val Gray83 = Color(0xFF838383)
 val GrayD0 = Color(0xFFD0D0D0)
+val Grey31 = Color(0xFF313332)
+val GreyBF = Color(0xFFBFC9C3)
 
 val BackgroundBaseColorLight = Color(0xFFE5E5E5)
 val SlatColorLight = Color(0xFFCACACA)

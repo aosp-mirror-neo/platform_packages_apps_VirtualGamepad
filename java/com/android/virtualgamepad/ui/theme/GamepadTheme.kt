@@ -117,6 +117,14 @@ class GamepadTheme(
         }
     }
 
+    fun dialogIconTint(): Color {
+        return if (isLightTheme()) {
+            Grey31
+        } else {
+            GreyBF
+        }
+    }
+
     fun dialogHeaderStyle(): TextStyle {
         val color =
             if (isLightTheme()) {
