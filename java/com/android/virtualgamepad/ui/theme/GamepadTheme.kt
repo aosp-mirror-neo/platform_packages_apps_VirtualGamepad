@@ -59,26 +59,32 @@ class GamepadTheme(
 
     val backgroundColor =
         when (colorTheme) {
-            GamepadColorTheme.LIGHT -> BackgroundBaseColorLight
-            GamepadColorTheme.DARK -> BackgroundBaseColorDark
+            GamepadColorTheme.LIGHT -> GrayE5
+            GamepadColorTheme.DARK -> Black16
         }
 
     val slatColor =
         when (colorTheme) {
-            GamepadColorTheme.LIGHT -> SlatColorLight
-            GamepadColorTheme.DARK -> SlatColorDark
+            GamepadColorTheme.LIGHT -> GrayCA
+            GamepadColorTheme.DARK -> Black00
         }
 
-    val joystickBackgroundColor =
+    val joystickBackgroundColors =
         when (colorTheme) {
-            GamepadColorTheme.LIGHT -> GrayD0
-            GamepadColorTheme.DARK -> Black23
+            GamepadColorTheme.LIGHT -> listOf(GrayC9, GrayD8)
+            GamepadColorTheme.DARK -> listOf(Black1F, Black20)
         }
 
     val panelColors =
         when (colorTheme) {
-            GamepadColorTheme.LIGHT -> listOf(PanelColorLightStart, PanelColorLightEnd)
-            GamepadColorTheme.DARK -> listOf(PanelColorDarkStart, PanelColorDarkEnd)
+            GamepadColorTheme.LIGHT -> listOf(GrayDA, GrayDF, GrayCA)
+            GamepadColorTheme.DARK -> listOf(Black25, Black27)
+        }
+
+    val panelBorderColors =
+        when (colorTheme) {
+            GamepadColorTheme.LIGHT -> listOf(GrayDA, GrayC5, GrayD9, GrayCA)
+            GamepadColorTheme.DARK -> listOf(Black19, Black1E)
         }
 
     fun isLightTheme(): Boolean {
@@ -88,9 +94,9 @@ class GamepadTheme(
     fun dialogTitleStyle(): TextStyle {
         val color =
             if (isLightTheme()) {
-                Color(0xFF313332)
+                Gray31
             } else {
-                Color(0xFFD1D2CF)
+                GrayD1
             }
         return TextStyle(
             fontSize = 16.sp,
@@ -105,32 +111,47 @@ class GamepadTheme(
             fontSize = 14.sp,
             lineHeight = 20.sp,
             fontWeight = FontWeight(400),
-            color = Color(0xFF919390),
+            color = Gray91,
+        )
+    }
+
+    fun dialogBodyStyle(): TextStyle {
+        val color =
+            if (isLightTheme()) {
+                Gray31
+            } else {
+                GrayBF
+            }
+        return TextStyle(
+            fontSize = 14.sp,
+            lineHeight = 20.sp,
+            fontWeight = FontWeight(400),
+            color = color,
         )
     }
 
     fun dialogColor(): Color {
         return if (isLightTheme()) {
-            Color(0xFFFFFFFF)
+            WhiteFF
         } else {
-            Color(0xFF000000)
+            Black00
         }
     }
 
     fun dialogIconTint(): Color {
         return if (isLightTheme()) {
-            Grey31
+            Gray31
         } else {
-            GreyBF
+            GrayBF
         }
     }
 
     fun dialogHeaderStyle(): TextStyle {
         val color =
             if (isLightTheme()) {
-                Color(0xFF313332)
+                Gray31
             } else {
-                Color(0xFFBFC9C3)
+                GrayBF
             }
         return TextStyle(
             fontSize = 14.sp,
@@ -142,18 +163,18 @@ class GamepadTheme(
 
     fun dropdownItemTint(): Color {
         return if (isLightTheme()) {
-            Color(0xFF313332)
+            Gray31
         } else {
-            Color(0xFFBFC9C3)
+            GrayBF
         }
     }
 
     fun dropDownItemStyle(): TextStyle {
         val color =
             if (isLightTheme()) {
-                Color(0xFF313332)
+                Gray31
             } else {
-                Color(0xFFBFC9C3)
+                GrayBF
             }
         return TextStyle(
             fontSize = 14.sp,
@@ -164,7 +185,11 @@ class GamepadTheme(
     }
 
     fun dropdownColor(): Color {
-        return Color(0xFF2A2D2B)
+        return if (isLightTheme()) {
+            GrayFA
+        } else {
+            Black2A
+        }
     }
 
     @DrawableRes
