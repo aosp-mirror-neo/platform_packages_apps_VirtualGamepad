@@ -56,6 +56,7 @@ android_app {
     srcs: [
         "java/**/*.java",
         "java/**/*.kt",
+        ":statslog-virtualgamepad-java-gen",
     ],
 
     optimize: {
@@ -63,4 +64,12 @@ android_app {
     },
 
     kotlincflags: ["-Xjvm-default=all"],
+}
+
+genrule {
+    name: "statslog-virtualgamepad-java-gen",
+    tools: ["stats-log-api-gen"],
+    cmd: "$(location stats-log-api-gen) --java $(out) --module virtualgamepad" +
+        " --javaPackage com.android.virtualgamepad --javaClass VirtualGamepadStatsLog",
+    out: ["com/android/virtualgamepad/VirtualGamepadStatsLog.java"],
 }
