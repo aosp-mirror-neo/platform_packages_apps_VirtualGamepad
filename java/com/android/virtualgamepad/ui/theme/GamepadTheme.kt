@@ -59,26 +59,32 @@ class GamepadTheme(
 
     val backgroundColor =
         when (colorTheme) {
-            GamepadColorTheme.LIGHT -> BackgroundBaseColorLight
-            GamepadColorTheme.DARK -> BackgroundBaseColorDark
+            GamepadColorTheme.LIGHT -> GrayE5
+            GamepadColorTheme.DARK -> Black16
         }
 
     val slatColor =
         when (colorTheme) {
-            GamepadColorTheme.LIGHT -> SlatColorLight
-            GamepadColorTheme.DARK -> SlatColorDark
+            GamepadColorTheme.LIGHT -> GrayCA
+            GamepadColorTheme.DARK -> Black00
         }
 
-    val joystickBackgroundColor =
+    val joystickBackgroundColors =
         when (colorTheme) {
-            GamepadColorTheme.LIGHT -> GrayD0
-            GamepadColorTheme.DARK -> Black23
+            GamepadColorTheme.LIGHT -> listOf(GrayC9, GrayD8)
+            GamepadColorTheme.DARK -> listOf(Black1F, Black20)
         }
 
     val panelColors =
         when (colorTheme) {
-            GamepadColorTheme.LIGHT -> listOf(PanelColorLightStart, PanelColorLightEnd)
-            GamepadColorTheme.DARK -> listOf(PanelColorDarkStart, PanelColorDarkEnd)
+            GamepadColorTheme.LIGHT -> listOf(GrayDA, GrayDF, GrayCA)
+            GamepadColorTheme.DARK -> listOf(Black25, Black27)
+        }
+
+    val panelBorderColors =
+        when (colorTheme) {
+            GamepadColorTheme.LIGHT -> listOf(GrayDA, GrayC5, GrayD9, GrayCA)
+            GamepadColorTheme.DARK -> listOf(Black19, Black1E)
         }
 
     fun isLightTheme(): Boolean {
@@ -88,9 +94,9 @@ class GamepadTheme(
     fun dialogTitleStyle(): TextStyle {
         val color =
             if (isLightTheme()) {
-                Color(0xFF313332)
+                Gray31
             } else {
-                Color(0xFFD1D2CF)
+                GrayD1
             }
         return TextStyle(
             fontSize = 16.sp,
@@ -105,24 +111,47 @@ class GamepadTheme(
             fontSize = 14.sp,
             lineHeight = 20.sp,
             fontWeight = FontWeight(400),
-            color = Color(0xFF919390),
+            color = Gray91,
+        )
+    }
+
+    fun dialogBodyStyle(): TextStyle {
+        val color =
+            if (isLightTheme()) {
+                Gray31
+            } else {
+                GrayBF
+            }
+        return TextStyle(
+            fontSize = 14.sp,
+            lineHeight = 20.sp,
+            fontWeight = FontWeight(400),
+            color = color,
         )
     }
 
     fun dialogColor(): Color {
         return if (isLightTheme()) {
-            Color(0xFFFFFFFF)
+            WhiteFF
         } else {
-            Color(0xFF000000)
+            Black00
+        }
+    }
+
+    fun dialogIconTint(): Color {
+        return if (isLightTheme()) {
+            Gray31
+        } else {
+            GrayBF
         }
     }
 
     fun dialogHeaderStyle(): TextStyle {
         val color =
             if (isLightTheme()) {
-                Color(0xFF313332)
+                Gray31
             } else {
-                Color(0xFFBFC9C3)
+                GrayBF
             }
         return TextStyle(
             fontSize = 14.sp,
@@ -134,18 +163,18 @@ class GamepadTheme(
 
     fun dropdownItemTint(): Color {
         return if (isLightTheme()) {
-            Color(0xFF313332)
+            Gray31
         } else {
-            Color(0xFFBFC9C3)
+            GrayBF
         }
     }
 
     fun dropDownItemStyle(): TextStyle {
         val color =
             if (isLightTheme()) {
-                Color(0xFF313332)
+                Gray31
             } else {
-                Color(0xFFBFC9C3)
+                GrayBF
             }
         return TextStyle(
             fontSize = 14.sp,
@@ -156,7 +185,11 @@ class GamepadTheme(
     }
 
     fun dropdownColor(): Color {
-        return Color(0xFF2A2D2B)
+        return if (isLightTheme()) {
+            GrayFA
+        } else {
+            Black2A
+        }
     }
 
     @DrawableRes
@@ -174,6 +207,15 @@ class GamepadTheme(
             R.drawable.button_settings
         } else {
             R.drawable.button_settings_dark
+        }
+    }
+
+    @DrawableRes
+    fun settingsButtonPressedResource(): Int {
+        return if (isLightTheme()) {
+            R.drawable.button_pressed_settings
+        } else {
+            R.drawable.button_pressed_settings_dark
         }
     }
 
@@ -296,6 +338,103 @@ class GamepadTheme(
                     R.drawable.button_menu
                 } else {
                     R.drawable.button_menu_dark
+                }
+        }
+    }
+
+    @DrawableRes
+    fun gameButtonPressedResource(gameButtonType: GameButtonType): Int {
+        val isLightTheme = isLightTheme()
+        return when (gameButtonType) {
+            GameButtonType.A ->
+                if (isLightTheme) {
+                    R.drawable.button_pressed_c_a
+                } else {
+                    R.drawable.button_pressed_c_a_dark
+                }
+            GameButtonType.B ->
+                if (isLightTheme) {
+                    R.drawable.button_pressed_c_b
+                } else {
+                    R.drawable.button_pressed_c_b_dark
+                }
+            GameButtonType.X ->
+                if (isLightTheme) {
+                    R.drawable.button_pressed_c_x
+                } else {
+                    R.drawable.button_pressed_c_x_dark
+                }
+            GameButtonType.Y ->
+                if (isLightTheme) {
+                    R.drawable.button_pressed_c_y
+                } else {
+                    R.drawable.button_pressed_c_y_dark
+                }
+            GameButtonType.L1 ->
+                if (isLightTheme) {
+                    R.drawable.button_pressed_l1
+                } else {
+                    R.drawable.button_pressed_l1_dark
+                }
+            GameButtonType.L2 ->
+                if (isLightTheme) {
+                    R.drawable.button_pressed_l2
+                } else {
+                    R.drawable.button_pressed_l2_dark
+                }
+            GameButtonType.L3 ->
+                if (isLightTheme) {
+                    R.drawable.button_pressed_l3
+                } else {
+                    R.drawable.button_pressed_l3_dark
+                }
+            GameButtonType.R1 ->
+                if (isLightTheme) {
+                    R.drawable.button_pressed_r1
+                } else {
+                    R.drawable.button_pressed_r1_dark
+                }
+            GameButtonType.R2 ->
+                if (isLightTheme) {
+                    R.drawable.button_pressed_r2
+                } else {
+                    R.drawable.button_pressed_r2_dark
+                }
+            GameButtonType.R3 ->
+                if (isLightTheme) {
+                    R.drawable.button_pressed_r3
+                } else {
+                    R.drawable.button_pressed_r3_dark
+                }
+            GameButtonType.DPAD_UP ->
+                if (isLightTheme) {
+                    R.drawable.button_pressed_d_u
+                } else {
+                    R.drawable.button_pressed_d_u_dark
+                }
+            GameButtonType.DPAD_DOWN ->
+                if (isLightTheme) {
+                    R.drawable.button_pressed_d_d
+                } else {
+                    R.drawable.button_pressed_d_d_dark
+                }
+            GameButtonType.DPAD_LEFT ->
+                if (isLightTheme) {
+                    R.drawable.button_pressed_d_l
+                } else {
+                    R.drawable.button_pressed_d_l_dark
+                }
+            GameButtonType.DPAD_RIGHT ->
+                if (isLightTheme) {
+                    R.drawable.button_pressed_d_r
+                } else {
+                    R.drawable.button_pressed_d_r_dark
+                }
+            GameButtonType.Menu ->
+                if (isLightTheme) {
+                    R.drawable.button_pressed_menu
+                } else {
+                    R.drawable.button_pressed_menu_dark
                 }
         }
     }

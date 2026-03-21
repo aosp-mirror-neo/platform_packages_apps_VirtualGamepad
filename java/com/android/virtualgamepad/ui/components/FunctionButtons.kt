@@ -16,7 +16,6 @@
 
 package com.android.virtualgamepad.ui.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -183,7 +182,7 @@ fun GamepadStyleDialog(
                     gamepadTheme = gamepadTheme,
                 )
 
-                GamepadColorThemeSelector(onGamepadColorThemeChanged)
+                GamepadColorThemeSelector(gamepadTheme, onGamepadColorThemeChanged)
             }
         }
     }
@@ -220,6 +219,7 @@ fun GamepadSettingsDialog(
                         modifier = Modifier.padding(start = 8.dp, end = 8.dp),
                         imageVector = Icons.Filled.SportsEsports,
                         contentDescription = null,
+                        tint = gamepadTheme.dialogIconTint(),
                     )
                     Column() {
                         DialogTitle(
@@ -266,6 +266,7 @@ fun GamepadSettingsDialog(
                             modifier = Modifier.padding(start = 8.dp, end = 8.dp),
                             imageVector = Icons.Filled.Vibration,
                             contentDescription = null,
+                            tint = gamepadTheme.dialogIconTint(),
                         )
                         DialogTitle(
                             text = stringResource(R.string.haptics),
@@ -305,6 +306,7 @@ fun GamepadSettingsDialog(
                         modifier = Modifier.padding(start = 8.dp, end = 8.dp),
                         imageVector = Icons.Filled.Close,
                         contentDescription = null,
+                        tint = gamepadTheme.dialogIconTint(),
                     )
                     DialogTitle(
                         text = stringResource(R.string.hide_gamepad),
@@ -425,8 +427,12 @@ fun GamepadSizeSelector(gamepadTheme: GamepadTheme, onGamepadSizeSelected: (Game
 }
 
 @Composable
-fun GamepadColorThemeSelector(onGamepadColorThemeSelected: (GamepadColorTheme) -> Unit) {
+fun GamepadColorThemeSelector(
+    gamepadTheme: GamepadTheme,
+    onGamepadColorThemeSelected: (GamepadColorTheme) -> Unit,
+) {
     ThemeSelectionRow(
+        gamepadTheme = gamepadTheme,
         onOptionSelected = { index ->
             val colorTheme = StringResourceAdapter.colorThemeFromIndex(index)
             onGamepadColorThemeSelected(colorTheme)
@@ -462,7 +468,11 @@ fun GamepadDropdownMenu(
                     modifier = Modifier.weight(1f),
                     style = gamepadTheme.dropDownItemStyle(),
                 )
-                Icon(imageVector = Icons.Default.ArrowDropDown, contentDescription = description)
+                Icon(
+                    imageVector = Icons.Default.ArrowDropDown,
+                    contentDescription = description,
+                    tint = gamepadTheme.dialogIconTint(),
+                )
             }
         }
 
@@ -470,8 +480,8 @@ fun GamepadDropdownMenu(
         DropdownMenu(
             expanded = expanded,
             onDismissRequest = { expanded = false },
-            modifier = Modifier.background(gamepadTheme.dropdownColor()),
-            shape = RoundedCornerShape(28.dp),
+            containerColor = gamepadTheme.dropdownColor(),
+            shape = MaterialTheme.shapes.large,
         ) {
             items.forEachIndexed { index, item ->
                 DropdownMenuItem(
@@ -489,7 +499,12 @@ fun GamepadDropdownMenu(
 }
 
 @Composable
-fun ThemeSelectionRow(onOptionSelected: (Int) -> Unit, options: List<String>, selectionIndex: Int) {
+fun ThemeSelectionRow(
+    gamepadTheme: GamepadTheme,
+    onOptionSelected: (Int) -> Unit,
+    options: List<String>,
+    selectionIndex: Int,
+) {
     val selectedOption = remember { mutableStateOf(options[selectionIndex]) }
 
     Row(
@@ -517,7 +532,7 @@ fun ThemeSelectionRow(onOptionSelected: (Int) -> Unit, options: List<String>, se
                 )
                 Text(
                     text = text,
-                    style = MaterialTheme.typography.bodyMedium,
+                    style = gamepadTheme.dialogHeaderStyle(),
                     modifier = Modifier.padding(start = 4.dp),
                 )
             }

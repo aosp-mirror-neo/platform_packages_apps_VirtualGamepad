@@ -32,6 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
@@ -203,12 +204,12 @@ private fun Joystick(modifier: Modifier = Modifier, joystickType: JoystickType) 
             modifier =
                 Modifier.size(joystickBox.dp)
                     .clip(CircleShape)
-                    .background(theme.joystickBackgroundColor)
-                    .let {
+                    .background(Brush.linearGradient(theme.joystickBackgroundColors))
+                    .let { baseModifier ->
                         if (moving or resizing) {
-                            it
+                            baseModifier
                         } else {
-                            it.pointerInput(Unit) {
+                            baseModifier.pointerInput(Unit) {
                                 detectDragGestures(
                                     onDragStart = { offset ->
                                         isDragging.value = true
