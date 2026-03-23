@@ -328,6 +328,7 @@ fun GamepadHideConfirmDialog(
         Card(
             modifier = Modifier.width(364.dp).wrapContentHeight().padding(16.dp),
             shape = MaterialTheme.shapes.large,
+            colors = CardDefaults.cardColors(containerColor = gamepadTheme.dialogColor()),
         ) {
             Column(
                 modifier = Modifier.padding(16.dp).fillMaxWidth(),
@@ -358,7 +359,10 @@ fun GamepadHideConfirmDialog(
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(28.dp),
                     ) {
-                        Text(text = stringResource(R.string.always_hide))
+                        Text(
+                            text = stringResource(R.string.always_hide),
+                            style = gamepadTheme.dialogBodyStyle(),
+                        )
                     }
                 }
             }
