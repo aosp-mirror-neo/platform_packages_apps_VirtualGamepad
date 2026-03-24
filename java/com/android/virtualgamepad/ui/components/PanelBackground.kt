@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithCache
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.asComposePath
 import androidx.compose.ui.graphics.drawscope.scale
@@ -102,7 +103,12 @@ fun PanelBackground(
                         translate(size.width * 0.5f, size.height * 0.5f) {
                             drawPath(
                                 roundedPolygonPath,
-                                brush = Brush.linearGradient(colors = gamepadTheme.panelColors),
+                                brush =
+                                    Brush.linearGradient(
+                                        colors = gamepadTheme.panelColors,
+                                        start = Offset(-size.width * 0.5f, -size.height * 0.5f),
+                                        end = Offset(size.width * 0.5f, size.height * 0.5f),
+                                    ),
                             )
                         }
                     }
