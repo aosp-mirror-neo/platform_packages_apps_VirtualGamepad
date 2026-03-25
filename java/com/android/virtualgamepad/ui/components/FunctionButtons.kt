@@ -16,6 +16,7 @@
 
 package com.android.virtualgamepad.ui.components
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -59,6 +60,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
@@ -111,7 +113,13 @@ fun FunctionButtons(
         ) {
             dialogState = DIALOG_STATE_SETTINGS
         }
-        Spacer(modifier = Modifier.width(128.dp))
+        Spacer(modifier = Modifier.width(32.dp))
+        Image(
+            painter = painterResource(gamepadTheme.brandPlaceholderResource()),
+            contentDescription = null,
+            modifier = Modifier.size(64.dp),
+        )
+        Spacer(modifier = Modifier.width(32.dp))
         GameButton(
             GameButtonType.Menu,
             modifier = Modifier.width(functionButtonWidth.dp).height(functionButtonHeight.dp),
@@ -328,6 +336,7 @@ fun GamepadHideConfirmDialog(
         Card(
             modifier = Modifier.width(364.dp).wrapContentHeight().padding(16.dp),
             shape = MaterialTheme.shapes.large,
+            colors = CardDefaults.cardColors(containerColor = gamepadTheme.dialogColor()),
         ) {
             Column(
                 modifier = Modifier.padding(16.dp).fillMaxWidth(),
@@ -358,7 +367,10 @@ fun GamepadHideConfirmDialog(
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(28.dp),
                     ) {
-                        Text(text = stringResource(R.string.always_hide))
+                        Text(
+                            text = stringResource(R.string.always_hide),
+                            style = gamepadTheme.dialogBodyStyle(),
+                        )
                     }
                 }
             }

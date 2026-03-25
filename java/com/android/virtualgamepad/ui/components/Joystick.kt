@@ -81,7 +81,7 @@ private fun Joystick(modifier: Modifier = Modifier, joystickType: JoystickType) 
     val joystickSize = layoutSpec.computeJoystickSize(screenWidthDp)
 
     val boxSizePx = with(LocalDensity.current) { joystickBox.dp.toPx() }
-    val maxDragRangePx = boxSizePx * 0.7f // TODO confirm this value
+    val maxDragRangePx = boxSizePx * 0.55f
 
     // Drag offset in pixels
     val rawDragOffsetPx = remember { mutableStateOf(Offset(0f, 0f)) }

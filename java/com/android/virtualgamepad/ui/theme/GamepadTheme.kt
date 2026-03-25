@@ -193,6 +193,15 @@ class GamepadTheme(
     }
 
     @DrawableRes
+    fun brandPlaceholderResource(): Int {
+        return if (isLightTheme()) {
+            R.drawable.placeholder_brand
+        } else {
+            R.drawable.placeholder_brand_dark
+        }
+    }
+
+    @DrawableRes
     fun getJoystickResource(): Int {
         return if (isLightTheme()) {
             R.drawable.stick
