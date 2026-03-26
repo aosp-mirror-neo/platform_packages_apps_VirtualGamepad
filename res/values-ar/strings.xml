@@ -37,56 +37,33 @@
   </string-array>
     <string name="description_haptics" msgid="4255683342015357067">"إعدادات تقنية اللمس"</string>
     <string name="description_mode_button" msgid="134098723734776016">"زرّ اختيار الوضع"</string>
-    <!-- no translation found for description_left_joystick (5406405195257229228) -->
-    <skip />
-    <!-- no translation found for description_right_joystick (9073065621415451452) -->
-    <skip />
-    <!-- no translation found for description_game_button_a (565020166602556927) -->
-    <skip />
-    <!-- no translation found for description_game_button_b (2334214701613606265) -->
-    <skip />
-    <!-- no translation found for description_game_button_x (646518634176999799) -->
-    <skip />
-    <!-- no translation found for description_game_button_y (3090300453669663980) -->
-    <skip />
-    <!-- no translation found for description_game_button_l1 (8475754862453977141) -->
-    <skip />
-    <!-- no translation found for description_game_button_l2 (466582867693098789) -->
-    <skip />
-    <!-- no translation found for description_game_button_l3 (3316463141263227183) -->
-    <skip />
-    <!-- no translation found for description_game_button_r1 (5242858818263311317) -->
-    <skip />
-    <!-- no translation found for description_game_button_r2 (7382666063820434694) -->
-    <skip />
-    <!-- no translation found for description_game_button_r3 (4479373295349888209) -->
-    <skip />
-    <!-- no translation found for description_game_button_dpad_up (2715921095782428378) -->
-    <skip />
-    <!-- no translation found for description_game_button_dpad_down (1858088218437888724) -->
-    <skip />
-    <!-- no translation found for description_game_button_dpad_left (8393335206810345172) -->
-    <skip />
-    <!-- no translation found for description_game_button_dpad_right (2000128117333892742) -->
-    <skip />
-    <!-- no translation found for description_game_button_menu (8541271480908458336) -->
-    <skip />
-    <!-- no translation found for description_game_button_settings (5844119343547223522) -->
-    <skip />
+    <string name="description_left_joystick" msgid="5406405195257229228">"ذراع التحكّم اليسرى"</string>
+    <string name="description_right_joystick" msgid="9073065621415451452">"ذراع التحكّم اليمنى"</string>
+    <string name="description_game_button_a" msgid="565020166602556927">"الزرّ A"</string>
+    <string name="description_game_button_b" msgid="2334214701613606265">"الزرّ B"</string>
+    <string name="description_game_button_x" msgid="646518634176999799">"الزرّ X"</string>
+    <string name="description_game_button_y" msgid="3090300453669663980">"الزرّ Y"</string>
+    <string name="description_game_button_l1" msgid="8475754862453977141">"الزرّ L1"</string>
+    <string name="description_game_button_l2" msgid="466582867693098789">"الزرّ L2"</string>
+    <string name="description_game_button_l3" msgid="3316463141263227183">"الزرّ L3"</string>
+    <string name="description_game_button_r1" msgid="5242858818263311317">"الزرّ R1"</string>
+    <string name="description_game_button_r2" msgid="7382666063820434694">"الزرّ R2"</string>
+    <string name="description_game_button_r3" msgid="4479373295349888209">"الزرّ R3"</string>
+    <string name="description_game_button_dpad_up" msgid="2715921095782428378">"الاتجاه للأعلى"</string>
+    <string name="description_game_button_dpad_down" msgid="1858088218437888724">"الاتجاه للأسفل"</string>
+    <string name="description_game_button_dpad_left" msgid="8393335206810345172">"الاتجاه لليسار"</string>
+    <string name="description_game_button_dpad_right" msgid="2000128117333892742">"الاتجاه لليمين"</string>
+    <string name="description_game_button_menu" msgid="8541271480908458336">"زر القائمة"</string>
+    <string name="description_game_button_settings" msgid="5844119343547223522">"زر الإعدادات"</string>
     <string name="description_gamepad_style_selector" msgid="297072224066534053">"اختيار نمط جهاز التحكّم في الألعاب"</string>
     <string name="description_gamepad_size_selector" msgid="6024467919160938900">"اختيار حجم جهاز التحكّم في الألعاب"</string>
     <string name="hide_gamepad" msgid="9081921379818022648">"إخفاء جهاز التحكّم في الألعاب"</string>
     <string name="template_gamepad_style_text" msgid="7553801998279684500">"‫%1$s | %2$s"</string>
     <string name="haptics" msgid="1767688276155159411">"تقنية اللمس"</string>
-    <!-- no translation found for haptics_on (9206660300904569349) -->
-    <skip />
-    <!-- no translation found for haptics_off (8201627856207321040) -->
-    <skip />
+    <string name="haptics_on" msgid="9206660300904569349">"تقنية اللمس مُفعَّلة"</string>
+    <string name="haptics_off" msgid="8201627856207321040">"تقنية اللمس غير مفعَّلة"</string>
     <string name="description_checked" msgid="3645847096266326666">"محدّد"</string>
-    <!-- no translation found for hide_for_now (3387621488459401371) -->
-    <skip />
-    <!-- no translation found for always_hide (2803132328640444142) -->
-    <skip />
-    <!-- no translation found for hide_gamepad_title (1648190198618593238) -->
-    <skip />
+    <string name="hide_for_now" msgid="3387621488459401371">"إخفاء في الوقت الحالي"</string>
+    <string name="always_hide" msgid="2803132328640444142">"الإخفاء دائمًا في هذه اللعبة"</string>
+    <string name="hide_gamepad_title" msgid="1648190198618593238">"إخفاء جهاز التحكّم الافتراضي في الألعاب؟"</string>
 </resources>

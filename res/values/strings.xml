@@ -118,4 +118,5 @@
     <string name="hide_for_now">Hide for now</string>
     <string name="always_hide">Always hide for this game</string>
     <string name="hide_gamepad_title">Hide the virtual gamepad?</string>
+    <string name="hide_gamepad_sub_text">To change virtual gamepad settings, go to app info in Settings.</string>
 </resources>
