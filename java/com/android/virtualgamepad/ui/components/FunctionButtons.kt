@@ -359,6 +359,11 @@ fun GamepadHideConfirmDialog(
                         Text(text = stringResource(R.string.always_hide))
                     }
                 }
+
+                DialogSubtitle(
+                    text = stringResource(R.string.hide_gamepad_sub_text),
+                    gamepadTheme = gamepadTheme,
+                )
             }
         }
     }
