@@ -66,4 +66,6 @@
     <string name="hide_for_now" msgid="3387621488459401371">"Hələlik gizlədin"</string>
     <string name="always_hide" msgid="2803132328640444142">"Bu oyun üçün həmişə gizlədin"</string>
     <string name="hide_gamepad_title" msgid="1648190198618593238">"Virtual qeymped gizlədilsin?"</string>
+    <!-- no translation found for hide_gamepad_sub_text (6179404555634726333) -->
+    <skip />
 </resources>

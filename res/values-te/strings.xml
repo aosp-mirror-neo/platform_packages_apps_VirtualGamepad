@@ -66,4 +66,6 @@
     <string name="hide_for_now" msgid="3387621488459401371">"ప్రస్తుతానికి దాచిపెట్టండి"</string>
     <string name="always_hide" msgid="2803132328640444142">"ఈ గేమ్ కోసం ఎల్లప్పుడూ దాచండి"</string>
     <string name="hide_gamepad_title" msgid="1648190198618593238">"వర్చువల్ గేమ్‌ప్యాడ్‌ను దాచాలా?"</string>
+    <!-- no translation found for hide_gamepad_sub_text (6179404555634726333) -->
+    <skip />
 </resources>
