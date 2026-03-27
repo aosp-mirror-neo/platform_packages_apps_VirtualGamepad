@@ -30,9 +30,9 @@
           android:endX="612"
           android:endY="618.19"
           android:type="linear">
-        <item android:offset="0.05" android:color="#FF131313"/>
-        <item android:offset="0.24" android:color="#FF151515"/>
-        <item android:offset="1" android:color="#FF202020"/>
+        <item android:offset="0.05" android:color="#FF1B1B1B"/>
+        <item android:offset="0.24" android:color="#FF1F1F1F"/>
+        <item android:offset="1" android:color="#FF323232"/>
       </gradient>
     </aapt:attr>
     <aapt:attr name="android:strokeColor">
