@@ -66,6 +66,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
@@ -166,7 +167,7 @@ fun GamepadStyleDialog(
 ) {
     Dialog(onDismissRequest = onDismissRequest) {
         Card(
-            modifier = Modifier.width(364.dp).wrapContentHeight().padding(16.dp),
+            modifier = Modifier.width(364.dp).wrapContentHeight().padding(0.dp),
             shape = MaterialTheme.shapes.large,
             colors = CardDefaults.cardColors(containerColor = gamepadTheme.dialogColor()),
         ) {
@@ -206,7 +207,7 @@ fun GamepadSettingsDialog(
 ) {
     Dialog(onDismissRequest = onDismissRequest) {
         Card(
-            modifier = Modifier.width(364.dp).wrapContentHeight().padding(16.dp),
+            modifier = Modifier.width(364.dp).wrapContentHeight().padding(0.dp),
             shape = MaterialTheme.shapes.large,
             colors = CardDefaults.cardColors(containerColor = gamepadTheme.dialogColor()),
         ) {
@@ -334,7 +335,7 @@ fun GamepadHideConfirmDialog(
 ) {
     Dialog(onDismissRequest = onDismissRequest) {
         Card(
-            modifier = Modifier.width(364.dp).wrapContentHeight().padding(16.dp),
+            modifier = Modifier.width(364.dp).wrapContentHeight().padding(0.dp),
             shape = MaterialTheme.shapes.large,
             colors = CardDefaults.cardColors(containerColor = gamepadTheme.dialogColor()),
         ) {
@@ -483,6 +484,8 @@ fun GamepadDropdownMenu(
                 Text(
                     text = selectedText,
                     modifier = Modifier.weight(1f),
+                    softWrap = false,
+                    overflow = TextOverflow.Visible,
                     style = gamepadTheme.dropDownItemStyle(),
                 )
                 Icon(
@@ -502,7 +505,14 @@ fun GamepadDropdownMenu(
         ) {
             items.forEachIndexed { index, item ->
                 DropdownMenuItem(
-                    text = { Text(text = item, style = gamepadTheme.dropDownItemStyle()) },
+                    text = {
+                        Text(
+                            text = item,
+                            softWrap = false,
+                            overflow = TextOverflow.Visible,
+                            style = gamepadTheme.dropDownItemStyle(),
+                        )
+                    },
                     leadingIcon = leadingIcon,
                     onClick = {
                         selectedIndex = index

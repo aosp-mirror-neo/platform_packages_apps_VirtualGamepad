@@ -23,13 +23,6 @@
       </gradient>
     </aapt:attr>
   </path>
-  <group>
-    <clip-path
-        android:pathData="M26,8.5h27v27h-27z"/>
-    <path
-        android:pathData="M31.086,27.945V25.883H47.914V27.945H31.086ZM31.086,23.281V21.219H47.914V23.281H31.086ZM31.086,18.617V16.555H47.914V18.617H31.086Z"
-        android:fillColor="#ffffff"/>
-  </group>
   <path
       android:pathData="M20.57,6.814C21.948,6.814 23.283,7 24.551,7.346C25.144,8.834 25.469,10.442 25.469,12.12C25.469,19.785 18.707,25.998 10.366,25.998C8.799,25.998 7.288,25.778 5.866,25.371C5.607,24.262 5.469,23.105 5.469,21.916C5.469,13.576 12.23,6.815 20.57,6.814Z"
       android:fillAlpha="0.4">
@@ -44,4 +37,11 @@
       </gradient>
     </aapt:attr>
   </path>
+  <group>
+    <clip-path
+        android:pathData="M26,8.5h27v27h-27z"/>
+    <path
+        android:pathData="M31.086,27.945V25.883H47.914V27.945H31.086ZM31.086,23.281V21.219H47.914V23.281H31.086ZM31.086,18.617V16.555H47.914V18.617H31.086Z"
+        android:fillColor="#ffffff"/>
+  </group>
 </vector>

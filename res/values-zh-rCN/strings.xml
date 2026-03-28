@@ -66,4 +66,6 @@
     <string name="hide_for_now" msgid="3387621488459401371">"暂时隐藏"</string>
     <string name="always_hide" msgid="2803132328640444142">"始终隐藏此游戏的虚拟游戏手柄"</string>
     <string name="hide_gamepad_title" msgid="1648190198618593238">"隐藏虚拟游戏手柄？"</string>
+    <!-- no translation found for hide_gamepad_sub_text (6179404555634726333) -->
+    <skip />
 </resources>

@@ -66,4 +66,6 @@
     <string name="hide_for_now" msgid="3387621488459401371">"Prozatím skrýt"</string>
     <string name="always_hide" msgid="2803132328640444142">"U této hry vždy skrýt"</string>
     <string name="hide_gamepad_title" msgid="1648190198618593238">"Skrýt virtuální gamepad?"</string>
+    <!-- no translation found for hide_gamepad_sub_text (6179404555634726333) -->
+    <skip />
 </resources>
