@@ -38,6 +38,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.semantics.isTraversalGroup
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -133,7 +135,10 @@ fun LeftControlPanel(modifier: Modifier) {
     val joystickBox = layoutSpec.computeJoystickBoxSize(screenWidthDp)
     val constraints = layoutSpec.computeLeftPanelConstraintSet(screenWidthDp = screenWidthDp)
 
-    ConstraintLayout(constraintSet = constraints, modifier = modifier.fillMaxSize()) {
+    ConstraintLayout(
+        constraintSet = constraints,
+        modifier = modifier.fillMaxSize().semantics { isTraversalGroup = true },
+    ) {
         PanelBackground(
             modifier = Modifier.fillMaxSize().layoutId(GamepadLayoutSpec.leftPanelBackgroundId),
             rounding = layoutSpec.panelRounding(),
@@ -188,7 +193,10 @@ fun RightControlPanel(modifier: Modifier) {
 
     val constraintSet = layoutSpec.computeRightPanelConstraintSet(screenWidthDp)
 
-    ConstraintLayout(constraintSet = constraintSet, modifier = modifier.fillMaxSize()) {
+    ConstraintLayout(
+        constraintSet = constraintSet,
+        modifier = modifier.fillMaxSize().semantics { isTraversalGroup = true },
+    ) {
         val screenWidthDp = LocalConfiguration.current.screenWidthDp
         val screenHeightDp = LocalConfiguration.current.screenHeightDp
         PanelBackground(

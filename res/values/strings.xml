@@ -62,6 +62,17 @@
     <!-- Describes the right joystick of a virtual gamepad. e.g., Used with accessibility. -->
     <string name="description_right_joystick">Right Joystick</string>
 
+    <!-- Accessibility labels for joystick directions -->
+    <string name="action_joystick_up_template">Move %1$s Up</string>
+    <string name="action_joystick_down_template">Move %1$s Down</string>
+    <string name="action_joystick_left_template">Move %1$s Left</string>
+    <string name="action_joystick_right_template">Move %1$s Right</string>
+    <string name="action_joystick_reset_template">Center %1$s</string>
+
+    <!-- Joystick state descriptions -->
+    <string name="state_joystick_centered">Centered</string>
+    <string name="state_joystick_moved">Moved</string>
+
     <!-- Description for game button A. Used with accessibility. -->
     <string name="description_game_button_a">A Button</string>
     <!-- Description for game button B. Used with accessibility. -->
