@@ -42,7 +42,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.CustomAccessibilityAction
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.customActions
-import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.semantics.scrollBy
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
@@ -225,15 +224,11 @@ private fun Joystick(modifier: Modifier = Modifier, joystickType: JoystickType) 
     Box(
         modifier =
             containerModifier
-                .semantics {
+                .semantics(mergeDescendants = true) {
                     contentDescription = joystickDescription
                     stateDescription =
                         if (boundedDragOffsetPx.value == Offset(0f, 0f)) stateCentered
                         else stateMoved
-                    onClick(label = actionReset) {
-                        resetOffset()
-                        true
-                    }
                     scrollBy { x, y ->
                         addOffset(Offset(x, y))
                         true
