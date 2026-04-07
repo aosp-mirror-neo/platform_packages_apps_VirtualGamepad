@@ -66,6 +66,5 @@
     <string name="hide_for_now" msgid="3387621488459401371">"ለአሁን ደብቅ"</string>
     <string name="always_hide" msgid="2803132328640444142">"ለዚህ ጨዋታ ሁልጊዜ ደብቅ"</string>
     <string name="hide_gamepad_title" msgid="1648190198618593238">"ምናባዊ የመጫወቻ ንጣፉ ይደበቅ?"</string>
-    <!-- no translation found for hide_gamepad_sub_text (6179404555634726333) -->
-    <skip />
+    <string name="hide_gamepad_sub_text" msgid="6179404555634726333">"የምናባዊ የመጫወቻ ንጣፍ ቅንብሮችን ለመለወጥ ቅንብሮች ውስጥ ወደ የመተግበሪያ መረጃ ይሂዱ።"</string>
 </resources>

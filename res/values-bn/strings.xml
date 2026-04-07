@@ -68,6 +68,5 @@
     <string name="hide_for_now" msgid="3387621488459401371">"এখনকার মতো লুকান"</string>
     <string name="always_hide" msgid="2803132328640444142">"এই গেমের ক্ষেত্রে সবসময় লুকান"</string>
     <string name="hide_gamepad_title" msgid="1648190198618593238">"ভার্চুয়াল গেমপ্যাড লুকাতে চান?"</string>
-    <!-- no translation found for hide_gamepad_sub_text (6179404555634726333) -->
-    <skip />
+    <string name="hide_gamepad_sub_text" msgid="6179404555634726333">"ভার্চুয়াল গেমপ্যাড সেটিংস পরিবর্তন করতে, সেটিংসের মধ্যে \'অ্যাপের তথ্য\' বিকল্পে যান।"</string>
 </resources>

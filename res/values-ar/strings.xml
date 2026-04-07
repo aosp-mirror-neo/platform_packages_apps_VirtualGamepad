@@ -63,9 +63,8 @@
     <string name="haptics_on" msgid="9206660300904569349">"تقنية اللمس مُفعَّلة"</string>
     <string name="haptics_off" msgid="8201627856207321040">"تقنية اللمس غير مفعَّلة"</string>
     <string name="description_checked" msgid="3645847096266326666">"محدّد"</string>
-    <string name="hide_for_now" msgid="3387621488459401371">"إخفاء في الوقت الحالي"</string>
+    <string name="hide_for_now" msgid="3387621488459401371">"الإخفاء في الوقت الحالي"</string>
     <string name="always_hide" msgid="2803132328640444142">"الإخفاء دائمًا في هذه اللعبة"</string>
     <string name="hide_gamepad_title" msgid="1648190198618593238">"إخفاء جهاز التحكّم الافتراضي في الألعاب؟"</string>
-    <!-- no translation found for hide_gamepad_sub_text (6179404555634726333) -->
-    <skip />
+    <string name="hide_gamepad_sub_text" msgid="6179404555634726333">"لتغيير إعدادات جهاز التحكّم الافتراضي في الألعاب، يُرجى الانتقال إلى معلومات التطبيق في \"الإعدادات\"."</string>
 </resources>

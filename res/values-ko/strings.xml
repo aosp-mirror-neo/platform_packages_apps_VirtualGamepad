@@ -66,6 +66,5 @@
     <string name="hide_for_now" msgid="3387621488459401371">"지금은 숨기기"</string>
     <string name="always_hide" msgid="2803132328640444142">"이 게임에서 항상 숨기기"</string>
     <string name="hide_gamepad_title" msgid="1648190198618593238">"가상 게임패드를 숨기시겠습니까?"</string>
-    <!-- no translation found for hide_gamepad_sub_text (6179404555634726333) -->
-    <skip />
+    <string name="hide_gamepad_sub_text" msgid="6179404555634726333">"가상 게임패드 설정을 변경하려면 설정의 앱 정보로 이동하세요."</string>
 </resources>

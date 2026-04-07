@@ -66,6 +66,5 @@
     <string name="hide_for_now" msgid="3387621488459401371">"இப்போதைக்கு மறை"</string>
     <string name="always_hide" msgid="2803132328640444142">"இந்த கேமிற்கு எப்போதும் மறை"</string>
     <string name="hide_gamepad_title" msgid="1648190198618593238">"விர்ச்சுவல் கேம்பேடை மறைக்கவா?"</string>
-    <!-- no translation found for hide_gamepad_sub_text (6179404555634726333) -->
-    <skip />
+    <string name="hide_gamepad_sub_text" msgid="6179404555634726333">"விர்ச்சுவல் கேம்பேட் அமைப்புகளை மாற்ற, அமைப்புகளில் ‘ஆப்ஸ் தகவல்’ என்பதற்குச் செல்லவும்."</string>
 </resources>
