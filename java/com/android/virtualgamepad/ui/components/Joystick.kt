@@ -17,6 +17,7 @@
 package com.android.virtualgamepad.ui.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -38,8 +39,12 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.CustomAccessibilityAction
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.customActions
+import androidx.compose.ui.semantics.scrollBy
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.android.virtualgamepad.LocalGamepadState
@@ -197,8 +202,67 @@ private fun Joystick(modifier: Modifier = Modifier, joystickType: JoystickType) 
     }
     // End of layout editor logic
 
+    // Labels for accessibility
+    val joystickDescriptionRes =
+        if (joystickType == JoystickType.JOYSTICK_LEFT) {
+            R.string.description_left_joystick
+        } else {
+            R.string.description_right_joystick
+        }
+    val joystickDescription = stringResource(joystickDescriptionRes)
+
+    val actionUp = stringResource(R.string.action_joystick_up_template, joystickDescription)
+    val actionDown = stringResource(R.string.action_joystick_down_template, joystickDescription)
+    val actionLeft = stringResource(R.string.action_joystick_left_template, joystickDescription)
+    val actionRight = stringResource(R.string.action_joystick_right_template, joystickDescription)
+    val actionReset = stringResource(R.string.action_joystick_reset_template, joystickDescription)
+
+    val stateCentered = stringResource(R.string.state_joystick_centered)
+    val stateMoved = stringResource(R.string.state_joystick_moved)
+
     // Joystick container box
-    Box(modifier = containerModifier) {
+    Box(
+        modifier =
+            containerModifier
+                .semantics(mergeDescendants = true) {
+                    contentDescription = joystickDescription
+                    stateDescription =
+                        if (boundedDragOffsetPx.value == Offset(0f, 0f)) stateCentered
+                        else stateMoved
+                    scrollBy { x, y ->
+                        addOffset(Offset(x, y))
+                        true
+                    }
+                    customActions =
+                        listOf(
+                            CustomAccessibilityAction(actionUp) {
+                                resetOffset()
+                                addOffset(Offset(0f, -maxDragRangePx / 2.0f))
+                                true
+                            },
+                            CustomAccessibilityAction(actionDown) {
+                                resetOffset()
+                                addOffset(Offset(0f, maxDragRangePx / 2.0f))
+                                true
+                            },
+                            CustomAccessibilityAction(actionLeft) {
+                                resetOffset()
+                                addOffset(Offset(-maxDragRangePx / 2.0f, 0f))
+                                true
+                            },
+                            CustomAccessibilityAction(actionRight) {
+                                resetOffset()
+                                addOffset(Offset(maxDragRangePx / 2.0f, 0f))
+                                true
+                            },
+                            CustomAccessibilityAction(actionReset) {
+                                resetOffset()
+                                true
+                            },
+                        )
+                }
+                .focusable()
+    ) {
         // Background area
         Box(
             modifier =
@@ -240,13 +304,6 @@ private fun Joystick(modifier: Modifier = Modifier, joystickType: JoystickType) 
                     }
         )
 
-        val joystickDescriptionRes =
-            if (joystickType == JoystickType.JOYSTICK_LEFT) {
-                R.string.description_left_joystick
-            } else {
-                R.string.description_right_joystick
-            }
-        val joystickDescription = stringResource(joystickDescriptionRes)
         // Stick container to handle drag events. This avoids issues related to rotations of the
         // child views.
         Box(
@@ -254,7 +311,6 @@ private fun Joystick(modifier: Modifier = Modifier, joystickType: JoystickType) 
                 Modifier.align(Alignment.Center)
                     .size(joystickSize.dp)
                     .offset(x = boundedDragOffsetDp.value.x.dp, y = boundedDragOffsetDp.value.y.dp)
-                    .semantics { contentDescription = joystickDescription }
         ) {
             StickView(modifier = Modifier.fillMaxSize())
         }

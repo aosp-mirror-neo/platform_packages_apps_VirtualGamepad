@@ -66,6 +66,5 @@
     <string name="hide_for_now" msgid="3387621488459401371">"දැනට සඟවන්න"</string>
     <string name="always_hide" msgid="2803132328640444142">"මෙම ක්‍රීඩාව සඳහා සැම විට ම සඟවන්න"</string>
     <string name="hide_gamepad_title" msgid="1648190198618593238">"අතථ්‍ය ගේම්පෑඩ් සඟවන්න ද?"</string>
-    <!-- no translation found for hide_gamepad_sub_text (6179404555634726333) -->
-    <skip />
+    <string name="hide_gamepad_sub_text" msgid="6179404555634726333">"අතථ්‍ය ක්‍රීඩා පාලක සැකසීම් වෙනස් කිරීමට, සැකසීම් තුළ යෙදුම් තතු වෙත යන්න."</string>
 </resources>

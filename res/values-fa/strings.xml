@@ -63,9 +63,8 @@
     <string name="haptics_on" msgid="9206660300904569349">"فناوری لمسی روشن است"</string>
     <string name="haptics_off" msgid="8201627856207321040">"فناوری لمسی خاموش است"</string>
     <string name="description_checked" msgid="3645847096266326666">"علامت‌خورده"</string>
-    <string name="hide_for_now" msgid="3387621488459401371">"فعلاً پنهان شود"</string>
-    <string name="always_hide" msgid="2803132328640444142">"همیشه برای این بازی پنهان شود"</string>
+    <string name="hide_for_now" msgid="3387621488459401371">"فعلاً پنهان کردن"</string>
+    <string name="always_hide" msgid="2803132328640444142">"همیشه پنهان بودن برای این بازی"</string>
     <string name="hide_gamepad_title" msgid="1648190198618593238">"پد بازی مجازی پنهان شود؟"</string>
-    <!-- no translation found for hide_gamepad_sub_text (6179404555634726333) -->
-    <skip />
+    <string name="hide_gamepad_sub_text" msgid="6179404555634726333">"برای تغییر تنظیمات پد بازی مجازی، به اطلاعات برنامه در «تنظیمات» بروید."</string>
 </resources>

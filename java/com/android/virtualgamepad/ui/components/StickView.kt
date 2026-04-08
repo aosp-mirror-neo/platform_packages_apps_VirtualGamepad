@@ -23,11 +23,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.android.virtualgamepad.ui.LocalGamepadTheme
-import com.android.virtualgamepad.ui.theme.Black1D
-import com.android.virtualgamepad.ui.theme.Black23
 import com.android.virtualgamepad.ui.theme.GamepadTheme
 import com.android.virtualgamepad.ui.theme.Gray4A
 import com.android.virtualgamepad.ui.theme.Gray83
@@ -42,25 +41,28 @@ fun StickView(modifier: Modifier = Modifier) {
     val theme = LocalGamepadTheme.current
     val isLight = theme.isLightTheme()
 
-    val outerColors = if (isLight) listOf(Gray83, Gray4A) else listOf(Gray83, Black23)
-    val innerColors = if (isLight) listOf(Gray83, Gray4A) else listOf(Gray4A, Black1D)
-
+    val outerColors =
+        if (isLight) listOf(Gray83, Gray4A)
+        else listOf(Color(0xFFE0E0E0), Color(0xFFCBCBCB), Color(0xFF979797), Color(0xFF6C6C6C))
+    val innerColors =
+        if (isLight) listOf(Gray83, Gray4A)
+        else listOf(Color(0xFF9E9E9E), Color(0xFF8D8D8C), Color(0xFF6F6F6F))
     Box(modifier = modifier, contentAlignment = Alignment.Center) {
         // Outer circle (the bevel/ring)
         GradientCircle(
             colors = outerColors,
-            startPoint = Offset(-0.6f, -0.6f),
-            colorStops = listOf(0.0f, 0.4f),
-            outlineColor = if (!isLight) com.android.virtualgamepad.ui.theme.Black00 else null,
-            outlineWidth = if (!isLight) 4.dp else 0.dp,
+            startPoint = if (isLight) Offset(-0.6f, -0.6f) else Offset(-0.3f, -0.3f),
+            colorStops = if (isLight) listOf(0.0f, 0.4f) else listOf(0.0f, 0.33f, 0.66f, 1.0f),
+            gradientType = GradientType.RADIAL,
+            outlineColor = null,
+            outlineWidth = 0.dp,
             modifier = Modifier.fillMaxSize(0.9f),
-        )
-        // Inner circle (the recessed top)
+        ) // Inner circle (the recessed top)
         GradientCircle(
             colors = innerColors,
             startPoint = Offset(1f, 1f),
             endPoint = Offset(-1f, -1f),
-            colorStops = listOf(0.0f, 0.4f),
+            colorStops = if (isLight) listOf(0.0f, 0.4f) else listOf(0.0f, 0.2f, 0.4f),
             gradientType = GradientType.LINEAR,
             modifier = Modifier.fillMaxSize(0.74f),
         )

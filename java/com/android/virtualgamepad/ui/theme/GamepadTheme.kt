@@ -72,7 +72,7 @@ class GamepadTheme(
     val joystickBackgroundColors =
         when (colorTheme) {
             GamepadColorTheme.LIGHT -> listOf(GrayC9, GrayD8)
-            GamepadColorTheme.DARK -> listOf(Black1F, Black20)
+            GamepadColorTheme.DARK -> listOf(Black21, Black21)
         }
 
     val panelColors =

@@ -66,6 +66,5 @@
     <string name="hide_for_now" msgid="3387621488459401371">"Vorerst ausblenden"</string>
     <string name="always_hide" msgid="2803132328640444142">"Für dieses Spiel immer ausblenden"</string>
     <string name="hide_gamepad_title" msgid="1648190198618593238">"Virtuelles Gamepad ausblenden?"</string>
-    <!-- no translation found for hide_gamepad_sub_text (6179404555634726333) -->
-    <skip />
+    <string name="hide_gamepad_sub_text" msgid="6179404555634726333">"Wenn du die Einstellungen für das virtuelle Gamepad ändern möchtest, rufe in den Einstellungen die App-Informationen auf."</string>
 </resources>

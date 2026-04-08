@@ -66,6 +66,5 @@
     <string name="hide_for_now" msgid="3387621488459401371">"ಸದ್ಯಕ್ಕೆ ಮರೆಮಾಡಿ"</string>
     <string name="always_hide" msgid="2803132328640444142">"ಈ ಗೇಮ್‌ಗಾಗಿ ಯಾವಾಗಲೂ ಮರೆಮಾಡಿ"</string>
     <string name="hide_gamepad_title" msgid="1648190198618593238">"ವರ್ಚುವಲ್ ಗೇಮ್‌ಪ್ಯಾಡ್ ಅನ್ನು ಮರೆಮಾಡಬೇಕೆ?"</string>
-    <!-- no translation found for hide_gamepad_sub_text (6179404555634726333) -->
-    <skip />
+    <string name="hide_gamepad_sub_text" msgid="6179404555634726333">"ವರ್ಚುವಲ್‌ ಗೇಮ್‌ಪ್ಯಾಡ್‌ ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಬದಲಾಯಿಸಲು, ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿ ಆ್ಯಪ್‌ ಮಾಹಿತಿಗೆ ಹೋಗಿ."</string>
 </resources>

@@ -66,6 +66,5 @@
     <string name="hide_for_now" msgid="3387621488459401371">"ယခု ဖျောက်ထားရန်"</string>
     <string name="always_hide" msgid="2803132328640444142">"ဤဂိမ်းအတွက် အမြဲဖျောက်ထားရန်"</string>
     <string name="hide_gamepad_title" msgid="1648190198618593238">"ပကတိအသွင် ဂိမ်းခလုတ်ခုံကို ဖျောက်မလား"</string>
-    <!-- no translation found for hide_gamepad_sub_text (6179404555634726333) -->
-    <skip />
+    <string name="hide_gamepad_sub_text" msgid="6179404555634726333">"ပကတိအသွင်ဂိမ်းခလုတ်ခုံဆက်တင်များကို ပြောင်းရန် ဆက်တင်များရှိ အက်ပ်အချက်အလက်သို့ သွားပါ။"</string>
 </resources>

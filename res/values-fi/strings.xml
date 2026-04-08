@@ -66,6 +66,5 @@
     <string name="hide_for_now" msgid="3387621488459401371">"Piilota toistaiseksi"</string>
     <string name="always_hide" msgid="2803132328640444142">"Piilota aina tässä pelissä"</string>
     <string name="hide_gamepad_title" msgid="1648190198618593238">"Piilotetaanko virtuaalinen peliohjain?"</string>
-    <!-- no translation found for hide_gamepad_sub_text (6179404555634726333) -->
-    <skip />
+    <string name="hide_gamepad_sub_text" msgid="6179404555634726333">"Jos haluat muuttaa virtuaalisen peliohjaimen asetuksia, siirry sovelluksen tietoihin asetuksissa."</string>
 </resources>

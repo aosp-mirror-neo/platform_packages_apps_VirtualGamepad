@@ -66,6 +66,5 @@
     <string name="hide_for_now" msgid="3387621488459401371">"Skjul indtil videre"</string>
     <string name="always_hide" msgid="2803132328640444142">"Skjul altid for dette spil"</string>
     <string name="hide_gamepad_title" msgid="1648190198618593238">"Vil du skjule den virtuelle gamepad?"</string>
-    <!-- no translation found for hide_gamepad_sub_text (6179404555634726333) -->
-    <skip />
+    <string name="hide_gamepad_sub_text" msgid="6179404555634726333">"Du kan ændre indstillingerne for den virtuelle gamepad ved at gå til appoplysningerne i Indstillinger."</string>
 </resources>

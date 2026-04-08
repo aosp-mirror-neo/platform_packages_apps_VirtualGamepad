@@ -66,6 +66,5 @@
     <string name="hide_for_now" msgid="3387621488459401371">"ਫ਼ਿਲਹਾਲ ਲੁਕਾਓ"</string>
     <string name="always_hide" msgid="2803132328640444142">"ਇਸ ਗੇਮ ਲਈ ਹਮੇਸ਼ਾਂ ਲੁਕਾਓ"</string>
     <string name="hide_gamepad_title" msgid="1648190198618593238">"ਕੀ ਆਭਾਸੀ ਗੇਮਪੈਡ ਨੂੰ ਲੁਕਾਉਣਾ ਹੈ?"</string>
-    <!-- no translation found for hide_gamepad_sub_text (6179404555634726333) -->
-    <skip />
+    <string name="hide_gamepad_sub_text" msgid="6179404555634726333">"ਆਭਾਸੀ ਗੇਮਪੈਡ ਸੈਟਿੰਗਾਂ ਨੂੰ ਬਦਲਣ ਲਈ, ਸੈਟਿੰਗਾਂ ਵਿੱਚ ਐਪ ਜਾਣਕਾਰੀ \'ਤੇ ਜਾਓ।"</string>
 </resources>

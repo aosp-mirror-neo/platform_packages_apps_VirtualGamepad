@@ -30,6 +30,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.input.pointer.pointerInput
@@ -37,12 +38,17 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.role
+import androidx.compose.ui.semantics.semantics
 import com.android.virtualgamepad.LocalGamepadState
 import com.android.virtualgamepad.model.GameButtonType
 import com.android.virtualgamepad.ui.LocalGamepadTheme
 import com.android.virtualgamepad.ui.LocalLayoutEditor
 import kotlin.math.max
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
 internal fun GamePadButton(
@@ -115,16 +121,18 @@ internal fun GamePadButton(
     val description = stringResource(descriptionRes)
     Box(
         modifier =
-            updatedModifier.clickable(
-                interactionSource = interactionSource,
-                indication = null,
-                onClick = {
-                    onClick()
-                    if (!isPressed) {
-                        onNonPressingClick()
-                    }
-                },
-            )
+            updatedModifier
+                .semantics { role = Role.Button }
+                .clickable(
+                    interactionSource = interactionSource,
+                    indication = null,
+                    onClick = {
+                        onClick()
+                        if (!isPressed) {
+                            onNonPressingClick()
+                        }
+                    },
+                )
     ) {
         Image(
             modifier = Modifier.fillMaxSize(),
@@ -140,6 +148,7 @@ fun GameButton(gameButtonType: GameButtonType, modifier: Modifier = Modifier) {
     val localView = LocalView.current
     val gamepadState = LocalGamepadState.current
     val theme = LocalGamepadTheme.current
+    val scope = rememberCoroutineScope()
 
     val buttonRes = theme.gameButtonResource(gameButtonType)
     val pressedButtonRes = theme.gameButtonPressedResource(gameButtonType)
@@ -164,11 +173,13 @@ fun GameButton(gameButtonType: GameButtonType, modifier: Modifier = Modifier) {
             }
         },
         onNonPressingClick = {
-            gamepadState?.onButtonDown(gameButtonType)
-            // Add a small delay to simulate a tap. Games might not react correctly if the down
-            // event and the up event are too close to each other.
-            Thread.sleep(50)
-            gamepadState?.onButtonUp(gameButtonType)
+            scope.launch {
+                gamepadState?.onButtonDown(gameButtonType)
+                // Add a small delay to simulate a tap. Games might not react correctly if the down
+                // event and the up event are too close to each other.
+                delay(50)
+                gamepadState?.onButtonUp(gameButtonType)
+            }
         },
     )
 }

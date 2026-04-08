@@ -66,6 +66,5 @@
     <string name="hide_for_now" msgid="3387621488459401371">"Nascondi per ora"</string>
     <string name="always_hide" msgid="2803132328640444142">"Nascondi sempre per questo gioco"</string>
     <string name="hide_gamepad_title" msgid="1648190198618593238">"Nascondere il gamepad virtuale?"</string>
-    <!-- no translation found for hide_gamepad_sub_text (6179404555634726333) -->
-    <skip />
+    <string name="hide_gamepad_sub_text" msgid="6179404555634726333">"Per modificare le impostazioni del gamepad virtuale, vai alle informazioni sull\'app in Impostazioni."</string>
 </resources>

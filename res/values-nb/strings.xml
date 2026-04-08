@@ -66,6 +66,5 @@
     <string name="hide_for_now" msgid="3387621488459401371">"Skjul inntil videre"</string>
     <string name="always_hide" msgid="2803132328640444142">"Skjul alltid for dette spillet"</string>
     <string name="hide_gamepad_title" msgid="1648190198618593238">"Vil du skjule den virtuelle spillkontrolleren?"</string>
-    <!-- no translation found for hide_gamepad_sub_text (6179404555634726333) -->
-    <skip />
+    <string name="hide_gamepad_sub_text" msgid="6179404555634726333">"For å endre innstillingene for den virtuelle spillkontrolleren, gå til appinformasjonen i Innstillinger."</string>
 </resources>
