@@ -39,6 +39,13 @@
     <string name="description_mode_button" msgid="134098723734776016">"模式按鈕"</string>
     <string name="description_left_joystick" msgid="5406405195257229228">"左搖桿"</string>
     <string name="description_right_joystick" msgid="9073065621415451452">"右搖桿"</string>
+    <string name="action_joystick_up_template" msgid="6344573271659906192">"將 %1$s 向上移動"</string>
+    <string name="action_joystick_down_template" msgid="1348966998518765705">"將 %1$s 向下移動"</string>
+    <string name="action_joystick_left_template" msgid="8981316990147160524">"將 %1$s 向左移動"</string>
+    <string name="action_joystick_right_template" msgid="6258712553461029353">"將 %1$s 向右移動"</string>
+    <string name="action_joystick_reset_template" msgid="2499677048006875698">"將 %1$s 置中"</string>
+    <string name="state_joystick_centered" msgid="8662951067258244582">"已置中"</string>
+    <string name="state_joystick_moved" msgid="2123228054601972189">"已移動"</string>
     <string name="description_game_button_a" msgid="565020166602556927">"A 掣"</string>
     <string name="description_game_button_b" msgid="2334214701613606265">"B 掣"</string>
     <string name="description_game_button_x" msgid="646518634176999799">"X 掣"</string>

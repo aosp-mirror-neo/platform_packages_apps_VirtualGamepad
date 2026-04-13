@@ -39,6 +39,13 @@
     <string name="description_mode_button" msgid="134098723734776016">"Кнопка режима"</string>
     <string name="description_left_joystick" msgid="5406405195257229228">"Левый джойстик"</string>
     <string name="description_right_joystick" msgid="9073065621415451452">"Правый джойстик"</string>
+    <string name="action_joystick_up_template" msgid="6344573271659906192">"%1$s: движение вверх"</string>
+    <string name="action_joystick_down_template" msgid="1348966998518765705">"%1$s: движение вниз"</string>
+    <string name="action_joystick_left_template" msgid="8981316990147160524">"%1$s: движение влево"</string>
+    <string name="action_joystick_right_template" msgid="6258712553461029353">"%1$s: движение вправо"</string>
+    <string name="action_joystick_reset_template" msgid="2499677048006875698">"%1$s: по центру"</string>
+    <string name="state_joystick_centered" msgid="8662951067258244582">"По центру"</string>
+    <string name="state_joystick_moved" msgid="2123228054601972189">"Совершено движение"</string>
     <string name="description_game_button_a" msgid="565020166602556927">"Кнопка A"</string>
     <string name="description_game_button_b" msgid="2334214701613606265">"Кнопка B"</string>
     <string name="description_game_button_x" msgid="646518634176999799">"Кнопка X"</string>

@@ -39,6 +39,13 @@
     <string name="description_mode_button" msgid="134098723734776016">"موڈ بٹن"</string>
     <string name="description_left_joystick" msgid="5406405195257229228">"بایاں جوائے اسٹک"</string>
     <string name="description_right_joystick" msgid="9073065621415451452">"دایاں جوائے اسٹک"</string>
+    <string name="action_joystick_up_template" msgid="6344573271659906192">"‫ %1$s کو اوپر منتقل کریں"</string>
+    <string name="action_joystick_down_template" msgid="1348966998518765705">"‫ %1$s کو نیچے منتقل کریں"</string>
+    <string name="action_joystick_left_template" msgid="8981316990147160524">"‫%1$s کو بائیں طرف منتقل کریں"</string>
+    <string name="action_joystick_right_template" msgid="6258712553461029353">"‫ %1$s کو دائیں طرف منتقل کریں"</string>
+    <string name="action_joystick_reset_template" msgid="2499677048006875698">"‫%1$s کو مرکز میں لائیں"</string>
+    <string name="state_joystick_centered" msgid="8662951067258244582">"مرتکز"</string>
+    <string name="state_joystick_moved" msgid="2123228054601972189">"منتقل ہو گیا"</string>
     <string name="description_game_button_a" msgid="565020166602556927">"‫A بٹن"</string>
     <string name="description_game_button_b" msgid="2334214701613606265">"‫B بٹن"</string>
     <string name="description_game_button_x" msgid="646518634176999799">"‫X بٹن"</string>

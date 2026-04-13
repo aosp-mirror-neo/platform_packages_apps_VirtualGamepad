@@ -39,6 +39,13 @@
     <string name="description_mode_button" msgid="134098723734776016">"ප්‍රකාර බොත්තම"</string>
     <string name="description_left_joystick" msgid="5406405195257229228">"වම් ජොයිස්ටික්"</string>
     <string name="description_right_joystick" msgid="9073065621415451452">"දකුණු ජෝයිස්ටික්"</string>
+    <string name="action_joystick_up_template" msgid="6344573271659906192">"%1$s ඉහළට ගෙන යන්න"</string>
+    <string name="action_joystick_down_template" msgid="1348966998518765705">"%1$s පහළට ගෙන යන්න"</string>
+    <string name="action_joystick_left_template" msgid="8981316990147160524">"%1$s වමට ගෙන යන්න"</string>
+    <string name="action_joystick_right_template" msgid="6258712553461029353">"%1$s දකුණට ගෙන යන්න"</string>
+    <string name="action_joystick_reset_template" msgid="2499677048006875698">"මැද %1$s"</string>
+    <string name="state_joystick_centered" msgid="8662951067258244582">"මධ්‍යගත"</string>
+    <string name="state_joystick_moved" msgid="2123228054601972189">"ගෙන යන ලදි"</string>
     <string name="description_game_button_a" msgid="565020166602556927">"බොත්තමක්"</string>
     <string name="description_game_button_b" msgid="2334214701613606265">"B බොත්තම"</string>
     <string name="description_game_button_x" msgid="646518634176999799">"X බොත්තම"</string>

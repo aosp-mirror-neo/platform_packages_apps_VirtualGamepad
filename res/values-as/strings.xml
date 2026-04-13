@@ -39,6 +39,13 @@
     <string name="description_mode_button" msgid="134098723734776016">"ম’ডৰ বুটাম"</string>
     <string name="description_left_joystick" msgid="5406405195257229228">"বাওঁফালৰ জয়ষ্টিক"</string>
     <string name="description_right_joystick" msgid="9073065621415451452">"সোঁফালৰ জয়ষ্টিক"</string>
+    <string name="action_joystick_up_template" msgid="6344573271659906192">"%1$s ওপৰলৈ নিয়ক"</string>
+    <string name="action_joystick_down_template" msgid="1348966998518765705">"%1$s তললৈ নিয়ক"</string>
+    <string name="action_joystick_left_template" msgid="8981316990147160524">"%1$s বাওঁফালে নিয়ক"</string>
+    <string name="action_joystick_right_template" msgid="6258712553461029353">"%1$s সোঁফালে নিয়ক"</string>
+    <string name="action_joystick_reset_template" msgid="2499677048006875698">"%1$s সোঁমাজত ৰাখক"</string>
+    <string name="state_joystick_centered" msgid="8662951067258244582">"সোঁমাজত আছে"</string>
+    <string name="state_joystick_moved" msgid="2123228054601972189">"লৰচৰ কৰা হৈছে"</string>
     <string name="description_game_button_a" msgid="565020166602556927">"A বুটাম"</string>
     <string name="description_game_button_b" msgid="2334214701613606265">"B বুটাম"</string>
     <string name="description_game_button_x" msgid="646518634176999799">"X বুটাম"</string>

@@ -39,6 +39,13 @@
     <string name="description_mode_button" msgid="134098723734776016">"মোড বোতাম"</string>
     <string name="description_left_joystick" msgid="5406405195257229228">"বাঁদিকের জয়স্টিক"</string>
     <string name="description_right_joystick" msgid="9073065621415451452">"ডানদিকের জয়স্টিক"</string>
+    <string name="action_joystick_up_template" msgid="6344573271659906192">"%1$s উপরে সরান"</string>
+    <string name="action_joystick_down_template" msgid="1348966998518765705">"%1$s নিচে সরান"</string>
+    <string name="action_joystick_left_template" msgid="8981316990147160524">"%1$s বাঁদিকে সরান"</string>
+    <string name="action_joystick_right_template" msgid="6258712553461029353">"%1$s ডানদিকে সরান"</string>
+    <string name="action_joystick_reset_template" msgid="2499677048006875698">"%1$s মাঝে রাখুন"</string>
+    <string name="state_joystick_centered" msgid="8662951067258244582">"মাঝখানে রাখা আছে"</string>
+    <string name="state_joystick_moved" msgid="2123228054601972189">"সরানো হয়েছে"</string>
     <string name="description_game_button_a" msgid="565020166602556927">"A বোতাম"</string>
     <string name="description_game_button_b" msgid="2334214701613606265">"B বোতাম"</string>
     <string name="description_game_button_x" msgid="646518634176999799">"X বোতাম"</string>
@@ -58,9 +65,7 @@
     <string name="description_gamepad_style_selector" msgid="297072224066534053">"গেমপ্যাড স্টাইল বেছে নিন"</string>
     <string name="description_gamepad_size_selector" msgid="6024467919160938900">"গেমপ্যাডের সাইজ বেছে নিন"</string>
     <string name="hide_gamepad" msgid="9081921379818022648">"গেমপ্যাড লুকান"</string>
-    <!-- String.format failed for translation -->
-    <!-- no translation found for template_gamepad_style_text (7553801998279684500) -->
-    <skip />
+    <string name="template_gamepad_style_text" msgid="7553801998279684500">"%1$s | %2$s"</string>
     <string name="haptics" msgid="1767688276155159411">"হ্যাপটিক"</string>
     <string name="haptics_on" msgid="9206660300904569349">"হ্যাপটিক চালু আছে"</string>
     <string name="haptics_off" msgid="8201627856207321040">"হ্যাপটিক বন্ধ আছে"</string>

@@ -26,8 +26,8 @@
   </string-array>
     <string name="label_gamepad_style" msgid="1542718986571188995">"Estilo de gamepad"</string>
   <string-array name="gamepad_style_items">
-    <item msgid="6427033374051500762">"Dois joysticks, alinhados"</item>
-    <item msgid="3695137406491092399">"Dois joysticks, desalinhados"</item>
+    <item msgid="6427033374051500762">"Duas alavancas alinhadas"</item>
+    <item msgid="3695137406491092399">"Duas alavancas alinhadas"</item>
   </string-array>
     <string name="label_gamepad_size" msgid="622658226522409740">"Tamanho"</string>
   <string-array name="gamepad_size_items">
@@ -39,6 +39,13 @@
     <string name="description_mode_button" msgid="134098723734776016">"Botão de modo"</string>
     <string name="description_left_joystick" msgid="5406405195257229228">"Joystick esquerdo"</string>
     <string name="description_right_joystick" msgid="9073065621415451452">"Joystick direito"</string>
+    <string name="action_joystick_up_template" msgid="6344573271659906192">"Mover %1$s para cima"</string>
+    <string name="action_joystick_down_template" msgid="1348966998518765705">"Mover %1$s para baixo"</string>
+    <string name="action_joystick_left_template" msgid="8981316990147160524">"Mover %1$s para a esquerda"</string>
+    <string name="action_joystick_right_template" msgid="6258712553461029353">"Mover %1$s para a direita"</string>
+    <string name="action_joystick_reset_template" msgid="2499677048006875698">"Centralizar %1$s"</string>
+    <string name="state_joystick_centered" msgid="8662951067258244582">"Centralizado"</string>
+    <string name="state_joystick_moved" msgid="2123228054601972189">"Movido"</string>
     <string name="description_game_button_a" msgid="565020166602556927">"Botão A"</string>
     <string name="description_game_button_b" msgid="2334214701613606265">"Botão B"</string>
     <string name="description_game_button_x" msgid="646518634176999799">"Botão X"</string>
@@ -66,5 +73,5 @@
     <string name="hide_for_now" msgid="3387621488459401371">"Ocultar por enquanto"</string>
     <string name="always_hide" msgid="2803132328640444142">"Sempre ocultar neste jogo"</string>
     <string name="hide_gamepad_title" msgid="1648190198618593238">"Ocultar o gamepad virtual?"</string>
-    <string name="hide_gamepad_sub_text" msgid="6179404555634726333">"Para configurar seu gamepad virtual, acesse as informações do app nas Configurações."</string>
+    <string name="hide_gamepad_sub_text" msgid="6179404555634726333">"Para mudar uma configuração do seu gamepad virtual, acesse as informações do app nas Configurações."</string>
 </resources>

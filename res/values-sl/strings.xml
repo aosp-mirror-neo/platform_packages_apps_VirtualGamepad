@@ -39,6 +39,13 @@
     <string name="description_mode_button" msgid="134098723734776016">"Gumb za način"</string>
     <string name="description_left_joystick" msgid="5406405195257229228">"Leva krmilna palica"</string>
     <string name="description_right_joystick" msgid="9073065621415451452">"Desna krmilna palica"</string>
+    <string name="action_joystick_up_template" msgid="6344573271659906192">"Premik elementa %1$s navzgor"</string>
+    <string name="action_joystick_down_template" msgid="1348966998518765705">"Premik elementa %1$s navzdol"</string>
+    <string name="action_joystick_left_template" msgid="8981316990147160524">"Premik elementa %1$s v levo"</string>
+    <string name="action_joystick_right_template" msgid="6258712553461029353">"Premik elementa %1$s v desno"</string>
+    <string name="action_joystick_reset_template" msgid="2499677048006875698">"Premik elementa %1$s na sredino"</string>
+    <string name="state_joystick_centered" msgid="8662951067258244582">"Na sredini"</string>
+    <string name="state_joystick_moved" msgid="2123228054601972189">"Premaknjeno"</string>
     <string name="description_game_button_a" msgid="565020166602556927">"Gumb A"</string>
     <string name="description_game_button_b" msgid="2334214701613606265">"Gumb B"</string>
     <string name="description_game_button_x" msgid="646518634176999799">"Gumb X"</string>
