@@ -39,6 +39,13 @@
     <string name="description_mode_button" msgid="134098723734776016">"Pulsante Modalità"</string>
     <string name="description_left_joystick" msgid="5406405195257229228">"Joystick sinistro"</string>
     <string name="description_right_joystick" msgid="9073065621415451452">"Joystick destro"</string>
+    <string name="action_joystick_up_template" msgid="6344573271659906192">"Sposta %1$s in alto"</string>
+    <string name="action_joystick_down_template" msgid="1348966998518765705">"Sposta %1$s in basso"</string>
+    <string name="action_joystick_left_template" msgid="8981316990147160524">"Sposta %1$s a sinistra"</string>
+    <string name="action_joystick_right_template" msgid="6258712553461029353">"Sposta %1$s a destra"</string>
+    <string name="action_joystick_reset_template" msgid="2499677048006875698">"Sposta %1$s al centro"</string>
+    <string name="state_joystick_centered" msgid="8662951067258244582">"Al centro"</string>
+    <string name="state_joystick_moved" msgid="2123228054601972189">"Spostamento completato"</string>
     <string name="description_game_button_a" msgid="565020166602556927">"Pulsante A"</string>
     <string name="description_game_button_b" msgid="2334214701613606265">"Pulsante B"</string>
     <string name="description_game_button_x" msgid="646518634176999799">"Pulsante X"</string>

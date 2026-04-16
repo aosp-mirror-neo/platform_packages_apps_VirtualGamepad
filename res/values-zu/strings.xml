@@ -39,6 +39,19 @@
     <string name="description_mode_button" msgid="134098723734776016">"Inkinobho yemodi"</string>
     <string name="description_left_joystick" msgid="5406405195257229228">"I-Joystick Engakwesobunxele"</string>
     <string name="description_right_joystick" msgid="9073065621415451452">"I-Joystick Engakwesokudla"</string>
+    <string name="action_joystick_up_template" msgid="6344573271659906192">"Hambisa u-%1$s Phezulu"</string>
+    <!-- String.format failed for translation -->
+    <!-- no translation found for action_joystick_down_template (1348966998518765705) -->
+    <skip />
+    <!-- String.format failed for translation -->
+    <!-- no translation found for action_joystick_left_template (8981316990147160524) -->
+    <skip />
+    <string name="action_joystick_right_template" msgid="6258712553461029353">"Hambisa u-%1$s Kwesokudla"</string>
+    <!-- String.format failed for translation -->
+    <!-- no translation found for action_joystick_reset_template (2499677048006875698) -->
+    <skip />
+    <string name="state_joystick_centered" msgid="8662951067258244582">"Maphakathi"</string>
+    <string name="state_joystick_moved" msgid="2123228054601972189">"Kuhanjisiwe"</string>
     <string name="description_game_button_a" msgid="565020166602556927">"Inkinobho ethi A"</string>
     <string name="description_game_button_b" msgid="2334214701613606265">"Inkinobho ethi B"</string>
     <string name="description_game_button_x" msgid="646518634176999799">"Inkinobho ethi X"</string>

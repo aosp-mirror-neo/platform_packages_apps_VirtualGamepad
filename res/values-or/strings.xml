@@ -39,6 +39,13 @@
     <string name="description_mode_button" msgid="134098723734776016">"ମୋଡ ବଟନ"</string>
     <string name="description_left_joystick" msgid="5406405195257229228">"ବାମ ଜଏଷ୍ଟିକ"</string>
     <string name="description_right_joystick" msgid="9073065621415451452">"ଡାହାଣ ଜଏଷ୍ଟିକ"</string>
+    <string name="action_joystick_up_template" msgid="6344573271659906192">"%1$sକୁ ଉପରକୁ ମୁଭ କରନ୍ତୁ"</string>
+    <string name="action_joystick_down_template" msgid="1348966998518765705">"%1$sକୁ ତଳକୁ ମୁଭ କରନ୍ତୁ"</string>
+    <string name="action_joystick_left_template" msgid="8981316990147160524">"%1$sକୁ ବାମପଟକୁ ମୁଭ କରନ୍ତୁ"</string>
+    <string name="action_joystick_right_template" msgid="6258712553461029353">"%1$sକୁ ଡାହାଣପଟକୁ ମୁଭ କରନ୍ତୁ"</string>
+    <string name="action_joystick_reset_template" msgid="2499677048006875698">"%1$sକୁ କେନ୍ଦ୍ରରେ ରଖନ୍ତୁ"</string>
+    <string name="state_joystick_centered" msgid="8662951067258244582">"କେନ୍ଦ୍ରରେ ଅଛି"</string>
+    <string name="state_joystick_moved" msgid="2123228054601972189">"ମୁଭ କରାଯାଇଛି"</string>
     <string name="description_game_button_a" msgid="565020166602556927">"A ବଟନ"</string>
     <string name="description_game_button_b" msgid="2334214701613606265">"B ବଟନ"</string>
     <string name="description_game_button_x" msgid="646518634176999799">"X ବଟନ"</string>

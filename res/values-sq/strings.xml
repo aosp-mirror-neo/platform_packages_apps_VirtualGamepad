@@ -39,6 +39,13 @@
     <string name="description_mode_button" msgid="134098723734776016">"Butoni i modalitetit"</string>
     <string name="description_left_joystick" msgid="5406405195257229228">"Leva e kontrollit majtas"</string>
     <string name="description_right_joystick" msgid="9073065621415451452">"Leva e kontrollit djathtas"</string>
+    <string name="action_joystick_up_template" msgid="6344573271659906192">"Zhvendos %1$s lart"</string>
+    <string name="action_joystick_down_template" msgid="1348966998518765705">"Zhvendos %1$s poshtë"</string>
+    <string name="action_joystick_left_template" msgid="8981316990147160524">"Zhvendos %1$s majtas"</string>
+    <string name="action_joystick_right_template" msgid="6258712553461029353">"Zhvendos %1$s djathtas"</string>
+    <string name="action_joystick_reset_template" msgid="2499677048006875698">"Qendërzo %1$s"</string>
+    <string name="state_joystick_centered" msgid="8662951067258244582">"Në qendër"</string>
+    <string name="state_joystick_moved" msgid="2123228054601972189">"Zhvendosur"</string>
     <string name="description_game_button_a" msgid="565020166602556927">"Butoni A"</string>
     <string name="description_game_button_b" msgid="2334214701613606265">"Butoni B"</string>
     <string name="description_game_button_x" msgid="646518634176999799">"Butoni X"</string>

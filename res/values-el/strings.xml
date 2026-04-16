@@ -39,6 +39,13 @@
     <string name="description_mode_button" msgid="134098723734776016">"Κουμπί λειτουργίας"</string>
     <string name="description_left_joystick" msgid="5406405195257229228">"Αριστερό χειριστήριο"</string>
     <string name="description_right_joystick" msgid="9073065621415451452">"Δεξί χειριστήριο"</string>
+    <string name="action_joystick_up_template" msgid="6344573271659906192">"Μετακίνηση %1$s προς τα επάνω"</string>
+    <string name="action_joystick_down_template" msgid="1348966998518765705">"Μετακίνηση %1$s προς τα κάτω"</string>
+    <string name="action_joystick_left_template" msgid="8981316990147160524">"Μετακίνηση %1$s προς τα αριστερά"</string>
+    <string name="action_joystick_right_template" msgid="6258712553461029353">"Μετακίνηση %1$s προς τα δεξιά"</string>
+    <string name="action_joystick_reset_template" msgid="2499677048006875698">"Κέντρο %1$s"</string>
+    <string name="state_joystick_centered" msgid="8662951067258244582">"Στο κέντρο"</string>
+    <string name="state_joystick_moved" msgid="2123228054601972189">"Μετακινήθηκε"</string>
     <string name="description_game_button_a" msgid="565020166602556927">"Κουμπί A"</string>
     <string name="description_game_button_b" msgid="2334214701613606265">"Κουμπί B"</string>
     <string name="description_game_button_x" msgid="646518634176999799">"Κουμπί X"</string>

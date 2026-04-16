@@ -39,6 +39,13 @@
     <string name="description_mode_button" msgid="134098723734776016">"Tlačidlo režimu"</string>
     <string name="description_left_joystick" msgid="5406405195257229228">"Ľavý joystick"</string>
     <string name="description_right_joystick" msgid="9073065621415451452">"Pravý joystick"</string>
+    <string name="action_joystick_up_template" msgid="6344573271659906192">"Presunúť %1$s nahor"</string>
+    <string name="action_joystick_down_template" msgid="1348966998518765705">"Presunúť %1$s nadol"</string>
+    <string name="action_joystick_left_template" msgid="8981316990147160524">"Presunúť %1$s doľava"</string>
+    <string name="action_joystick_right_template" msgid="6258712553461029353">"Presunúť %1$s doprava"</string>
+    <string name="action_joystick_reset_template" msgid="2499677048006875698">"Vycentrovať %1$s"</string>
+    <string name="state_joystick_centered" msgid="8662951067258244582">"Vycentrované"</string>
+    <string name="state_joystick_moved" msgid="2123228054601972189">"Presunuté"</string>
     <string name="description_game_button_a" msgid="565020166602556927">"Tlačidlo A"</string>
     <string name="description_game_button_b" msgid="2334214701613606265">"Tlačidlo B"</string>
     <string name="description_game_button_x" msgid="646518634176999799">"Tlačidlo X"</string>
